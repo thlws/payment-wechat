@@ -23,7 +23,7 @@ public class ZxingUtil {
 	static int barcode_default_width = 700;
 	static int barcode_default_height = 200;
 	static final protected Logger log = LoggerFactory.getLogger(ZxingUtil.class);
-	
+
     public static void barCode(String contents,String imgPath,int width, int height) {
         int codeWidth = 3 + // start guard
                 (7 * 6) + // left bars
@@ -31,7 +31,7 @@ public class ZxingUtil {
                 (7 * 6) + // right bars
                 3; // end guard
         codeWidth = Math.max(codeWidth, width);
-        try {  
+        try {
             BitMatrix bitMatrix = new MultiFormatWriter().encode(contents,BarcodeFormat.CODE_128, codeWidth, height, null);
             bitMatrix = deleteWhite(bitMatrix);
             MatrixToImageWriter.writeToFile(bitMatrix, "png", new File(imgPath));
@@ -40,19 +40,19 @@ public class ZxingUtil {
             e.printStackTrace();
         }
     }
-    
+
     public static void qrCode(int width,int height,String content,String suffix,String imgPath){
-    	Hashtable<EncodeHintType, String> hints= new Hashtable<EncodeHintType, String>();   
+    	Hashtable<EncodeHintType, String> hints= new Hashtable<EncodeHintType, String>();
     	hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
     	BitMatrix bitMatrix;
     	try {
     		bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height,hints);
     		bitMatrix = deleteWhite(bitMatrix);
 			File outputFile = new File(imgPath);
-    		MatrixToImageWriter.writeToFile(bitMatrix, suffix, outputFile);   
+    		MatrixToImageWriter.writeToFile(bitMatrix, suffix, outputFile);
     	} catch (Exception e) {
     		e.printStackTrace();
-    	}   
+    	}
     }
 
 	public static void barCode(String contents,String imgPath) {
@@ -65,8 +65,8 @@ public class ZxingUtil {
 		qrCode(qrcode_default_width,qrcode_default_height,content,suffix,imgPath);
 	}
 
-    
-    
+
+
 	public static BitMatrix deleteWhite(BitMatrix matrix){
 		int[] rec = matrix.getEnclosingRectangle();
 		int resWidth = rec[2] + 1;
@@ -82,8 +82,8 @@ public class ZxingUtil {
 		}
 		return resMatrix;
 	}
-    
-    
+
+
     public static void main(String[] args) {
     	qrCode(250,250,"18650002030j0803151618030","png","/zone/test.png");
     	barCode("18650002030j0803151618030","/zone/barcode.png",700,200);

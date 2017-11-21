@@ -6,16 +6,24 @@ import org.thlws.payment.wechat.utils.JsonUtil;
  * Created by HanleyTang on 2016/11/18.
  */
 public class IndustryOutput {
-//{"errcode":43100,"errmsg":"change template too frequently hint: [hEF8SA0617vr23]"}
-//{"errcode":0,"errmsg":"ok"}
-    private String errcode; // 0
-    private String errmsg; // ok
 
-    public String getErrcode() {
+    private long errcode; // 0
+    private String errmsg; // ok
+    private String desc;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public long getErrcode() {
         return errcode;
     }
 
-    public void setErrcode(String errcode) {
+    public void setErrcode(long errcode) {
         this.errcode = errcode;
     }
 

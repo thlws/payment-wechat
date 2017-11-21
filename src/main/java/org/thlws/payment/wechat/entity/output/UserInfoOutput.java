@@ -22,6 +22,34 @@ public class UserInfoOutput {
 	private String unionid        ;
 	private List<String> privilege;//用户特权信息，json数组，如微信沃卡用户为（chinaunicom）
 
+	private long errcode		   ;
+	private String errmsg			;
+	private String desc;
+
+	public long getErrcode() {
+		return errcode;
+	}
+
+	public void setErrcode(long errcode) {
+		this.errcode = errcode;
+	}
+
+	public String getErrmsg() {
+		return errmsg;
+	}
+
+	public void setErrmsg(String errmsg) {
+		this.errmsg = errmsg;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
 	@Override
 	public String toString() {
 		return JsonUtil.format(this);

@@ -9,21 +9,30 @@ import java.io.Serializable;
  */
 public class TemplateOutput implements Serializable{
 
-    private String errcode;//0 表示成功
+    private long errcode;//0 表示成功
     private String errmsg;
     private String template_id;
+    private String desc;
 
     @Override
     public String toString() {
         return JsonUtil.format(this);
     }
 
-    public String getErrcode() {
+    public long getErrcode() {
         return errcode;
     }
 
-    public void setErrcode(String errcode) {
+    public void setErrcode(long errcode) {
         this.errcode = errcode;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getErrmsg() {

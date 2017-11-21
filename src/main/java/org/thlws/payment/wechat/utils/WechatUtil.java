@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import org.thlws.payment.wechat.entity.output.NotifyOutput;
+import org.thlws.payment.wechat.extra.xml.XStreamCreator;
 
 import java.util.Map;
 
@@ -43,7 +44,7 @@ public class WechatUtil {
      */
     public static NotifyOutput parseNotifyMsg(String xmlResult){
 
-        XStream xStream = new XStream(new XppDriver(new XmlFriendlyReplacer("_-", "_")));
+        XStream xStream = XStreamCreator.create();
         xStream.alias("xml", NotifyOutput.class);
         NotifyOutput output = (NotifyOutput) xStream.fromXML(xmlResult);
         System.out.println(output.toString());

@@ -10,9 +10,18 @@ import java.util.HashMap;
  */
 public class SendDataInput {
 
+    private String url;
     private String touser;
     private String template_id;
     private HashMap<String,Node> data;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     static public class Node implements Serializable {
 

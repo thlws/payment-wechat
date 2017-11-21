@@ -30,10 +30,6 @@ public class OrderQueryOutput {
     private String cash_fee_type;
     private String coupon_fee;
     private String coupon_count;
-//    private String coupon_batch_id_$n;
-//    private String coupon_type_$n;
-//    private String coupon_id_$n;
-//    private String coupon_fee_$n;
     private String transaction_id;
     private String out_trade_no;
     private String attach;
@@ -41,6 +37,23 @@ public class OrderQueryOutput {
     private String trade_state_desc;
     private String sub_appid;
     private String sub_mch_id;
+
+//    private String coupon_batch_id_$n;
+//    private String coupon_type_$n;
+//    private String coupon_id_$n;
+//    private String coupon_fee_$n;
+
+    private String coupon_type_0;
+    private String coupon_type_1;
+    private String coupon_type_2;
+
+    private String coupon_id_0;
+    private String coupon_id_1;
+    private String coupon_id_2;
+
+    private String coupon_fee_0;
+    private String coupon_fee_1;
+    private String coupon_fee_2;
 
     @Override
     public String toString() {
@@ -276,6 +289,78 @@ public class OrderQueryOutput {
 
     public String getTrade_state_desc() {
         return trade_state_desc;
+    }
+
+    public String getCoupon_type_0() {
+        return coupon_type_0;
+    }
+
+    public void setCoupon_type_0(String coupon_type_0) {
+        this.coupon_type_0 = coupon_type_0;
+    }
+
+    public String getCoupon_type_1() {
+        return coupon_type_1;
+    }
+
+    public void setCoupon_type_1(String coupon_type_1) {
+        this.coupon_type_1 = coupon_type_1;
+    }
+
+    public String getCoupon_type_2() {
+        return coupon_type_2;
+    }
+
+    public void setCoupon_type_2(String coupon_type_2) {
+        this.coupon_type_2 = coupon_type_2;
+    }
+
+    public String getCoupon_id_0() {
+        return coupon_id_0;
+    }
+
+    public void setCoupon_id_0(String coupon_id_0) {
+        this.coupon_id_0 = coupon_id_0;
+    }
+
+    public String getCoupon_id_1() {
+        return coupon_id_1;
+    }
+
+    public void setCoupon_id_1(String coupon_id_1) {
+        this.coupon_id_1 = coupon_id_1;
+    }
+
+    public String getCoupon_id_2() {
+        return coupon_id_2;
+    }
+
+    public void setCoupon_id_2(String coupon_id_2) {
+        this.coupon_id_2 = coupon_id_2;
+    }
+
+    public String getCoupon_fee_0() {
+        return coupon_fee_0;
+    }
+
+    public void setCoupon_fee_0(String coupon_fee_0) {
+        this.coupon_fee_0 = coupon_fee_0;
+    }
+
+    public String getCoupon_fee_1() {
+        return coupon_fee_1;
+    }
+
+    public void setCoupon_fee_1(String coupon_fee_1) {
+        this.coupon_fee_1 = coupon_fee_1;
+    }
+
+    public String getCoupon_fee_2() {
+        return coupon_fee_2;
+    }
+
+    public void setCoupon_fee_2(String coupon_fee_2) {
+        this.coupon_fee_2 = coupon_fee_2;
     }
 
     public void setTrade_state_desc(String trade_state_desc) {

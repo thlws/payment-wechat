@@ -9,19 +9,28 @@ import java.io.Serializable;
  */
 public class JsApiTicketOutput implements Serializable {
 
-    private String errcode;
+    private long errcode;
     private String errmsg;
     private String ticket;
     private String expires_in;
+    private String desc;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public JsApiTicketOutput() {
     }
 
-    public String getErrcode() {
+    public long getErrcode() {
         return errcode;
     }
 
-    public void setErrcode(String errcode) {
+    public void setErrcode(long errcode) {
         this.errcode = errcode;
     }
 

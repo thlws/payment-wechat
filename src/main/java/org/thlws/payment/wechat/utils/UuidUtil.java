@@ -4,10 +4,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 
-/**
- * 
- * @author leo@enjar.com, leo.tu.taipei@gmail.com
- */
+
 public class UuidUtil {
 
 	/**

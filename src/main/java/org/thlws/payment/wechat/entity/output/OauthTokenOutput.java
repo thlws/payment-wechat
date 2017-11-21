@@ -17,8 +17,36 @@ public class OauthTokenOutput {
 	private String openid          ;
 	private String scope           ;
 	private String unionid         ;
-	
-	private OauthTokenOutput(){}
+
+	private long errcode		   ;
+	private String errmsg			;
+	private String desc;
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public long getErrcode() {
+		return errcode;
+	}
+
+	public void setErrcode(long errcode) {
+		this.errcode = errcode;
+	}
+
+	public String getErrmsg() {
+		return errmsg;
+	}
+
+	public void setErrmsg(String errmsg) {
+		this.errmsg = errmsg;
+	}
+
+	public OauthTokenOutput(){}
 
 	public String getAccess_token() {
 		return access_token;

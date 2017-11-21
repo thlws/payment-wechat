@@ -170,7 +170,7 @@ public final class ConnUtil {
 	
 	
 	/***
-	 * 微信退款加密请求
+	 * 微信加密请求
 	 * @author HanleyTang
 	 * @param data
 	 * @param url

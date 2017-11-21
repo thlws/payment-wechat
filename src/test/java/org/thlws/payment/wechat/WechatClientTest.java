@@ -10,7 +10,6 @@ import org.thlws.payment.wechat.entity.output.WechatRefundOutput;
 import org.thlws.payment.wechat.entity.output.WechatReverseOutput;
 import org.thlws.payment.wechat.portal.client.WechatClient;
 import org.thlws.payment.wechat.utils.DataUtil;
-import org.thlws.payment.wechat.utils.DateUtil;
 import org.thlws.payment.wechat.utils.LocalUtil;
 
 
@@ -84,7 +83,7 @@ public class WechatClientTest extends TestCase{
         data.setMch_id("1336234701");
         data.setTransaction_id("4007402001201611220501202581");
         data.setOut_trade_no("20161122172145");
-        data.setOut_refund_no(DateUtil.getDateSecondFormatII());
+        data.setOut_refund_no(DataUtil.getRandomString(24));
         data.setTotal_fee("1000");
         data.setRefund_fee("1000");
         data.setOp_user_id("1336234701");
@@ -108,7 +107,7 @@ public class WechatClientTest extends TestCase{
         data.setMch_id("1336236101");
         data.setTransaction_id("4005332001201611220513588126");
         data.setOut_trade_no("20161122191505");
-        data.setOut_refund_no(DateUtil.getDateSecondFormatII());
+        data.setOut_refund_no(DataUtil.getRandomString(24));
         data.setTotal_fee("1000");
         data.setRefund_fee("1000");
         data.setOp_user_id("1336236101");
@@ -133,7 +132,7 @@ public class WechatClientTest extends TestCase{
         data.setMch_id("1386246702");
         data.setTransaction_id("4007402001201611119430531609");
         data.setOut_trade_no("20160902224757");
-        data.setOut_refund_no(DateUtil.getDateSecondFormatII());
+        data.setOut_refund_no(DataUtil.getRandomString(24));
         data.setTotal_fee("1");
         data.setRefund_fee("1");
         data.setOp_user_id("1386246702");

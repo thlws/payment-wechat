@@ -9,21 +9,30 @@ public class SendDataOutput {
 
     //{"errcode":0,"errmsg":"ok","msgid":414569352}
 
-    private String errcode;
+    private long  errcode;
     private String errmsg;
     private String msgid;
+    private  String desc;
 
     @Override
     public String toString() {
         return JsonUtil.format(this);
     }
 
-    public String getErrcode() {
+    public long getErrcode() {
         return errcode;
     }
 
-    public void setErrcode(String errcode) {
+    public void setErrcode(long errcode) {
         this.errcode = errcode;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getErrmsg() {
