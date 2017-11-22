@@ -23,6 +23,7 @@
     <version.apache.httpclient>4.5.3</version.apache.httpclient>
     <version.apache.httpmime>4.5.3</version.apache.httpmime>
     <version.apache.httpcore>4.4.8</version.apache.httpcore>
+    <version.hutool>3.2.0</version.hutool>
   </properties>
 
 
@@ -35,14 +36,12 @@
       <scope>test</scope>
     </dependency>
 
-
-    <!-- json Begin -->
     <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>${version.fastjson}</version>
+      <groupId>com.xiaoleilu</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${version.hutool}</version>
     </dependency>
-    <!-- json End -->
+
 
     <!-- xml start -->
     <dependency>
@@ -51,67 +50,6 @@
       <version>${version.xstream}</version>
     </dependency>
     <!-- xml end -->
-
-    <!-- log Begin -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>${version.logback}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>${version.logback}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-access</artifactId>
-      <version>${version.logback}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${version.slf4j}</version>
-    </dependency>
-    <!-- log End -->
-
-
-    <!-- Apache start -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>${version.apache.httpclient}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>${version.apache.httpcore}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpmime</artifactId>
-      <version>${version.apache.httpmime}</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.9.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.10</version>
-    </dependency>
-    <!-- Apache end -->
-
 
     <!-- Google libs start-->
     <dependency>

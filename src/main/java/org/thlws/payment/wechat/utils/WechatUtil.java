@@ -9,9 +9,6 @@
 package org.thlws.payment.wechat.utils;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.XmlFriendlyReplacer;
-import com.thoughtworks.xstream.io.xml.XppDriver;
-import org.thlws.payment.wechat.entity.input.WechatRefundInput;
 import org.thlws.payment.wechat.entity.output.NotifyOutput;
 import org.thlws.payment.wechat.extra.xml.XStreamCreator;
 
@@ -29,11 +26,11 @@ public class WechatUtil {
      * @param key
      * @return
      */
-    public static String sign4wechat(Map<String, Object> params, String key){
+    public static String sign(Map<String, Object> params, String key){
 
-        String prestr = DataUtil.createLinkString(params);
+        String prestr = ThlwsBeanUtil.createLinkString(params);
         prestr +="&key="+key;
-        String mysign = DataUtil.getMD5(prestr).toUpperCase();
+        String mysign = ThlwsBeanUtil.getMD5(prestr).toUpperCase();
         return mysign;
     }
 
@@ -52,11 +49,10 @@ public class WechatUtil {
     }
 
     public static Object buildRequest(Object o, Class clz,String apiKey){
-        Map<String, Object> mapData = DataUtil.data2Map(o);
-        mapData = DataUtil.dataFilter(mapData);
-        String sign = WechatUtil.sign4wechat(mapData,apiKey);
+        Map<String, Object> mapData = ThlwsBeanUtil.ObjectToMap(o);
+        String sign = WechatUtil.sign(mapData,apiKey);
         mapData.put("sign", sign);
-        return DataUtil.mapToObject(mapData,clz);
+        return ThlwsBeanUtil.mapToObject(mapData,clz);
     }
 
     public static void main(String[] args) {

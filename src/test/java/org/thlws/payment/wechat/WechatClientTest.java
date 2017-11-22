@@ -1,13 +1,14 @@
 package org.thlws.payment.wechat;
 
+import com.xiaoleilu.hutool.log.Log;
+import com.xiaoleilu.hutool.log.LogFactory;
+import com.xiaoleilu.hutool.util.NetUtil;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.thlws.payment.wechat.entity.input.*;
 import org.thlws.payment.wechat.entity.output.*;
 import org.thlws.payment.wechat.portal.client.WechatClient;
-import org.thlws.payment.wechat.utils.DataUtil;
-import org.thlws.payment.wechat.utils.LocalUtil;
+import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
 import org.thlws.payment.wechat.utils.ZxingUtil;
 
 import static org.junit.Assert.assertEquals;
@@ -20,14 +21,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class WechatClientTest {
 
-    static final protected Logger log = LoggerFactory.getLogger(WechatClientTest.class);
+    private static final Log log = LogFactory.get();
 
     /**爱快购微商城[服务商,下属含子商户].微信配置 sp = service provider */
     private static final String sp_wechat_appid= "wxc475c2bd2958388e";
     private static final String sp_wechat_appsecret="f02f5eecfed86f8a3cf753697fbf3246";
     private static final String sp_wechat_mchid="1386246702";
     private static final String sp_wechat_apikey="f02f5eecfed86f8a3cf753697fbf3246";
-    private static final String sp_wechat_sub_mchid="1396726602";
+    private static final String sp_wechat_sub_mchid="1490071962";//1490071962   1396726602
     private static final String sp_wechat_openid="ou9z1v4CQEJLqbIikJr7UxPmIvYQ";
 
 
@@ -46,13 +47,13 @@ public class WechatClientTest {
         input.setMch_id(test_wechat_mchid);
 
         String body = "好吃";
-        input.setNonce_str(DataUtil.getRandomString(32));
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setBody(body);
         input.setOut_trade_no(System.currentTimeMillis()+"");
         input.setTotal_fee("1");
         input.setTrade_type("NATIVE");
         input.setNotify_url("http://www.iquickgo.com/notify4Wechat.html");
-        input.setSpbill_create_ip(LocalUtil.getLocalIP());
+        input.setSpbill_create_ip(NetUtil.getLocalhostStr());
 
         UnifiedOrderOutput output = WechatClient.unifiedorder(input,test_wechat_apikey);
         log.info("WechatClient.unifiedorder->output=\n"+output.toString());
@@ -73,12 +74,12 @@ public class WechatClientTest {
         input.setAppid(test_wechat_appid);
         input.setMch_id(test_wechat_mchid);
 //        input.setSub_mch_id("1396726602");//若是子商户需设置该参数
-        input.setSpbill_create_ip(LocalUtil.getLocalIP());
+        input.setSpbill_create_ip(NetUtil.getLocalhostStr());
         input.setTotal_fee("1");
         input.setAttach("00001025104487");
-        input.setOut_trade_no(DataUtil.getRandomString(32));
+        input.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
         input.setAuth_code("130241326448617032");
-        input.setNonce_str(DataUtil.getRandomString(32));
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setDevice_info("device...");
         input.setBody("pay test");
 
@@ -96,17 +97,17 @@ public class WechatClientTest {
         String p12FilePath = "/zone/p12/1386246702.p12";//爱快购微商城p12
         log.info("微信.爱快购微商城[退款]测试开始-WechatClient.refund");
         WechatRefundInput data = new WechatRefundInput();
-        data.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
-        String apiKey = "f02f5eecfed86f8a3cf753697fbf3246";
-        data.setAppid("wxc475c2bd2958388e");
-        data.setMch_id("1386246702");
-        data.setTransaction_id("4007402001201611119430531609");
-        data.setOut_trade_no("20160902224757");
-        data.setOut_refund_no(DataUtil.getRandomString(24));
-        data.setTotal_fee("1");
-        data.setRefund_fee("1");
+        data.setSub_mch_id(sp_wechat_sub_mchid);//若为子商户退款需设置该参数
+        String apiKey = sp_wechat_apikey;
+        data.setAppid(sp_wechat_appid);
+        data.setMch_id(sp_wechat_mchid);
+        data.setTransaction_id("4200000047201711185443296984");
+        data.setOut_trade_no("1000012911510984242025");
+        data.setOut_refund_no(ThlwsBeanUtil.getRandomString(24));
+        data.setTotal_fee("3200");
+        data.setRefund_fee("3200");
         data.setOp_user_id("1386246702");
-        data.setNonce_str(DataUtil.getRandomString(32));
+        data.setNonce_str(ThlwsBeanUtil.getRandomString(32));
 
         WechatRefundOutput output = WechatClient.refund(data,apiKey,p12FilePath);
         log.info("WechatClient.refund->output="+output.toString());
@@ -129,7 +130,7 @@ public class WechatClientTest {
         //input.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
         input.setTransaction_id("4005332001201610166835977303");
         input.setOut_trade_no("20160902224757");
-        input.setNonce_str(DataUtil.getRandomString(32));
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         OrderQueryOutput output = WechatClient.orderQuery(input,apiKey);
         log.info("WechatClient.orderQuery->output="+output.toString());
     }
@@ -150,7 +151,7 @@ public class WechatClientTest {
         //input.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
         input.setTransaction_id("1217752501201407033233368018");
         input.setOut_trade_no("20160902224757");
-        input.setNonce_str(DataUtil.getRandomString(32));
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         String p12FilePath = "/zone/p12/1336236101.p12";
         WechatReverseOutput output = WechatClient.reverse(input,apiKey,p12FilePath);
 
@@ -159,12 +160,12 @@ public class WechatClientTest {
 
     /***
      * 提交小微申请，暂未启用,未来可能移除
-     *  @deprecated
+     * 服务商模式下，申请个人微信收款码,该模式下每日有收款限额，并且不支持退款。
      */
+    @Test
     public void test_postMciroMch(){
 
-        String apiKey = "ig9PXjJ5im8o3sfb3kuIYJ4wqTvGmzQX";
-
+        String p12FilePath = "/zone/p12/1386246702.p12";
         //just for  add(新增收款个人用户)
         MicroMchInput wr = new MicroMchInput();
         wr.setAppid(sp_wechat_appid);
@@ -178,24 +179,24 @@ public class WechatClientTest {
         wr.setMerchant_remark("hanley20160827");
         wr.setMerchant_gbaddress("310105");
         wr.setMerchant_detailaddress("昭化路505号301室");
-        WechatClient.postMicroMch(wr,sp_wechat_apikey,"");
+        WechatClient.postMicroMch(wr,sp_wechat_apikey,p12FilePath);
 
     }
 
     /***
      * 查询小微资料，暂未启用,未来可能移除
-     * @deprecated
+     * 服务商下查询个人收款账户
      */
+    @Test
     public void test_QueryMciro(){
 
-        String apiKey = "ig9PXjJ5im8o3sfb3kuIYJ4wqTvGmzQX";
-
+        String p12FilePath = "/zone/p12/1386246702.p12";
         //just for query
         MicroMchInput wr2 = new MicroMchInput();
-        wr2.setAppid("wx5f22a16d8c94dba4");
-        wr2.setMch_id("1336236101");
+        wr2.setAppid(sp_wechat_appid);
+        wr2.setMch_id(sp_wechat_mchid);
         wr2.setRecipient_wechatid("hanleytang");
-        WechatClient.queryMicroMch(wr2,apiKey,"");
+        WechatClient.queryMicroMch(wr2,sp_wechat_apikey,p12FilePath);
     }
 
 

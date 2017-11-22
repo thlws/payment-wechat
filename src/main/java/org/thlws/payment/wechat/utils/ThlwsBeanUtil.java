@@ -1,24 +1,35 @@
 package org.thlws.payment.wechat.utils;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import com.xiaoleilu.hutool.bean.BeanUtil;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * The type Data util.
  *
- * @author Hanley Tang
+ * @author Hanley Tang | hanley@thlws.com
  * @version 1.0
- * @email hanley @hanley.cn
  */
-public class DataUtil {
+public class ThlwsBeanUtil {
 
 
 	/**
@@ -28,17 +39,9 @@ public class DataUtil {
 	 * @return map
 	 * @author HanleyTang
 	 */
-	public static Map<String, Object> data2Map(Object o){
+	public static Map<String, Object> ObjectToMap(Object o){
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		String text = JSONObject.toJSONString(o);
-		JSONObject jsonObject = JSONObject.parseObject(text);
-		Set<String> set = jsonObject.keySet();
-		Iterator<String> itr = set.iterator();
-		while(itr.hasNext()){
-			String key = itr.next();
-			map.put(key, jsonObject.getString(key));
-		}
+		Map<String, Object> map = BeanUtil.beanToMap(o,false,true);
 		return map;
 	}
 
@@ -95,7 +98,7 @@ public class DataUtil {
 	 * @return string
 	 * @author HanleyTang
 	 */
-	public static String map2Param(Map<String,Object> mapData){
+	public static String mapToParams(Map<String,Object> mapData){
         StringBuffer sb = new StringBuffer();
         if(mapData.isEmpty()){
             return "" ;
@@ -122,52 +125,9 @@ public class DataUtil {
 	 */
 	public static Object mapToObject(Map<String, Object> map, Class<?> beanClass){
 
-		Object obj = null;
-		try {
-			obj = beanClass.newInstance();
-			org.apache.commons.beanutils.BeanUtils.populate(obj, map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Object obj = BeanUtil.mapToBean(map,beanClass,true);
 		return obj;
 	}
-
-
-	/***
-	 * add by hanley
-	 * @param type
-	 * @param map
-     * @return
-     */
-//	public static Object mapToObject(Map map,Class type) {
-//
-//		Object obj = null;
-//		try{
-//			BeanInfo beanInfo = Introspector.getBeanInfo(type); // 获取类属性
-//			obj = type.newInstance(); // 创建 JavaBean 对象
-//
-//			// 给 JavaBean 对象的属性赋值
-//			PropertyDescriptor[] propertyDescriptors =  beanInfo.getPropertyDescriptors();
-//			for (int i = 0; i< propertyDescriptors.length; i++) {
-//				PropertyDescriptor descriptor = propertyDescriptors[i];
-//				String propertyName = descriptor.getName();
-//
-//				if (map.containsKey(propertyName)) {
-//					// 下面一句可以 try 起来，这样当一个属性赋值失败的时候就不会影响其他属性赋值。
-//					Object value = map.get(propertyName);
-//
-//					Object[] args = new Object[1];
-//					args[0] = value;
-//
-//					descriptor.getWriteMethod().invoke(obj, args);
-//				}
-//			}
-//		}catch (Exception e){
-//
-//		}
-//
-//		return obj;
-//	}
 
 
 	/***
@@ -210,21 +170,6 @@ public class DataUtil {
      }
 
 
-	/**
-	 * Md 5 string.
-	 *
-	 * @param sPara the s para
-	 * @param key   the key
-	 * @return the string
-	 */
-	public static String md5(Map<String, Object> sPara,String key){
-		String prestr = createLinkString(sPara);
-		prestr +="&key="+key;
-		String mysign = getMD5(prestr).toUpperCase();
-		return mysign;
-	}
-
-
 	/***
 	 * 随机数产生
 	 * @param length 产生长度
@@ -241,5 +186,33 @@ public class DataUtil {
 	    }
 	    return sb.toString();
 	 }
+
+
+	/**
+	 * Format xml string.
+	 *
+	 * @param uglyXml the ugly xml
+	 * @return the string
+	 */
+	public static String formatXml(String uglyXml) {
+		try {
+			String xmlHeader= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource(new StringReader(uglyXml));
+			final Document document = db.parse(is);
+			OutputFormat format = new OutputFormat(document);
+			format.setLineWidth(65);
+			format.setIndenting(true);
+			format.setIndent(2);
+			Writer out = new StringWriter();
+			XMLSerializer serializer = new XMLSerializer(out, format);
+			serializer.serialize(document);
+			return out.toString().replace(xmlHeader,"");
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
 
 }

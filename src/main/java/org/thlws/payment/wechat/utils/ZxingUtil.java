@@ -3,8 +3,8 @@ package org.thlws.payment.wechat.utils;
 import java.io.File;
 import java.util.Hashtable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.xiaoleilu.hutool.log.Log;
+import com.xiaoleilu.hutool.log.LogFactory;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -22,7 +22,7 @@ public class ZxingUtil {
 
 	static int barcode_default_width = 700;
 	static int barcode_default_height = 200;
-	static final protected Logger log = LoggerFactory.getLogger(ZxingUtil.class);
+	private static final Log log = LogFactory.get();
 
     public static void barCode(String contents,String imgPath,int width, int height) {
         int codeWidth = 3 + // start guard

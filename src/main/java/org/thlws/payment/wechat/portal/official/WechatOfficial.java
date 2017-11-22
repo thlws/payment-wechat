@@ -1,18 +1,20 @@
 package org.thlws.payment.wechat.portal.official;
 
-import com.alibaba.fastjson.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.xiaoleilu.hutool.log.Log;
+import com.xiaoleilu.hutool.log.LogFactory;
+
 import org.thlws.payment.wechat.entity.output.*;
 import org.thlws.payment.wechat.api.WechatApi;
 import org.thlws.payment.wechat.utils.ConnUtil;
-import org.thlws.payment.wechat.utils.DataUtil;
+import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.alibaba.fastjson.JSON.parseObject;
 
 
 /**
@@ -23,7 +25,7 @@ import static com.alibaba.fastjson.JSON.parseObject;
  */
 public class WechatOfficial implements WechatApi{
 
-	static final private Logger log = LoggerFactory.getLogger(WechatOfficial.class);
+	private static final Log log = LogFactory.get();
 
 	/***
 	 * 通过code换取网页授权access_token
@@ -40,7 +42,7 @@ public class WechatOfficial implements WechatApi{
 //		 mapToken.put("code", code);
 //		 mapToken.put("grant_type", "authorization_code");
 		OauthTokenOutput resp = new OauthTokenOutput();
-		String params = DataUtil.map2Param(mapToken);
+		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(oauth2_access_token);
 		sb.append("?").append(params);
 		System.out.print(sb.toString());
@@ -49,10 +51,11 @@ public class WechatOfficial implements WechatApi{
 			System.out.println("\n\n*****************************");
 			System.out.println("微信取OpenId resp="+jr);
 			System.out.println("\n\n*****************************");
-			resp = parseObject(jr, OauthTokenOutput.class);
+			Gson gson = new Gson();
+			resp = gson.fromJson(jr,OauthTokenOutput.class);
 		} catch (Exception e) {
 			resp.setDesc(e.getMessage());
-			log.error("obtainOauthAccessToken error:"+e.getMessage());
+			log.error("obtainOauthAccessToken error:{}",e.getMessage());
 		}
 		return resp;
 		
@@ -76,15 +79,16 @@ public class WechatOfficial implements WechatApi{
 //		 mapToken.put("refresh_token", '填写通过access_token获取到的refresh_token参数');
 //		 mapToken.put("grant_type", "refresh_token");
 		OauthTokenOutput resp = new OauthTokenOutput();
-		String params = DataUtil.map2Param(mapToken);
+		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(oauth2_refresh_token);
 		sb.append("?").append(params);
 		try {
 			String jr = ConnUtil.connURL(sb.toString());
-			resp = parseObject(jr, OauthTokenOutput.class);
+			Gson gson = new Gson();
+			resp = gson.fromJson(jr,OauthTokenOutput.class);
 		} catch (Exception e) {
 			resp.setDesc(e.getMessage());
-			log.error("refreshOauthAccessToken error:"+e.getMessage());
+			log.error("refreshOauthAccessToken error:{}",e.getMessage());
 		}
 		return resp;
 		
@@ -130,15 +134,16 @@ public class WechatOfficial implements WechatApi{
 		
 		UserInfoOutput resp = new UserInfoOutput();
 		
-		String params = DataUtil.map2Param(userInfoMap);
+		String params = ThlwsBeanUtil.mapToParams(userInfoMap);
 		StringBuilder sb = new StringBuilder(sns_userinfo);
 		sb.append("?").append(params);
 		try {
 			String jr = ConnUtil.connURL(sb.toString());
-			resp = parseObject(jr, UserInfoOutput.class);
+			Gson gson = new Gson();
+			resp = gson.fromJson(jr,UserInfoOutput.class);
 		} catch (Exception e) {
 			resp.setDesc(e.getMessage());
-			log.error("obtainUserInfo error:"+e.getMessage());
+			log.error("obtainUserInfo error:{}",e.getMessage());
 		}
 		return resp;
 	}
@@ -155,14 +160,15 @@ public class WechatOfficial implements WechatApi{
 //		 mapToken.put("access_token", access_token);
 //		 mapToken.put("openid", '');
 		boolean flag = false;
-		String params = DataUtil.map2Param(mapToken);
+		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(sns_auth_token);
 		sb.append("?").append(params);
 		try {
 			String result = ConnUtil.connURL(sb.toString());
-			JSONObject jr = parseObject(result);
-			String rcode = jr.getString("errcode");
-			if (rcode.equalsIgnoreCase("0")){
+			Gson gson = new Gson();
+			JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
+			long wCode = jsonObject.get("errcode").getAsLong();
+			if (wCode == 0){
 				flag = true;
 			}
 		} catch (Exception e) {
@@ -193,10 +199,11 @@ public class WechatOfficial implements WechatApi{
 			sb.append(cgibin_token).append("?");
 			sb.append("grant_type=client_credential").append("&").append("appid=").append(appid).append("&").append("secret=").append(secret);
 			String jr = ConnUtil.connURL(sb.toString());
-			resp = parseObject(jr, TokenOutput.class);
+			Gson gson = new Gson();
+			resp = gson.fromJson(jr,TokenOutput.class);
 		} catch (Exception e) {
 			resp.setDesc(e.getMessage());
-			log.error("obtainAccessToken error:"+e.getMessage());
+			log.error("obtainAccessToken error:{}",e.getMessage());
 		}
 
 		return resp;
@@ -219,10 +226,11 @@ public class WechatOfficial implements WechatApi{
 			sb.append(cgi_bin_ticket_getticket).append("?");
 			sb.append("access_token=").append(token).append("&type=jsapi");
 			String jr = ConnUtil.connURL(sb.toString());
-			resp = parseObject(jr, JsApiTicketOutput.class);
+			Gson gson = new Gson();
+			resp = gson.fromJson(jr,JsApiTicketOutput.class);
 		} catch (Exception e) {
 			resp.setDesc(e.getMessage());
-			log.error("obtainJsApiTicket error:"+e.getMessage());
+			log.error("obtainJsApiTicket error:{}",e.getMessage());
 		}
 		return resp;
 	}
@@ -262,13 +270,14 @@ public class WechatOfficial implements WechatApi{
 
 			HashMap<String,String> mapData = new HashMap<String,String>();
 			mapData.put("template_id_short", template_id_short);
-			String json = JSONObject.toJSONString(mapData);
-
+			Gson gson = new Gson();;
+			String json = gson.toJson(mapData);
 			String result = ConnUtil.connRemoteWithJson(json,sb.toString());
-			output = parseObject(result,TemplateOutput.class);
+			output = gson.fromJson(result,TemplateOutput.class);
+
 		}catch (Exception e){
 			output.setDesc(e.getMessage());
-			log.error("obtainTemplateId error:"+e.getMessage());
+			log.error("obtainTemplateId error:{}",e.getMessage());
 		}
 
 		return output;
@@ -295,13 +304,14 @@ public class WechatOfficial implements WechatApi{
 			HashMap<String,String> mapData = new HashMap<String,String>();
 			mapData.put("industry_id1", industry_id1);
 			mapData.put("industry_id2", industry_id2);
-			String json = JSONObject.toJSONString(mapData);
+			Gson gson = new Gson();
+			String json = gson.toJson(mapData);
 			String result = ConnUtil.connRemoteWithJson(json,sb.toString());
-			log.info("setupIndustry result="+result);
-			output = parseObject(result,IndustryOutput.class);
+			log.info("setupIndustry result={}",result);
+			output = gson.fromJson(result,IndustryOutput.class);
 		}catch (Exception e){
 			output.setDesc(e.getMessage());
-			log.error("setupIndustry error:"+e.getMessage());
+			log.error("setupIndustry error:{}",e.getMessage());
 		}
 
 		return output;
@@ -323,11 +333,12 @@ public class WechatOfficial implements WechatApi{
 			sb.append("?access_token=");
 			sb.append(access_token);
 			String result = ConnUtil.connRemoteWithJson(data, sb.toString());
-			output = parseObject(result,SendDataOutput.class);
-			log.info("send data result:"+result);
+			Gson gson = new Gson();
+			output = gson.fromJson(result,SendDataOutput.class);
+			log.info("send data result:{}",result);
 		}catch (Exception e){
 			output.setDesc(e.getMessage());
-			log.error("sendData2wechat error:"+e.getMessage());
+			log.error("sendData2wechat error:{}",e.getMessage());
 		}
 
 		return output;

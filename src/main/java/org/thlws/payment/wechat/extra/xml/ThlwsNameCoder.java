@@ -9,7 +9,10 @@ import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
  */
 public class ThlwsNameCoder extends XmlFriendlyNameCoder {
 
-	public ThlwsNameCoder() {
+    /**
+     * Instantiates a new Thlws name coder.
+     */
+    public ThlwsNameCoder() {
         super("_-", "_");
     }
 	
