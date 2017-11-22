@@ -2,11 +2,11 @@ package org.thlws.payment.wechat.api;
 
 
 /**
- * Wechat API List
+ * 微信官方API列表  <br>
+ * @see <a href="https://mp.weixin.qq.com/misc/pluginloginpage?pluginuin=10010&token=1746038746&lang=zh_CN">微信官方支付文档</a>
  *
- * @author Hanley Tang
+ * @author Hanley | hanley@thlws.com
  * @version 1.0
- * @email hanley@hanley.cn
  */
 public interface WechatApi {
 

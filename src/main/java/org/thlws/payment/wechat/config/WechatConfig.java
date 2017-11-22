@@ -1,7 +1,10 @@
 package org.thlws.payment.wechat.config;
 
-/***
+/**
  * 微信相关配置
+ *
+ * @author Hanley | hanley@thlws.com
+ * @version 1.0
  */
 public class WechatConfig {
 
