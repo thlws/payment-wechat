@@ -1,7 +1,6 @@
 package org.thlws.payment.wechat.portal.official;
 
 import com.alibaba.fastjson.JSONObject;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thlws.payment.wechat.entity.output.*;
@@ -103,7 +102,6 @@ public class WechatOfficial implements WechatApi{
 	 * @param bizData the biz data
 	 * @return string
 	 */
-	@NotNull
 	public static  String generateWechatUrl(String appId, String scope, String callback, String bizData){
 		AtomicReference<StringBuilder> sb = new AtomicReference<StringBuilder>(new StringBuilder());
 		sb.get().append("https://open.weixin.qq.com/connect/oauth2/authorize?");

@@ -56,16 +56,14 @@ public class WechatClient implements WechatApi {
 			String nonceStr = DataUtil.getRandomString(32);//随机生成32为的字符串
 			xwr.setNonce_str(nonceStr);
 
-			XStream xStream = XStreamCreator.create();
-			xStream.alias("xml", MicroMchInput.class);
+			XStream xStream = XStreamCreator.create(MicroMchInput.class);
 			String xml = xStream.toXML(xwr);
 			log.info("申请小微收款识别码 [submchmanage] xml request:\n"+xml);
 
 			//p12FilePath = "/zone/1.p12";
 			String xmlResp = ConnUtil.encryptPost(xml, micro_mch_add, o.getMch_id(), p12FilePath);
 			log.info("申请小微收款识别码 [submchmanage] xml response:\n"+ XmlUtil.format(xmlResp));
-			XStream xStreamOut = XStreamCreator.create();
-			xStreamOut.alias("xml", MicroMchOutput.class);
+			XStream xStreamOut = XStreamCreator.create( MicroMchOutput.class);
 			resp = (MicroMchOutput) xStreamOut.fromXML(xmlResp);
 		} catch (Exception e) {
 			log.error("申请小微收款识别码失败:"+e.getMessage());
@@ -96,8 +94,7 @@ public class WechatClient implements WechatApi {
 			MicroMchInput xwr = (MicroMchInput) DataUtil.mapToObject(mapData,MicroMchInput.class);
 			xwr.setNonce_str(DataUtil.getRandomString(32));
 
-			XStream xStream = XStreamCreator.create();
-			xStream.alias("xml", MicroMchInput.class);
+			XStream xStream = XStreamCreator.create(MicroMchInput.class);
 			String xml = xStream.toXML(xwr);
 			log.info("查询小微收款人资料[submchmanage?action=query] xml request:\n"+xml);
 
@@ -112,7 +109,7 @@ public class WechatClient implements WechatApi {
 
 
 	/***
-	 * 统一下单接口
+	 * 统一下单接口,若为扫码支付，调用此方法后需要另开 Thread 调用查询接口，检测用户是否完成支付
 	 * @param data the data
 	 * @param apiKey the api key
 	 * @return unified order output

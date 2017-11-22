@@ -12,21 +12,17 @@
 
   <properties>
 
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!--<java_home>/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home</java_home>-->
     <java_home>/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home</java_home>
-    <version.tomcat-maven-plugin>2.1</version.tomcat-maven-plugin> <!-- 2.1, 2.0 -->
 
-
-    <!-- jackson 2 -->
-    <version.com.fasterxml.jackson.core>2.1.2</version.com.fasterxml.jackson.core>
-    <version.fastjson>1.9.13</version.fastjson>
-
-    <!-- xstream -->
+    <version.fastjson>1.2.41</version.fastjson>
     <version.xstream>1.4.10</version.xstream>
-
-    <!-- log -->
-    <version.logback>1.1.3</version.logback>
+    <version.logback>1.2.3</version.logback>
+    <version.slf4j>1.7.13</version.slf4j>
+    <version.zxing>3.3.1</version.zxing>
+    <version.gson>2.8.2</version.gson>
+    <version.apache.httpclient>4.5.3</version.apache.httpclient>
+    <version.apache.httpmime>4.5.3</version.apache.httpmime>
+    <version.apache.httpcore>4.4.8</version.apache.httpcore>
   </properties>
 
 
@@ -44,7 +40,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.41</version>
+      <version>${version.fastjson}</version>
     </dependency>
     <!-- json End -->
 
@@ -75,27 +71,28 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.13</version>
+      <version>${version.slf4j}</version>
     </dependency>
     <!-- log End -->
 
 
-    <!-- apache start -->
+    <!-- Apache start -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.3.5</version>
+      <version>${version.apache.httpclient}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
-      <version>4.3.2</version>
+      <version>${version.apache.httpcore}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpmime</artifactId>
-      <version>4.3.5</version>
+      <version>${version.apache.httpmime}</version>
     </dependency>
+
 
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -113,33 +110,26 @@
       <artifactId>commons-codec</artifactId>
       <version>1.10</version>
     </dependency>
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-      <version>3.1</version>
-    </dependency>
-    <!-- apache end -->
+    <!-- Apache end -->
 
+
+    <!-- Google libs start-->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.3.1</version>
+      <version>${version.gson}</version>
     </dependency>
     <dependency>
       <groupId>com.google.zxing</groupId>
       <artifactId>core</artifactId>
-      <version>2.2</version>
+      <version>${version.zxing}</version>
     </dependency>
     <dependency>
       <groupId>com.google.zxing</groupId>
       <artifactId>javase</artifactId>
-      <version>2.2</version>
+      <version>${version.zxing}</version>
     </dependency>
-    <dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations-java5</artifactId>
-      <version>RELEASE</version>
-    </dependency>
+    <!-- Google libs end-->
 
   </dependencies>
 
@@ -171,7 +161,6 @@
           <encoding>UTF-8</encoding>
           <docencoding>UTF-8</docencoding>
           <javadocExecutable>${java_home}/bin/javadoc</javadocExecutable>
-          <!-- Mac 平台有效 -->
         </configuration>
         <executions>
           <execution>
@@ -194,7 +183,7 @@
         </configuration>
       </plugin>
 
-      <!-- 跳过测试 -->
+      <!-- skip junit test classes -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -202,22 +191,6 @@
           <skip>true</skip>
         </configuration>
       </plugin>
-
-
-      <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-jar-plugin</artifactId>-->
-        <!--<version>2.4</version>-->
-        <!--<configuration>-->
-          <!--<archive>-->
-            <!--<manifest>-->
-              <!--<addClasspath>true</addClasspath>-->
-              <!--<classpathPrefix>lib/</classpathPrefix>-->
-              <!--<mainClass>com.enjar.pt.hub.App</mainClass>-->
-            <!--</manifest>-->
-          <!--</archive>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
 
 
       <plugin>
@@ -230,9 +203,9 @@
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
           <archive>
-            <manifest>
-              <mainClass>org.thlws.payment.wechat.demo.ApiDemo</mainClass>
-            </manifest>
+            <!--<manifest>-->
+              <!--<mainClass>org.thlws.payment.wechat.demo.ApiDemo</mainClass>-->
+            <!--</manifest>-->
           </archive>
         </configuration>
         <executions>

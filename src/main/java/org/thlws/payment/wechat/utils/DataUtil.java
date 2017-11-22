@@ -1,8 +1,5 @@
 package org.thlws.payment.wechat.utils;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,19 +12,21 @@ import java.util.Set;
 import com.alibaba.fastjson.JSONObject;
 
 /**
+ * The type Data util.
  *
  * @author Hanley Tang
- * @email hanley@hanley.cn
  * @version 1.0
+ * @email hanley @hanley.cn
  */
 public class DataUtil {
 
 
 	/**
 	 * Object to Map (will ignore null properties)
+	 *
+	 * @param o the o
+	 * @return map
 	 * @author HanleyTang
-	 * @param o
-	 * @return
 	 */
 	public static Map<String, Object> data2Map(Object o){
 
@@ -46,9 +45,9 @@ public class DataUtil {
 
 	/***
 	 * 去除空值
+	 * @param map the map
+	 * @return map
 	 * @author HanleyTang
-	 * @param map
-	 * @return
 	 */
 	public static Map<String, Object> dataFilter(Map<String, Object> map) {
 
@@ -66,13 +65,13 @@ public class DataUtil {
 	}
 
 
-
-	 /**
-     * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
-     * @param params 需要排序并参与字符拼接的参数组
-     * @return 拼接后字符串
-     */
-    public static String createLinkString(Map<String, Object> params) {
+	/**
+	 * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
+	 *
+	 * @param params 需要排序并参与字符拼接的参数组
+	 * @return 拼接后字符串 string
+	 */
+	public static String createLinkString(Map<String, Object> params) {
         List<String> keys = new ArrayList<String>(params.keySet());
         Collections.sort(keys);
         StringBuffer sb = new StringBuffer();
@@ -89,13 +88,14 @@ public class DataUtil {
     }
 
 
-    /**
-     * map数据转换为GET URL后的参数 eg: name=hanley&age=22&address=SH
-     * @author HanleyTang
-     * @param mapData
-     * @return
-     */
-    public static String map2Param(Map<String,Object> mapData){
+	/**
+	 * map数据转换为GET URL后的参数 eg: name=hanley&age=22&address=SH
+	 *
+	 * @param mapData the map data
+	 * @return string
+	 * @author HanleyTang
+	 */
+	public static String map2Param(Map<String,Object> mapData){
         StringBuffer sb = new StringBuffer();
         if(mapData.isEmpty()){
             return "" ;
@@ -113,7 +113,14 @@ public class DataUtil {
     }
 
 
-    public static Object mapToObject(Map<String, Object> map, Class<?> beanClass){
+	/**
+	 * Map to object object.
+	 *
+	 * @param map       the map
+	 * @param beanClass the bean class
+	 * @return the object
+	 */
+	public static Object mapToObject(Map<String, Object> map, Class<?> beanClass){
 
 		Object obj = null;
 		try {
@@ -163,14 +170,13 @@ public class DataUtil {
 //	}
 
 
-
 	/***
-     * generate MD5 text
-     * @author HanleyTang
-     * @param data
-     * @return
-     */
-    public static String getMD5(String data) {
+	 * generate MD5 text
+	 * @param data the data
+	 * @return md 5
+	 * @author HanleyTang
+	 */
+	public static String getMD5(String data) {
   	   String s = null;
   	   char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
   	   try {
@@ -204,7 +210,14 @@ public class DataUtil {
      }
 
 
-    public static String md5(Map<String, Object> sPara,String key){
+	/**
+	 * Md 5 string.
+	 *
+	 * @param sPara the s para
+	 * @param key   the key
+	 * @return the string
+	 */
+	public static String md5(Map<String, Object> sPara,String key){
 		String prestr = createLinkString(sPara);
 		prestr +="&key="+key;
 		String mysign = getMD5(prestr).toUpperCase();
@@ -212,13 +225,13 @@ public class DataUtil {
 	}
 
 
-    /***
-     * 随机数产生
-     * @author HanleyTang
-     * @param length 产生长度
-     * @return
-     */
-    public static String getRandomString(int length) { //length表示生成字符串的长度
+	/***
+	 * 随机数产生
+	 * @param length 产生长度
+	 * @return random string
+	 * @author HanleyTang
+	 */
+	public static String getRandomString(int length) { //length表示生成字符串的长度
 	    String base = "abcdefghijklmnopqrstuvwxyz0123456789";
 	    Random random = new Random();
 	    StringBuffer sb = new StringBuffer();

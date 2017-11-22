@@ -16,7 +16,7 @@ import java.io.Writer;
  */
 public class XmlUtil {
 
-    private static  final String xhead= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    private static  final String xmlHeader= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
     public static String format(String uglyXml) {
         try {
@@ -31,7 +31,7 @@ public class XmlUtil {
             Writer out = new StringWriter();
             XMLSerializer serializer = new XMLSerializer(out, format);
             serializer.serialize(document);
-            return out.toString().replace(xhead,"");
+            return out.toString().replace(xmlHeader,"");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

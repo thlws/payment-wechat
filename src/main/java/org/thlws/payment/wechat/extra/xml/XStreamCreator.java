@@ -10,8 +10,14 @@ import com.thoughtworks.xstream.XStream;
  */
 public class XStreamCreator {
 
-    public static XStream create(){
-        return new XStream(new ThlwsXppDriver());
+    public static XStream create(Class cls){
+        XStream xStream = new XStream(new ThlwsXppDriver());
+        XStream.setupDefaultSecurity(xStream);
+        xStream.allowTypesByWildcard(new String[] {
+                "org.thlws.payment.wechat.**"
+        });
+        xStream.alias("xml",cls);
+        return  xStream;
     }
 
 }

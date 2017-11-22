@@ -19,7 +19,7 @@ public class WechatOfficialTest extends TestCase {
     /***
      * 获取OauthaccessToken
      */
-    public void testObtainOauthToken() {
+    public void test_ObtainOauthToken() {
         Map<String, Object> mapToken = new HashMap<String, Object>();
         String appId = "wx5f22a16d8c94dba4";
         String appSecret = "d24a3e612fca66ae28137de28916f875";
@@ -35,7 +35,7 @@ public class WechatOfficialTest extends TestCase {
     /***
      * 刷新OauthToken
      */
-    public void testRefreshOauthToken() {
+    public void test_RefreshOauthToken() {
         Map<String, Object> mapToken = new HashMap<String, Object>();
         String appId = "wx5f22a16d8c94dba4";
         mapToken.put("appid", appId);
@@ -48,7 +48,7 @@ public class WechatOfficialTest extends TestCase {
     /***
      * 获取微信用户信息
      */
-    public void testObtainUserInfo() {
+    public void test_ObtainUserInfo() {
         Map<String, Object> userInfoMap = new HashMap<String, Object>();
         String accessToken = "";
         String openId = "";
@@ -62,7 +62,7 @@ public class WechatOfficialTest extends TestCase {
     /**
      * 生成微信URL[包含回调地址]
      */
-    public void testBuildWechatURL() {
+    public void test_BuildWechatURL() {
         String appId = "wx5f22a16d8c94dba4";
         String scope = "snsapi_base";
         String callback = "";
@@ -74,7 +74,7 @@ public class WechatOfficialTest extends TestCase {
     /***
      * 检测token是否有效
      */
-    public void testIsvalidOauthToken() {
+    public void test_IsvalidOauthToken() {
         Map<String, Object> mapToken = new HashMap<String, Object>();
 //       mapToken.put("access_token", access_token);
 //       mapToken.put("openid", "");
@@ -83,18 +83,4 @@ public class WechatOfficialTest extends TestCase {
        // assertEquals(flag, true);
     }
 
-    /***
-     * 退款 同WechatClientTest.testRefund()
-     */
-    public void testRefund() {
-
-    }
-
-
-    /***
-     * 退款(特约商户) 同同WechatClientTest.testRefund4SubMch()
-     */
-    public void testRefund4SubMch() {
-
-    }
 }
