@@ -5,8 +5,7 @@ import org.thlws.payment.wechat.utils.JsonUtil;
 /**
  * 新增收款个人用户资料 Req POJO
  * 服务商调用该接口将收款个人用户资料提交给微信侧,微信根据提交的 资料情况,判断收款用户资料正确性,返回收款识别码;
- * @author Hanley Tang
- * @email hanley@hanley.cn
+ * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
 public class MicroMchInput {

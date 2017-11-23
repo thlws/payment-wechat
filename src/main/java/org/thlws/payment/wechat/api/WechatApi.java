@@ -3,8 +3,8 @@ package org.thlws.payment.wechat.api;
 
 /**
  * 微信官方API列表  <br>
- * @see <a href="https://mp.weixin.qq.com/misc/pluginloginpage?pluginuin=10010&token=1746038746&lang=zh_CN">微信官方支付文档</a>
- *
+ * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/sl.html">https://pay.weixin.qq.com/wiki/doc/api/sl.html</a>
+ * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/index.html">https://pay.weixin.qq.com/wiki/doc/api/index.html</a>
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */

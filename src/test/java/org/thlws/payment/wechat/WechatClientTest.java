@@ -106,7 +106,6 @@ public class WechatClientTest {
         data.setOut_refund_no(ThlwsBeanUtil.getRandomString(24));
         data.setTotal_fee("3200");
         data.setRefund_fee("3200");
-        data.setOp_user_id("1386246702");
         data.setNonce_str(ThlwsBeanUtil.getRandomString(32));
 
         WechatRefundOutput output = WechatClient.refund(data,apiKey,p12FilePath);
