@@ -73,9 +73,11 @@ public class WechatClientTest {
         WechatPayInput input = new WechatPayInput();
         input.setAppid(test_wechat_appid);
         input.setMch_id(test_wechat_mchid);
+        /*普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001*/
 //        input.setSub_mch_id("1396726602");//若是子商户需设置该参数
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
         input.setTotal_fee("1");
+        /*小微收款时必须,请传入小微收款识别码*/
         input.setAttach("00001025104487");
         input.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
         input.setAuth_code("130241326448617032");

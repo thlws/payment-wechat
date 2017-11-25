@@ -42,7 +42,7 @@ public class WechatPayInput {
 	/**商品详情*/
 	private String detail			;	//n    not required
 
-	/**附加数据	*/
+	/**附加数据,小微模式必须填写为 收款识别码	*/
 	private String attach			;	//n    not required
 
 	/**符合ISO 4217标准的三位字母代码，默认人民币：CNY*/
@@ -60,7 +60,7 @@ public class WechatPayInput {
 	/**子商户公众账号ID*/
 	private String sub_appid		;	//n    not required
 
-	/**子商户号	*/
+	/**子商户号,普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001	*/
 	private String sub_mch_id		;	//n    not required
 
 	/**
