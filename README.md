@@ -21,3 +21,11 @@
 
  Q4:扫码支付后续是否可以提供AllInOne的支付API?
  A4:不可以,扫描支付与公众号支付类似,是在用户手机上完成支付的,支付前需要调用统一下单接口.
+
+
+
+
+## 源码测试
+1. ```git clone https://github.com/HanleyTang/payment-wechat.git```
+2. 导入到eclipse或Intellij IDEA
+3. 运行 Junit Class WechatClientTest
