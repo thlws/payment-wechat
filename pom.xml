@@ -23,7 +23,7 @@
     <version.apache.httpclient>4.5.3</version.apache.httpclient>
     <version.apache.httpmime>4.5.3</version.apache.httpmime>
     <version.apache.httpcore>4.4.8</version.apache.httpcore>
-    <version.hutool>3.2.0</version.hutool>
+    <version.hutool>3.2.1</version.hutool>
   </properties>
 
 
