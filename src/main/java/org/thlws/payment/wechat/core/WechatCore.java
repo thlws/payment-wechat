@@ -13,6 +13,7 @@ import org.thlws.payment.wechat.utils.WechatUtil;
 
 /**
  * 微信支付核心处理 <br>
+ * @see <a href="https://pay.weixin.qq.com/guide/index.shtml">https://pay.weixin.qq.com/guide/index.shtml</a>
  * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/sl.html">https://pay.weixin.qq.com/wiki/doc/api/sl.html</a>
  * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/index.html">https://pay.weixin.qq.com/wiki/doc/api/index.html</a>
  * @author Hanley | hanley@thlws.com

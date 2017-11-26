@@ -46,6 +46,14 @@ public class WechatClientTest {
         input.setAppid(test_wechat_appid);
         input.setMch_id(test_wechat_mchid);
 
+        /*普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001*/
+        //input.setSub_mch_id("1396726602");
+
+         /*open_id 与 sub_openid 择其一即可,具体传值方式以参数说明为准*/
+        //input.setOpenid("用户在appid下用户标识");
+
+        /*open_id 与 sub_openid 择其一即可,具体传值方式以参数说明为准*/
+        //input.setSub_openid("用户在sub_appid下用户标识");
         String body = "好吃";
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setBody(body);
@@ -58,6 +66,7 @@ public class WechatClientTest {
         UnifiedOrderOutput output = WechatClient.unifiedorder(input,test_wechat_apikey);
         log.info("WechatClient.unifiedorder->output=\n"+output.toString());
         String qrcode = output.getCode_url();
+        //生成支付二维码，供用户扫码支付
         ZxingUtil.qrCode(qrcode,"png","/zone/"+input.getOut_trade_no()+".png");
         //TODO 调用查询接口，检测用户是否完成支付
     }
@@ -73,11 +82,12 @@ public class WechatClientTest {
         WechatPayInput input = new WechatPayInput();
         input.setAppid(test_wechat_appid);
         input.setMch_id(test_wechat_mchid);
-        /*普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001*/
-//        input.setSub_mch_id("1396726602");//若是子商户需设置该参数
+
+        /*普通模式无需设置,子商户需设置子商户号*/
+        //input.setSub_mch_id("1396726602");
+
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
         input.setTotal_fee("1");
-        /*小微收款时必须,请传入小微收款识别码*/
         input.setAttach("00001025104487");
         input.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
         input.setAuth_code("130241326448617032");
@@ -158,6 +168,18 @@ public class WechatClientTest {
 
     }
 
+    @Test
+    public void test_closeOrder(){
+
+        CloseOrderInput input = new CloseOrderInput();
+        input.setAppid(test_wechat_appid);
+        input.setMch_id(test_wechat_mchid);
+        //input.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
+        input.setOut_trade_no("20160902224757");
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+        CloseOrderOutput output = WechatClient.closeOrder(input,test_wechat_apikey);
+    }
+
 
     /***
      * 提交小微申请，暂未启用,未来可能移除
@@ -199,6 +221,7 @@ public class WechatClientTest {
         wr2.setRecipient_wechatid("hanleytang");
         WechatClient.queryMicroMch(wr2,sp_wechat_apikey,p12FilePath);
     }
+
 
 
 }

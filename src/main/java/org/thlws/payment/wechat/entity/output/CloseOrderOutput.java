@@ -1,4 +1,4 @@
-package org.thlws.payment.wechat.entity.input;
+package org.thlws.payment.wechat.entity.output;
 
 import org.thlws.payment.wechat.utils.JsonUtil;
 
