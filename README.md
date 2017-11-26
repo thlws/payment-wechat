@@ -19,11 +19,11 @@
 - [https://github.com/google/gson](https://github.com/google/gson)
 
 ## FAQ
-- 能不能直接 dependency 添加依赖?
+- 能不能直接 dependency 添加依赖?<br>
 _暂时还不行，正在想办法发布到共有仓库._
 
-- Android是否可以使用?
+- Android是否可以使用?<br>
 _未测试不太确定，该项目并非针对Android设计，建议Android使用微信App支付方式_
 
-- 该项目到底支持哪几种微信支付？
+- 该项目到底支持哪几种微信支付？<br>
 _目前没有全部支持微信官方的支付方式,截止目前支持 公众号支付、刷卡支付、扫码支付 三种支付方式._
