@@ -106,8 +106,9 @@ public class WechatClientTest {
      */
     @Test
     public void test_refund(){
-        String p12FilePath = "/zone/p12/1386246702.p12";//爱快购微商城p12
-        log.info("微信.爱快购微商城[退款]测试开始-WechatClient.refund");
+
+        String p12FilePath = "/zone/p12/1386246702.p12";//
+        log.info("微信[退款]测试开始-WechatClient.refund");
         WechatRefundInput data = new WechatRefundInput();
         data.setSub_mch_id(sp_wechat_sub_mchid);//若为子商户退款需设置该参数
         String apiKey = sp_wechat_apikey;
@@ -134,16 +135,16 @@ public class WechatClientTest {
     public void test_orderQuery(){
 
         log.info("微信[订单查询]测试开始-WechatClient.orderQuery");
-        String apiKey = "d24a3e612fca66ae28137de28916f875";
         OrderQueryInput input = new OrderQueryInput();
-        input.setAppid("wx5f22a16d8c94dba4");
-        input.setMch_id("1336236101");
+        input.setAppid(test_wechat_appid);
+        input.setMch_id(test_wechat_mchid);
         //input.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
         input.setTransaction_id("4005332001201610166835977303");
         input.setOut_trade_no("20160902224757");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
-        OrderQueryOutput output = WechatClient.orderQuery(input,apiKey);
+        OrderQueryOutput output = WechatClient.orderQuery(input,test_wechat_apikey);
         log.info("WechatClient.orderQuery->output="+output.toString());
+
     }
 
 
@@ -155,16 +156,15 @@ public class WechatClientTest {
     public void test_reverse(){
 
         log.info("微信[撤销订单]测试开始-WechatClient.reverse");
-        String apiKey = "d24a3e612fca66ae28137de28916f875";
         WechatReverseInput input = new WechatReverseInput();
-        input.setAppid("wx5f22a16d8c94dba4");
-        input.setMch_id("1336236101");
+        input.setAppid(test_wechat_appid);
+        input.setMch_id(test_wechat_mchid);
         //input.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
         input.setTransaction_id("1217752501201407033233368018");
         input.setOut_trade_no("20160902224757");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         String p12FilePath = "/zone/p12/1336236101.p12";
-        WechatReverseOutput output = WechatClient.reverse(input,apiKey,p12FilePath);
+        WechatReverseOutput output = WechatClient.reverse(input,test_wechat_apikey,p12FilePath);
 
     }
 
@@ -178,6 +178,7 @@ public class WechatClientTest {
         input.setOut_trade_no("20160902224757");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         CloseOrderOutput output = WechatClient.closeOrder(input,test_wechat_apikey);
+
     }
 
 
