@@ -10,7 +10,7 @@
 
 ## 源码测试
 1. ```git clone https://github.com/thlws/payment-wechat.git```
-2. 导入到eclipse或Intellij IDEA
+2. 导入到 Eclipse 或 Intellij IDEA
 3. 运行 Junit Class WechatClientTest
 
 ## 项目依赖
@@ -23,7 +23,7 @@
 _暂时还不行，正在想办法发布到共有仓库._
 
 - Android是否可以使用?<br>
-_未测试不太确定，该项目并非针对Android设计，建议Android使用微信App支付方式_
+_未测试不太确定，该项目并非针对Android设计，建议Android使用微信App支付方式._
 
 - 该项目到底支持哪几种微信支付？<br>
-_目前没有全部支持微信官方的支付方式,截止目前支持 公众号支付、刷卡支付、扫码支付 三种支付方式._
+_目前没有全部支持微信官方的支付方式,截止目前支持 公众号支付、刷卡支付、扫码支付 三种._
