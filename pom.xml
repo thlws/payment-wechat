@@ -228,7 +228,7 @@
     <repository>
       <id>maven-central</id>
       <name>maven-central</name>
-      <url>http://140.206.97.229:71/repository/maven-public/</url>
+      <url>http://140.206.97.227:7979/repository/maven-public/</url>
       <layout>default</layout>
       <releases>
         <enabled>true</enabled>
@@ -242,11 +242,11 @@
   <distributionManagement>
     <repository>
       <id>maven-releases</id>
-      <url>http://140.206.97.229:71/repository/maven-releases/</url>
+      <url>http://140.206.97.227:7979/repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
       <id>maven-snapshots</id>
-      <url>http://140.206.97.229:71/repository/maven-snapshots/</url>
+      <url>http://140.206.97.227:7979/repository/maven-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
