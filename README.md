@@ -7,6 +7,19 @@
 3. 项目极少依赖，接口简单清晰，日志详细且输出格式友好；
 4. 示例详细且简单易懂，文档全面，大大降低微信支付接入门槛；
 
+## 依赖安装
+- Maven
+```
+<dependency>
+    <groupId>org.thlws</groupId>
+    <artifactId>payment-wechat</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+- Gradle
+```
+compile 'org.thlws:payment-wechat:1.0.0'
+```
 
 ## 源码测试
 1. ```git clone https://github.com/thlws/payment-wechat.git```
@@ -20,7 +33,7 @@
 
 ## FAQ
 - 能不能直接 dependency 添加依赖?<br>
-_暂时还不行，正在想办法发布到共有仓库._
+_已发布至公有仓库，添加方式如上._
 
 - Android是否可以使用?<br>
 _未测试不太确定，该项目并非针对Android设计，建议Android使用微信App支付方式._

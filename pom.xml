@@ -9,7 +9,7 @@
 
   <name>payment-wechat</name>
   <url>https://github.com/thlws/payment-wechat</url>
-  <description>微信支付Java依赖包</description>
+  <description>WECHAT DEPENDENCY LIBRARY</description>
 
   <properties>
     <version.fastjson>1.2.41</version.fastjson>
