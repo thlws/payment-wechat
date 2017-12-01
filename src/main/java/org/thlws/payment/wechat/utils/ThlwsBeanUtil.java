@@ -69,7 +69,7 @@ public class ThlwsBeanUtil {
 
 
 	/**
-	 * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
+	 * 把数组所有元素排序，并按照“参数=参数值”的模式用 &amp; 字符拼接成字符串
 	 *
 	 * @param params 需要排序并参与字符拼接的参数组
 	 * @return 拼接后字符串 string
@@ -92,8 +92,7 @@ public class ThlwsBeanUtil {
 
 
 	/**
-	 * map数据转换为GET URL后的参数 eg: name=hanley&age=22&address=SH
-	 *
+	 * map数据转换为GET URL后的参数
 	 * @param mapData the map data
 	 * @return string
 	 * @author HanleyTang

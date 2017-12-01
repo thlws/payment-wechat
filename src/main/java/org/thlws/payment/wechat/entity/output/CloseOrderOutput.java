@@ -4,8 +4,7 @@ import org.thlws.payment.wechat.utils.JsonUtil;
 
 /**
  * 关闭订单结果对象 <br>
- *
- * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_3">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_3</a> Created by HanleyTang on 2017/3/15.
+ * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_3">关闭订单结果参数</a>
  */
 public class CloseOrderOutput {
 

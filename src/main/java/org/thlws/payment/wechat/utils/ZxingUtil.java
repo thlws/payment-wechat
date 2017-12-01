@@ -13,7 +13,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 
 /***
- * 条形码 & 二维码 生成工具类
+ * 条形码 二维码 生成工具类
  */
 public class ZxingUtil {
 

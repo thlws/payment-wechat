@@ -4,16 +4,14 @@
 
   <groupId>org.thlws</groupId>
   <artifactId>payment-wechat</artifactId>
-  <version>1.0.0.RELEASE</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>payment-wechat</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/thlws/payment-wechat</url>
+  <description>微信支付Java依赖包</description>
 
   <properties>
-
-    <java_home>/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home</java_home>
-
     <version.fastjson>1.2.41</version.fastjson>
     <version.xstream>1.4.10</version.xstream>
     <version.logback>1.2.3</version.logback>
@@ -71,45 +69,33 @@
 
   </dependencies>
 
+
+  <issueManagement>
+      <system>Github Issue</system>
+      <url>https://github.com/thlws/payment-wechat/issues</url>
+  </issueManagement>
+  <licenses>
+      <license>
+          <name>The Apache Software License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+  </licenses>
+  <developers>
+      <developer>
+          <name>hanley</name>
+          <email>hanley@thlws.com</email>
+      </developer>
+  </developers>
+  <scm>
+      <connection>scm:git@github.com:thlws/payment-wechat.git</connection>
+      <developerConnection>scm:git@github.com:thlws/payment-wechat.git</developerConnection>
+      <url>https://github.com/thlws/payment-wechat</url>
+  </scm>
+
+
   <build>
 
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version>
-        <configuration>
-          <show>private</show>
-          <nohelp>true</nohelp>
-          <aggregate>true</aggregate>
-          <charset>UTF-8</charset>
-          <encoding>UTF-8</encoding>
-          <docencoding>UTF-8</docencoding>
-          <javadocExecutable>${java_home}/bin/javadoc</javadocExecutable>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -118,6 +104,16 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
+          <encoding>utf-8</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <configuration>
+          <aggregate>true</aggregate>
         </configuration>
       </plugin>
 
@@ -130,63 +126,76 @@
         </configuration>
       </plugin>
 
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <appendAssemblyId>false</appendAssemblyId>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <!--<manifest>-->
-              <!--<mainClass>org.thlws.payment.wechat.demo.ApiDemo</mainClass>-->
-            <!--</manifest>-->
-          </archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>assembly</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
 
   </build>
 
 
+  <profiles>
+    <profile>
+      <id>release</id>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>oss</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+          <id>oss</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
+      <build>
+        <plugins>
 
-  <repositories>
-    <repository>
-      <id>maven-central</id>
-      <name>maven-central</name>
-      <url>http://140.206.97.229:71/repository/maven-public/</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+          <!-- Source -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
-  <distributionManagement>
-    <repository>
-      <id>maven-releases</id>
-      <url>http://140.206.97.229:71/repository/maven-releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>maven-snapshots</id>
-      <url>http://140.206.97.229:71/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
+          <!-- Javadoc -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.4</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
+          <!-- Gpg Signature -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
