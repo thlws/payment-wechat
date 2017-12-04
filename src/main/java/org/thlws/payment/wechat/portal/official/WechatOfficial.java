@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 
 /**
- * 微信公众号相关
+ * 微信公众号相关 Token、OpenId 获取等
  *
  * @author Hanley Tang | hanley@thlws.com
  * @version 1.0

@@ -4,7 +4,7 @@
 
   <groupId>org.thlws</groupId>
   <artifactId>payment-wechat</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>payment-wechat</name>
@@ -18,7 +18,7 @@
     <version.slf4j>1.7.13</version.slf4j>
     <version.zxing>3.3.1</version.zxing>
     <version.gson>2.8.2</version.gson>
-    <version.hutool>3.2.1</version.hutool>
+    <version.hutool>3.2.2</version.hutool>
   </properties>
 
 

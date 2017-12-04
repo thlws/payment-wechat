@@ -1,3 +1,8 @@
+## 更新日志
+- v1.0.0 微信支付依赖库正式发布;
+- v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
+
+
 ## 详细教程
 - 文档：[http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)
 
@@ -24,7 +29,8 @@ compile 'org.thlws:payment-wechat:1.0.0'
 ## 源码测试
 1. ```git clone https://github.com/thlws/payment-wechat.git```
 2. 导入到 Eclipse 或 Intellij IDEA
-3. 运行 Junit Class WechatClientTest
+3. 运行 Junit Class WechatClientTest (微信支付相关接口)
+4. 运行 Junit Class WechatOfficialTest （公众号开发相关接口）
 
 ## 项目依赖
 - [http://www.hutool.cn](http://www.hutool.cn)
