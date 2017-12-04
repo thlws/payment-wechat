@@ -47,5 +47,4 @@ _[微信收款（个人转账版）服务接口](https://gitee.com/thlws/payment
 
 
 ## 打赏一下
-<img src="imgs/alipay.png" width=312 height=338 style="float:left" />
-<img src="imgs/wechat.png" width=312 height=338 style="float:left" />
+![](imgs/award.png)
