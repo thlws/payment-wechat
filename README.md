@@ -46,6 +46,6 @@ _[小微支付介绍](https://gitee.com/thlws/payment-wechat/raw/master/docs/%E5
 _[微信收款（个人转账版）服务接口](https://gitee.com/thlws/payment-wechat/raw/master/docs/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%EF%BC%88%E4%B8%AA%E4%BA%BA%E8%BD%AC%E8%B4%A6%E7%89%88%EF%BC%89%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3-20170222.pdf)_
 
 
-## 友情赞助
-<img src="imgs/alipay.png" width=312 height=338 />
-<img src="imgs/wechat.png" width=312 height=338 />
+## 打赏一下
+<img src="imgs/alipay.png" width=312 height=338 style="float:left" />
+<img src="imgs/wechat.png" width=312 height=338 style="float:left" />
