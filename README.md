@@ -44,3 +44,7 @@ _目前没有全部支持微信官方的支付方式,截止目前支持 公众�
 - 有没有小微支付相关文档？<br>
 _[小微支付介绍](https://gitee.com/thlws/payment-wechat/raw/master/docs/%E5%B0%8F%E5%BE%AE%E6%94%AF%E4%BB%98%E4%BB%8B%E7%BB%8D-wechat%20micro%20pay_1475134908_3aO.pdf)_ <br>
 _[微信收款（个人转账版）服务接口](https://gitee.com/thlws/payment-wechat/raw/master/docs/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%EF%BC%88%E4%B8%AA%E4%BA%BA%E8%BD%AC%E8%B4%A6%E7%89%88%EF%BC%89%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3-20170222.pdf)_
+
+
+##友情赞助
+![Alipay](imgs/alipay.JPG )
