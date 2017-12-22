@@ -18,12 +18,12 @@
 <dependency>
     <groupId>org.thlws</groupId>
     <artifactId>payment-wechat</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 - Gradle
 ```
-compile 'org.thlws:payment-wechat:1.0.0'
+compile 'org.thlws:payment-wechat:1.0.1'
 ```
 
 ## 源码测试
