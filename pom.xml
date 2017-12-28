@@ -12,10 +12,7 @@
   <description>WECHAT DEPENDENCY LIBRARY</description>
 
   <properties>
-    <version.fastjson>1.2.41</version.fastjson>
     <version.xstream>1.4.10</version.xstream>
-    <version.logback>1.2.3</version.logback>
-    <version.slf4j>1.7.13</version.slf4j>
     <version.zxing>3.3.1</version.zxing>
     <version.gson>2.8.2</version.gson>
     <version.hutool>3.2.2</version.hutool>
