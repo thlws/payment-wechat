@@ -15,7 +15,7 @@
     <version.xstream>1.4.10</version.xstream>
     <version.zxing>3.3.1</version.zxing>
     <version.gson>2.8.2</version.gson>
-    <version.hutool>3.2.2</version.hutool>
+    <version.hutool>3.2.3</version.hutool>
   </properties>
 
 
