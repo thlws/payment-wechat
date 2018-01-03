@@ -327,7 +327,6 @@ public class WechatOfficial implements WechatApi{
 
 		SendDataOutput output = new SendDataOutput();
 		try {
-			//String data = "{\"touser\":\"o2nMlwuj_cHFBcNDfPkpufta80KU\",\"template_id\":\"NeaRJdq_j97Vi6iskaapH6D-5k6uFJ_aoEn6mJpIFwI\",\"url\":\"http://test.iquickgo.com/mstore/myVirtual2.html\",\"data\":{\"first\":{\"value\":\"您的积分账户变更如下\",\"color\":\"#173177\"},\"account\":{\"value\":\"会员名称\",\"color\":\"#000000\"},\"time\":{\"value\":\"2016-11-15 16:57:10\",\"color\":\"#000000\"},\"type\":{\"value\":\"线上消费赠返积分\",\"color\":\"#000000\"},\"creditChange\":{\"value\":\"赠送\",\"color\":\"#000000\"},\"number\":{\"value\":\"39\",\"color\":\"#000000\"},\"creditName\":{\"value\":\"积分\",\"color\":\"#000000\"},\"amount\":{\"value\":\"700\",\"color\":\"#000000\"},\"remark\":{\"value\":\"积分可以在商城消费哦\",\"color\":\"#000000\"}}}";
 			StringBuilder sb = new StringBuilder();
 			sb.append(cgibin_send_data);
 			sb.append("?access_token=");

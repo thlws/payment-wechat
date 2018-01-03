@@ -23,7 +23,7 @@ public class WechatClientTest {
 
     private static final Log log = LogFactory.get();
 
-    /**爱快购微商城[服务商,下属含子商户].微信配置 sp = service provider */
+    /**服务商[下属含子商户].微信配置 sp = service provider */
     private static final String sp_wechat_appid= "wxc475c2bd2958388e";
     private static final String sp_wechat_appsecret="f02f5eecfed86f8a3cf753697fbf3246";
     private static final String sp_wechat_mchid="1386246702";
@@ -32,7 +32,7 @@ public class WechatClientTest {
     private static final String sp_wechat_openid="ou9z1v4CQEJLqbIikJr7UxPmIvYQ";
 
 
-    /*爱快购测试环境*/
+    /*普通商户*/
     private static final String test_wechat_appid= "wx5f22a16d8c94dba4";
     private static final String test_wechat_appsecret="d24a3e612fca66ae28137de28916f875";
     private static final String test_wechat_mchid="1336236101";
@@ -60,7 +60,7 @@ public class WechatClientTest {
         input.setOut_trade_no(System.currentTimeMillis()+"");
         input.setTotal_fee("1");
         input.setTrade_type("NATIVE");
-        input.setNotify_url("http://www.iquickgo.com/notify4Wechat.html");
+        input.setNotify_url("http://www.thlws.com/notify4Wechat.html");
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
 
         UnifiedOrderOutput output = WechatClient.unifiedorder(input,test_wechat_apikey);
