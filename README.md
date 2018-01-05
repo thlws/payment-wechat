@@ -1,6 +1,7 @@
 ## 更新日志
 - v1.0.0 微信支付依赖库正式发布;
 - v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
+- v1.0.2 修正Junit测试,增加Javadoc注释内容;
 
 
 ## 详细教程
@@ -18,12 +19,12 @@
 <dependency>
     <groupId>org.thlws</groupId>
     <artifactId>payment-wechat</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 - Gradle
 ```
-compile 'org.thlws:payment-wechat:1.0.1'
+compile 'org.thlws:payment-wechat:1.0.2'
 ```
 
 ## 源码测试
