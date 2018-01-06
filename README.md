@@ -3,7 +3,7 @@
 - v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
 - v1.0.2 修正Junit测试,增加Javadoc注释内容;
 
-##在线交流
+## 在线交流
 ![](imgs/thlws_qq.png)
 
 ## 详细教程
