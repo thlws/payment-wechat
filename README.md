@@ -1,15 +1,15 @@
-## 更新日志
-- v1.0.0 微信支付依赖库正式发布;
-- v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
-- v1.0.2 修正Junit测试,增加Javadoc注释内容;
+## 项目介绍
+- payment是一系列基于Java实现的支付类库，包含支付宝、微信、翼支付等，其目的是以最简单的方式完成各种支付方式接入。
 
-## 在线交流
-![](imgs/thlws_qq.png)
+## 支付类库
+- [https://gitee.com/thlws/payment-alipay](https://gitee.com/thlws/payment-alipay)
+- [https://gitee.com/thlws/payment-wechat](https://gitee.com/thlws/payment-wechat)
+- [https://gitee.com/thlws/payment-bestpay](https://gitee.com/thlws/payment-bestpay)
 
 ## 详细教程
 - 文档：[http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)
 
-## 项目说明
+## 功能说明
 1. 用于微信支付，基于Java语言实现的依赖库；
 2. 接口参数全部封装，使用者仅需创建对象并设置参数；
 3. 项目极少依赖，接口简单清晰，日志详细且输出格式友好；
@@ -40,9 +40,17 @@ compile 'org.thlws:payment-wechat:1.0.2'
 - [http://x-stream.github.io](http://x-stream.github.io)
 - [https://github.com/google/gson](https://github.com/google/gson)
 
+## 更新日志
+- v1.0.0 微信支付依赖库正式发布;
+- v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
+- v1.0.2 修正Junit测试,增加Javadoc注释内容;
+
 ## FAQ
 - 能不能直接 dependency 添加依赖?<br>
 _已发布至公有仓库，添加方式如上._
+
+- 项目对JDK版本是否有特定要求?<br>
+_是的，仅支持 JDK >= 1.7 ._
 
 - Android是否可以使用?<br>
 _未测试不太确定，该项目并非针对Android设计，建议Android使用微信App支付方式._
