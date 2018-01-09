@@ -64,8 +64,8 @@ public class WechatClientTest {
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
 
         UnifiedOrderOutput output = WechatClient.unifiedorder(input,test_wechat_apikey);
-        log.info("WechatClient.unifiedorder->output=\n"+output.toString());
         String qrcode = output.getCode_url();
+        assertNotNull(qrcode);
         //生成支付二维码，供用户扫码支付
         ZxingUtil.qrCode(qrcode,"png","/zone/"+input.getOut_trade_no()+".png");
         //TODO 调用查询接口，检测用户是否完成支付
@@ -96,7 +96,6 @@ public class WechatClientTest {
         input.setBody("pay test");
 
         WechatPayOutput output = WechatClient.micropay(input,apiKey);
-        log.info("WechatClient.micropay->output="+output.toString());
         assertNotNull(output);
     }
 
@@ -122,8 +121,6 @@ public class WechatClientTest {
         data.setNonce_str(ThlwsBeanUtil.getRandomString(32));
 
         WechatRefundOutput output = WechatClient.refund(data,apiKey,p12FilePath);
-        log.info("WechatClient.refund->output="+output.toString());
-
         assertEquals(output.getReturn_code(),"SUCCESS");
     }
 
@@ -143,7 +140,7 @@ public class WechatClientTest {
         input.setOut_trade_no("20160902224757");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         OrderQueryOutput output = WechatClient.orderQuery(input,test_wechat_apikey);
-        log.info("WechatClient.orderQuery->output="+output.toString());
+        assertNotNull(output.getOpenid());
 
     }
 
@@ -165,7 +162,7 @@ public class WechatClientTest {
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         String p12FilePath = "/zone/p12/1336236101.p12";
         WechatReverseOutput output = WechatClient.reverse(input,test_wechat_apikey,p12FilePath);
-
+        assertNotNull(output);
     }
 
     @Test
@@ -178,7 +175,7 @@ public class WechatClientTest {
         input.setOut_trade_no("20160902224757");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         CloseOrderOutput output = WechatClient.closeOrder(input,test_wechat_apikey);
-
+        assertNotNull(output);
     }
 
 
@@ -203,8 +200,8 @@ public class WechatClientTest {
         wr.setMerchant_remark("hanley20160827");
         wr.setMerchant_gbaddress("310105");
         wr.setMerchant_detailaddress("昭化路505号301室");
-        WechatClient.postMicroMch(wr,sp_wechat_apikey,p12FilePath);
-
+        MicroMchOutput output = WechatClient.postMicroMch(wr,sp_wechat_apikey,p12FilePath);
+        assertNotNull(output);
     }
 
     /***
@@ -220,7 +217,8 @@ public class WechatClientTest {
         wr2.setAppid(sp_wechat_appid);
         wr2.setMch_id(sp_wechat_mchid);
         wr2.setRecipient_wechatid("hanleytang");
-        WechatClient.queryMicroMch(wr2,sp_wechat_apikey,p12FilePath);
+        String result = WechatClient.queryMicroMch(wr2,sp_wechat_apikey,p12FilePath);
+        assertNotNull(result);
     }
 
 

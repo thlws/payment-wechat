@@ -1,6 +1,5 @@
 package org.thlws.payment.wechat;
 
-import junit.framework.TestCase;
 import org.thlws.payment.wechat.entity.output.OauthTokenOutput;
 import org.thlws.payment.wechat.entity.output.UserInfoOutput;
 import org.thlws.payment.wechat.portal.official.WechatOfficial;
@@ -8,11 +7,14 @@ import org.thlws.payment.wechat.portal.official.WechatOfficial;
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNotNull;
+
 /***
  * 微信公众号支付测试
  * Created by HanleyTang on 16/9/4.
  */
-public class WechatOfficialTest extends TestCase {
+public class WechatOfficialTest{
 
 
     /***
@@ -28,7 +30,8 @@ public class WechatOfficialTest extends TestCase {
         mapToken.put("code", code);
         mapToken.put("grant_type", "authorization_code");
         OauthTokenOutput output = WechatOfficial.obtainOauthAccessToken(mapToken);
-       // assertEquals(output.getAccess_token() != null, true);
+        System.out.println("openid="+output.getOpenid());
+        assertNotNull(output.getOpenid());
     }
 
     /***
@@ -41,7 +44,7 @@ public class WechatOfficialTest extends TestCase {
         mapToken.put("refresh_token", "填写通过access_token获取到的refresh_token参数");
         mapToken.put("grant_type", "refresh_token");
         OauthTokenOutput output = WechatOfficial.refreshOauthAccessToken(mapToken);
-        //assertEquals(output.getAccess_token() != null, true);
+       assertNotNull(output.getAccess_token());
     }
 
     /***
@@ -55,7 +58,7 @@ public class WechatOfficialTest extends TestCase {
         userInfoMap.put("openid", openId);
         userInfoMap.put("lang", "zh_CN");
         UserInfoOutput output = WechatOfficial.obtainUserInfo(userInfoMap);
-//        assertEquals(StringUtils.isNotEmpty(output.getOpenid()), true);
+        assertNotNull(output.getOpenid());
     }
 
     /**
@@ -67,7 +70,7 @@ public class WechatOfficialTest extends TestCase {
         String callback = "";
         String bizData = "";
         String url = WechatOfficial.generateWechatUrl(appId, scope, callback, bizData);
-        System.out.println(url);
+        assertNotNull(url);
     }
 
     /***
@@ -75,11 +78,12 @@ public class WechatOfficialTest extends TestCase {
      */
     public void test_IsvalidOauthToken() {
         Map<String, Object> mapToken = new HashMap<String, Object>();
-//       mapToken.put("access_token", access_token);
-//       mapToken.put("openid", "");
+        String access_token = "your token";
+        String open_id = "your openid";
+        mapToken.put("access_token", access_token);
+        mapToken.put("openid", "");
         boolean flag = WechatOfficial.IsvalidOauthAccessToken(mapToken);
-        System.out.println(flag);
-       // assertEquals(flag, true);
+        assertTrue(flag);
     }
 
 }
