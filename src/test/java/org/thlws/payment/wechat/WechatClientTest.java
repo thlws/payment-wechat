@@ -16,7 +16,9 @@ import static org.junit.Assert.assertNotNull;
 
 
 /**
- * 微信非公众号支付测试
+ * 微信非公众号支付测试<br>
+ * <h3>特别注意</h3>
+ * 项目中提供的微信测试账户，仅用于接口功能测试，请勿用作其他用途。
  * Created by HanleyTang on 16/9/4.
  */
 public class WechatClientTest {
@@ -67,7 +69,7 @@ public class WechatClientTest {
         String qrcode = output.getCode_url();
         assertNotNull(qrcode);
         //生成支付二维码，供用户扫码支付
-        ZxingUtil.qrCode(qrcode,"png","/zone/"+input.getOut_trade_no()+".png");
+        //ZxingUtil.qrCode(qrcode,"png","/zone/"+input.getOut_trade_no()+".png");
         //TODO 调用查询接口，检测用户是否完成支付
     }
 
@@ -180,7 +182,7 @@ public class WechatClientTest {
 
 
     /***
-     * 提交小微申请，暂未启用,未来可能移除
+     * 提交小微申请-个人微信号实现收款功能
      * 服务商模式下，申请个人微信收款码,该模式下每日有收款限额，并且不支持退款。
      */
     @Test
@@ -205,7 +207,7 @@ public class WechatClientTest {
     }
 
     /***
-     * 查询小微资料，暂未启用,未来可能移除
+     * 查询小微资料-查询个人微信收款资料
      * 服务商下查询个人收款账户
      */
     @Test

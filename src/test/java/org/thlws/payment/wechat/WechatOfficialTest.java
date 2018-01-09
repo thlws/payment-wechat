@@ -63,12 +63,17 @@ public class WechatOfficialTest{
 
     /**
      * 生成微信URL[包含回调地址]
+     * 生成URL后，引导用户点击，微信会向回调地址中返回code，可用于获取用户OpenId
      */
     public void test_BuildWechatURL() {
         String appId = "wx5f22a16d8c94dba4";
         String scope = "snsapi_base";
-        String callback = "";
-        String bizData = "";
+        /***
+         * 需在getcode.html中取得code参数
+         * <code>String code = request.getParameter("code");</code>
+         */
+        String callback = "http://www.thlws.com/wechat/callback/getcode.html";
+        String bizData = "";//对应微信state参数，微信会原样返回
         String url = WechatOfficial.generateWechatUrl(appId, scope, callback, bizData);
         assertNotNull(url);
     }
