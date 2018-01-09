@@ -1,6 +1,6 @@
 ## 项目介绍
 - payment是一系列基于Java实现的支付类库，包含支付宝、微信、翼支付等，其目的是以最简单的方式完成各种支付方式接入。
-- 目前各个支付类库各自独立，使用时需单独引用，详见“支付类库”各自主页说明，后续不排除对所有支付类库整体打包，请留意文档更新。
+- 目前支付类库各自独立，使用时需单独引用，详见“支付类库”各自主页说明，后续不排除对所有支付类库整体打包，请留意文档更新。
 
 ### 支付类库
 - [https://gitee.com/thlws/payment-alipay](https://gitee.com/thlws/payment-alipay)
@@ -8,20 +8,22 @@
 - [https://gitee.com/thlws/payment-bestpay](https://gitee.com/thlws/payment-bestpay)   
 
 ### 在线交流
-- QQ群:693169203  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=521df1fba7ef96db15c898e48feb26b6a82f6c2a60612154181b301febb30494"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="thlws" title="thlws"></a>
-- 邮箱:hanley@thlws.com   
+- 邮箱：hanley@thlws.com   
+- QQ群：693169203  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=521df1fba7ef96db15c898e48feb26b6a82f6c2a60612154181b301febb30494"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="thlws" title="thlws"></a>
 
-## 详细教程
+
+## 微信支付
+### 详细教程
 - 文档：[http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)   
 
 
-## 功能说明
+### 功能说明
 1. 用于微信支付，基于Java语言实现的依赖库；
 2. 接口参数全部封装，使用者仅需创建对象并设置参数；
 3. 项目极少依赖，接口简单清晰，日志详细且输出格式友好；
 4. 示例详细且简单易懂，文档全面，大大降低微信支付接入门槛；
 
-## 依赖安装
+### 依赖安装
 - Maven
 ```
 <dependency>
@@ -35,23 +37,23 @@
 compile 'org.thlws:payment-wechat:1.0.2'
 ```
 
-## 源码测试
+### 源码测试
 1. ```git clone https://github.com/thlws/payment-wechat.git```
 2. 导入到 Eclipse 或 Intellij IDEA
 3. 运行 Junit Class WechatClientTest (微信支付相关接口)
 4. 运行 Junit Class WechatOfficialTest （公众号开发相关接口）
 
-## 项目依赖
+### 项目依赖
 - [http://www.hutool.cn](http://www.hutool.cn)
 - [http://x-stream.github.io](http://x-stream.github.io)
 - [https://github.com/google/gson](https://github.com/google/gson)
 
-## 更新日志
+### 更新日志
 - v1.0.0 微信支付依赖库正式发布;
 - v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
 - v1.0.2 修正Junit测试,增加Javadoc注释内容;
 
-## FAQ
+### FAQ
 - 能不能直接 dependency 添加依赖?<br>
 _已发布至公有仓库，添加方式如上._
 
