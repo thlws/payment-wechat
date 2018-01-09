@@ -1,13 +1,20 @@
 ## 项目介绍
 - payment是一系列基于Java实现的支付类库，包含支付宝、微信、翼支付等，其目的是以最简单的方式完成各种支付方式接入。
+- 目前各个支付类库各自独立，使用时需分别单独引用，详见 《支付类库》各自主页说明，后续不排除对所有支付类库整体打包，请留意文档更新。
 
-## 支付类库
+### 支付类库
 - [https://gitee.com/thlws/payment-alipay](https://gitee.com/thlws/payment-alipay)
 - [https://gitee.com/thlws/payment-wechat](https://gitee.com/thlws/payment-wechat)
-- [https://gitee.com/thlws/payment-bestpay](https://gitee.com/thlws/payment-bestpay)
+- [https://gitee.com/thlws/payment-bestpay](https://gitee.com/thlws/payment-bestpay)   
+
+### 在线交流
+- 微信:hanleytang
+- QQ群:693169203
+- 邮箱:hanley@thlws.com   
 
 ## 详细教程
-- 文档：[http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)
+- 文档：[http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)   
+
 
 ## 功能说明
 1. 用于微信支付，基于Java语言实现的依赖库；
