@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import cn.hutool.core.bean.BeanUtil;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-import com.xiaoleilu.hutool.bean.BeanUtil;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 

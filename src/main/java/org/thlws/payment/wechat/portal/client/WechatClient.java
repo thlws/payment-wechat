@@ -1,8 +1,8 @@
 package org.thlws.payment.wechat.portal.client;
 
 import com.thoughtworks.xstream.XStream;
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import org.thlws.payment.wechat.api.WechatApi;
 import org.thlws.payment.wechat.core.WechatCore;
 import org.thlws.payment.wechat.entity.input.*;

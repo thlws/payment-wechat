@@ -1,8 +1,8 @@
 package org.thlws.payment.wechat;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
-import com.xiaoleilu.hutool.util.NetUtil;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
+import cn.hutool.core.util.NetUtil;
 import org.junit.Test;
 
 import org.thlws.payment.wechat.entity.input.*;
@@ -41,6 +41,10 @@ public class WechatClientTest {
     private static final String test_wechat_apikey="d24a3e612fca66ae28137de28916f875";
 
 
+    /***
+     * 扫码支付 & 公众支付 时必须调用该接口
+     * @throws Exception
+     */
     @Test
     public  void test_unifiedOrder() throws Exception{
 
@@ -75,7 +79,7 @@ public class WechatClientTest {
 
 
     /***
-     * 付款
+     * 微信付款，二维码刷卡支付
      */
     @Test
     public void test_pay(){

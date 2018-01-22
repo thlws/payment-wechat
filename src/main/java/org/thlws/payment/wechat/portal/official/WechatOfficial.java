@@ -3,8 +3,8 @@ package org.thlws.payment.wechat.portal.official;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 
 import org.thlws.payment.wechat.entity.output.*;
 import org.thlws.payment.wechat.api.WechatApi;

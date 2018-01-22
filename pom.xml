@@ -4,7 +4,7 @@
 
   <groupId>org.thlws</groupId>
   <artifactId>payment-wechat</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>payment-wechat</name>
@@ -15,7 +15,7 @@
     <version.xstream>1.4.10</version.xstream>
     <version.zxing>3.3.1</version.zxing>
     <version.gson>2.8.2</version.gson>
-    <version.hutool>3.2.3</version.hutool>
+    <version.hutool>4.0.1</version.hutool>
   </properties>
 
 
@@ -29,7 +29,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.xiaoleilu</groupId>
+      <groupId>cn.hutool</groupId>
       <artifactId>hutool-all</artifactId>
       <version>${version.hutool}</version>
     </dependency>
@@ -60,6 +60,22 @@
       <version>${version.zxing}</version>
     </dependency>
     <!-- Google libs end-->
+
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+      <scope>provided</scope>
+    </dependency>
+
+
 
   </dependencies>
 

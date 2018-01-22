@@ -29,12 +29,12 @@
 <dependency>
     <groupId>org.thlws</groupId>
     <artifactId>payment-wechat</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 - Gradle
 ```
-compile 'org.thlws:payment-wechat:1.0.2'
+compile 'org.thlws:payment-wechat:1.0.3'
 ```
 
 ### 源码测试
@@ -52,6 +52,7 @@ compile 'org.thlws:payment-wechat:1.0.2'
 - v1.0.0 微信支付依赖库正式发布;
 - v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
 - v1.0.2 修正Junit测试,增加Javadoc注释内容;
+- v1.0.3 新增公众号支付示例代码,升级依赖库hutool;
 
 ### FAQ
 - 能不能直接 dependency 添加依赖?<br>
@@ -72,4 +73,4 @@ _[微信收款（个人转账版）服务接口](https://gitee.com/thlws/payment
 
 
 ## 打赏一下
-![](imgs/award.png)
+![](imgs/award.jpg)

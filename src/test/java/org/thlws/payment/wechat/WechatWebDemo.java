@@ -21,11 +21,11 @@ import java.util.Map;
 
 /**
  * Created by HanleyTang on 2018/1/22
- *
+ * 请配合wechat_pay.jsp 参考公众号支付
  * @author Hanley[hanley@thlws.com]
  * @version 1.0
  */
-public class WechatWebTest {
+public class WechatWebDemo {
 
     private static final Log log = LogFactory.get();
 
@@ -36,7 +36,7 @@ public class WechatWebTest {
     private static final String test_wechat_apikey="d24a3e612fca66ae28137de28916f875";
 
 
-    /*此方法不用提供外部访问地址，跟进项目业务编码即可*/
+    /*此方法不用提供外部访问地址,根据项目业务编码即可*/
     public void build_wechat_url(){
         /*第一步，依据微信规则组装URL*/
         String scope = "snsapi_base";
@@ -65,7 +65,7 @@ public class WechatWebTest {
         codeMap.put("grant_type", "authorization_code");
         //得到openid及其token相关数据
         OauthTokenOutput oauthTokenOutput = WechatOfficial.obtainOauthAccessToken(codeMap);
-        //实际应用中，最好记录appid 与  openid 关系，无需每次获取
+        //实际应用中，最好记录appid 与 openid 关系，无需每次获取
         String openId = oauthTokenOutput.getOpenid();
 
 

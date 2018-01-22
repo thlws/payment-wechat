@@ -1,6 +1,6 @@
 package org.thlws.payment.wechat.entity.extra;
 
-import com.xiaoleilu.hutool.json.JSONUtil;
+import cn.hutool.json.JSONUtil;
 
 import java.util.HashMap;
 

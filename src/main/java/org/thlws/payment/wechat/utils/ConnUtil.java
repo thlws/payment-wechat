@@ -7,12 +7,12 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLSocketFactory;
 
-import com.xiaoleilu.hutool.http.HttpUtil;
-import com.xiaoleilu.hutool.http.Method;
-import com.xiaoleilu.hutool.http.ssl.SSLSocketFactoryBuilder;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.http.Method;
+import cn.hutool.http.ssl.SSLSocketFactoryBuilder;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import org.thlws.payment.wechat.config.WechatConfig;
 
 
@@ -139,7 +139,7 @@ public final class ConnUtil {
 			SSLSocketFactoryBuilder sslBuilder = SSLSocketFactoryBuilder.create();
 			SSLSocketFactory ssf = sslBuilder.setKeyManagers(keyManagers).build();
 
-			result = com.xiaoleilu.hutool.http.HttpRequest.post(url)
+			result = cn.hutool.http.HttpRequest.post(url)
 					.body(data, "text/xml;charset=UTF-8")
 					.setSSLSocketFactory(ssf)
 					.execute()

@@ -3,8 +3,8 @@ package org.thlws.payment.wechat.utils;
 import java.io.File;
 import java.util.Hashtable;
 
-import com.xiaoleilu.hutool.log.Log;
-import com.xiaoleilu.hutool.log.LogFactory;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
