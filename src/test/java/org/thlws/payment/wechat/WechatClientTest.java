@@ -60,7 +60,7 @@ public class WechatClientTest {
 
         /*open_id 与 sub_openid 择其一即可,具体传值方式以参数说明为准*/
         //input.setSub_openid("用户在sub_appid下用户标识");
-        String body = "好吃";
+        String body = "动态二维码支付测试";
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setBody(body);
         input.setOut_trade_no(System.currentTimeMillis()+"");
@@ -71,9 +71,9 @@ public class WechatClientTest {
 
         UnifiedOrderOutput output = WechatClient.unifiedorder(input,test_wechat_apikey);
         String qrcode = output.getCode_url();
-        assertNotNull(qrcode);
+//        assertNotNull(qrcode);
         //生成支付二维码，供用户扫码支付
-        //ZxingUtil.qrCode(qrcode,"png","/zone/"+input.getOut_trade_no()+".png");
+        ZxingUtil.qrCode(qrcode,"png","/zone/qrcode/"+input.getOut_trade_no()+".png");
         //TODO 调用查询接口，检测用户是否完成支付
     }
 
@@ -84,7 +84,7 @@ public class WechatClientTest {
     @Test
     public void test_pay(){
         log.info("微信下线[支付]测试开始-WechatClient.micropay");
-        String apiKey = "d24a3e612fca66ae28137de28916f875";
+        String apiKey = test_wechat_apikey;
         WechatPayInput input = new WechatPayInput();
         input.setAppid(test_wechat_appid);
         input.setMch_id(test_wechat_mchid);
@@ -93,10 +93,10 @@ public class WechatClientTest {
         //input.setSub_mch_id("1396726602");
 
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
-        input.setTotal_fee("1");
+        input.setTotal_fee("10");
         input.setAttach("00001025104487");
         input.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
-        input.setAuth_code("130241326448617032");
+        input.setAuth_code("134580077064244367");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setDevice_info("device...");
         input.setBody("pay test");
@@ -112,18 +112,20 @@ public class WechatClientTest {
     @Test
     public void test_refund(){
 
-        String p12FilePath = "/zone/p12/1386246702.p12";//
+        String p12FilePath = "/zone/p12/1336236101.p12";//
         log.info("微信[退款]测试开始-WechatClient.refund");
         WechatRefundInput data = new WechatRefundInput();
-        data.setSub_mch_id(sp_wechat_sub_mchid);//若为子商户退款需设置该参数
-        String apiKey = sp_wechat_apikey;
-        data.setAppid(sp_wechat_appid);
-        data.setMch_id(sp_wechat_mchid);
-        data.setTransaction_id("4200000047201711185443296984");
-        data.setOut_trade_no("1000012911510984242025");
+        //data.setSub_mch_id(sp_wechat_sub_mchid);//若为子商户退款需设置该参数
+//        data.setSub_mch_id("1490071962");//若为子商户退款需设置该参数
+
+        String apiKey = test_wechat_apikey;
+        data.setAppid(test_wechat_appid);
+        data.setMch_id(test_wechat_mchid);
+//        data.setTransaction_id("4200000047201711185443296984");
+        data.setOut_trade_no("ldk9ma68zetembtuq2a6ptwozsklzlie");
         data.setOut_refund_no(ThlwsBeanUtil.getRandomString(24));
-        data.setTotal_fee("3200");
-        data.setRefund_fee("3200");
+        data.setTotal_fee("10");
+        data.setRefund_fee("5");
         data.setNonce_str(ThlwsBeanUtil.getRandomString(32));
 
         WechatRefundOutput output = WechatClient.refund(data,apiKey,p12FilePath);
