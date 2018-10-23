@@ -20,8 +20,8 @@
 
 
 ### 在线文档
-- [http://payment-wechat.mydoc.io/](http://payment-wechat.mydoc.io/)   
-
+- [ 使用手册 ](http://payment-wechat.mydoc.io/)   
+- [ API 文档 ](https://apidoc.gitee.com/thlws/payment-wechat)
 
 ### 在线交流
 - 邮箱：hanley@thlws.com 
