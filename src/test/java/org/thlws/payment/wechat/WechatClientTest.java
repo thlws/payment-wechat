@@ -230,5 +230,17 @@ public class WechatClientTest {
     }
 
 
+    @Test
+    public void test_openidQuery(){
+
+        OpenidQueryInput input = new OpenidQueryInput();
+        input.setAppid(test_wechat_appid);
+        input.setMch_id(test_wechat_mchid);
+        input.setAuth_code("134599863674410654");
+        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+
+        OpenidQueryOutput output = WechatClient.openidQuery(input, test_wechat_apikey);
+        assertNotNull(output);
+    }
 
 }

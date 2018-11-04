@@ -112,8 +112,8 @@ public class WechatClient implements WechatApi {
 	}
 
 	/**
-	 * Refund wechat refund output.
-	 *
+	 * 微信退款
+	 * {@link WechatCore#refund}
 	 * @param data        the data
 	 * @param apiKey      the api key
 	 * @param p12FilePath the p 12 file path
@@ -126,8 +126,8 @@ public class WechatClient implements WechatApi {
 	}
 
 	/**
-	 * Reverse wechat reverse output.
-	 *
+	 * 支付撤销.
+	 * {@link WechatCore#reverse}
 	 * @param data        the data
 	 * @param apiKey      the api key
 	 * @param p12FilePath the p 12 file path
@@ -139,8 +139,8 @@ public class WechatClient implements WechatApi {
 
 
 	/**
-	 * Micropay wechat pay output.
-	 *
+	 * 刷卡支付.
+	 * {@link WechatCore#micropay}
 	 * @param input  the input
 	 * @param apiKey the api key
 	 * @return the wechat pay output
@@ -150,8 +150,8 @@ public class WechatClient implements WechatApi {
 	}
 
 	/**
-	 * Order query order query output.
-	 *
+	 * 支付查询.
+	 * {@link WechatCore#orderQuery}
 	 * @param input  the input
 	 * @param apiKey the api key
 	 * @return the order query output
@@ -161,8 +161,8 @@ public class WechatClient implements WechatApi {
 	}
 
 	/**
-	 * Close order close order output.
-	 *
+	 * 订单关闭.
+	 * {@link WechatCore#closeOrder}
 	 * @param input  the input
 	 * @param apiKey the api key
 	 * @return the close order output
@@ -170,6 +170,16 @@ public class WechatClient implements WechatApi {
 	public static CloseOrderOutput closeOrder(CloseOrderInput input,String apiKey){
 		return WechatCore.closeOrder(input,apiKey);
 	}
-	
 
+
+	/**
+	 * 查询OpenId.
+	 * {@link WechatCore#openidQuery}
+	 * @param data   the data
+	 * @param apiKey the api key
+	 * @return the openid query output
+	 */
+	public static OpenidQueryOutput openidQuery(OpenidQueryInput data,String apiKey){
+		return WechatCore.openidQuery(data,apiKey);
+	}
 }

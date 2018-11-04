@@ -1,7 +1,7 @@
 微信支付
 ============
-[![](https://img.shields.io/badge/release-v1.0.3-blue.svg)](https://github.com/thlws/payment-wechat)   [![](https://img.shields.io/badge/license-Apache--2-yellowgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![](https://img.shields.io/badge/maven%20central-v1.0.3-brightgreen.svg)](https://search.maven.org/artifact/org.thlws/payment-wechat/1.0.3/jar) 
-
+[![](https://img.shields.io/badge/release-v1.0.4-green.svg)](https://github.com/thlws/payment-wechat)   [![](https://img.shields.io/badge/license-Apache--2-yellowgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![](https://img.shields.io/badge/maven%20central-v1.0.4-blue.svg)](https://search.maven.org/artifact/org.thlws/payment-wechat/1.0.4/jar) 
+[![](https://img.shields.io/badge/jdk-1.7%2B-red.svg)](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 > 基于Java实现的 微信支付 依赖库。
 
 ### 功能说明
@@ -16,6 +16,7 @@
 - v1.0.1 新增公众号支付时,token 和 open_id 获取接口;
 - v1.0.2 修正Junit测试,增加Javadoc注释内容;
 - v1.0.3 新增公众号支付示例代码,升级依赖库hutool;
+- v1.0.4 依赖更新,新增授权码查询 openid 接口;
 
 
 
@@ -35,12 +36,12 @@
 <dependency>
     <groupId>org.thlws</groupId>
     <artifactId>payment-wechat</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 - Gradle
 ```
-compile 'org.thlws:payment-wechat:1.0.3'
+compile 'org.thlws:payment-wechat:1.0.4'
 ```
 
 

@@ -68,6 +68,13 @@ public interface WechatApi {
 	 */
 	String pay_orderquery = "https://api.mch.weixin.qq.com/pay/orderquery";
 
+
+	/**
+	 * 微信用户openid查询
+	 */
+	String pay_openidquery = " https://api.mch.weixin.qq.com/tools/authcodetoopenid";
+
+
 	/**
 	 * 撤销订单,需使用p12证书
 	 */

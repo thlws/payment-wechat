@@ -237,4 +237,32 @@ public class WechatCore implements WechatApi{
         return output;
     }
 
+    /**
+     * 根据用户支付码查询用户在该账户的openid.
+     * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_13&index=10">授权码查询openid</a>
+     * @param data   data 支付参数对象 {@link OpenidQueryInput}
+     * @param apiKey 微信API秘钥
+     * @return 查询结果对象 {@link OpenidQueryOutput}
+     */
+    public static OpenidQueryOutput openidQuery(OpenidQueryInput data,String apiKey){
+
+        OpenidQueryOutput output = null;
+
+        try {
+            Object input = WechatUtil.buildRequest(data,OpenidQueryInput.class,apiKey);
+            XStream xStream = XStreamCreator.create(OpenidQueryInput.class);
+            String xml = xStream.toXML(input);
+            log.info("查询用户openid[openidQuery]->xmlRequest:\n {}",xml);
+
+            String xmlResponse = ConnUtil.connRemoteWithXml(xml,pay_openidquery);
+            log.info("查询用户openid[openidQuery]->response xmlResponse:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(OpenidQueryOutput.class);
+            output = (OpenidQueryOutput) xStreamOut.fromXML(xmlResponse);
+        } catch (Exception e) {
+            log.error("查询用户oepnid失败:{}",e.getMessage());
+        }
+
+        return output;
+    }
+
 }
