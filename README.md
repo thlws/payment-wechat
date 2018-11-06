@@ -46,8 +46,12 @@ compile 'org.thlws:payment-wechat:1.0.4'
 
 
 ### 全部支付
-<b style="color:red">payment-*</b> 是一系列基于Java实现的支付类库，包含支付宝、微信、翼支付等，其目的是以最简单的方式完成各种支付方式接入。
-目前支付类库各自独立，使用时需单独引用，详见“支付类库”各自主页说明，后续不排除对所有支付类库整体打包，请留意文档更新。
+<b style="color:red">payment-*</b> 是一系列基于Java实现的支付类库，包含支付宝、微信、翼支付等，其目的是以最简单的方式完成各种支付方式接入。目前支付类库各自独立，使用时需单独引用，详见“支付类库”各自主页说明，后续不排除对所有支付类库整体打包，请留意文档更新。另源码会同时push到gitee&github,可能的话帮忙start下，感谢。
+#### Gitee
 - [https://gitee.com/thlws/payment-alipay](https://gitee.com/thlws/payment-alipay)
 - [https://gitee.com/thlws/payment-wechat](https://gitee.com/thlws/payment-wechat)
 - [https://gitee.com/thlws/payment-bestpay](https://gitee.com/thlws/payment-bestpay)   
+#### Github
+- [https://github.com/thlws/payment-alipay](https://github.com/thlws/payment-alipay)
+- [https://github.com/thlws/payment-wechat](https://github.com/thlws/payment-wechat)
+- [https://github.com/thlws/payment-bestpay](https://github.com/thlws/payment-bestpay)   
