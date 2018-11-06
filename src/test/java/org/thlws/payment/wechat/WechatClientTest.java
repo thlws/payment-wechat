@@ -26,12 +26,12 @@ public class WechatClientTest {
     private static final Log log = LogFactory.get();
 
     /**服务商[下属含子商户].微信配置 sp = service provider */
-    private static final String sp_wechat_appid= "wxc475c2bd2958388e";
-    private static final String sp_wechat_appsecret="f02f5eecfed86f8a3cf753697fbf3246";
-    private static final String sp_wechat_mchid="1386246702";
-    private static final String sp_wechat_apikey="f02f5eecfed86f8a3cf753697fbf3246";
-    private static final String sp_wechat_sub_mchid="1490071962";//1490071962   1396726602
-    private static final String sp_wechat_openid="ou9z1v4CQEJLqbIikJr7UxPmIvYQ";
+//    private static final String sp_wechat_appid= "wxc475c2bd2958388e";
+//    private static final String sp_wechat_appsecret="f02f5eecfed86f8a3cf753697fbf3246";
+//    private static final String sp_wechat_mchid="1386246702";
+//    private static final String sp_wechat_apikey="f02f5eecfed86f8a3cf753697fbf3246";
+//    private static final String sp_wechat_sub_mchid="1490071962";//1490071962   1396726602
+//    private static final String sp_wechat_openid="ou9z1v4CQEJLqbIikJr7UxPmIvYQ";
 
 
     /*普通商户*/
@@ -39,6 +39,20 @@ public class WechatClientTest {
     private static final String test_wechat_appsecret="d24a3e612fca66ae28137de28916f875";
     private static final String test_wechat_mchid="1336236101";
     private static final String test_wechat_apikey="d24a3e612fca66ae28137de28916f875";
+
+
+    private static final String sp_wechat_appid= "wxa3f3406c0b04a601";
+    private static final String sp_wechat_appsecret="04303a8acc9786ddac6458d401ca764f";
+    private static final String sp_wechat_mchid="1511132631";
+    private static final String sp_wechat_apikey="04303a8acc9786ddac6458d401ca764f";
+    private static final String sp_wechat_sub_mchid="1517927831";//1490071962   1396726602
+//    private static final String sp_wechat_openid="ou9z1v4CQEJLqbIikJr7UxPmIvYQ";
+
+//1258 679f5770ab7800faef5663e160e5a510
+//    private static final String test_wechat_appid= "wx2aea382951e33ca4";
+//    private static final String test_wechat_appsecret="d55fc95fa77868bc1ca9f447f8872eb2";
+//    private static final String test_wechat_mchid="1297038501";
+//    private static final String test_wechat_apikey="679f5770ab7800faef5663e160e5a510";
 
 
     /***
@@ -90,13 +104,13 @@ public class WechatClientTest {
         input.setMch_id(test_wechat_mchid);
 
         /*普通模式无需设置,子商户需设置子商户号*/
-        //input.setSub_mch_id("1396726602");
+//        input.setSub_mch_id(sp_wechat_sub_mchid);
 
         input.setSpbill_create_ip(NetUtil.getLocalhostStr());
-        input.setTotal_fee("10");
+        input.setTotal_fee("1");
         input.setAttach("00001025104487");
         input.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
-        input.setAuth_code("134580077064244367");
+        input.setAuth_code("134594349892009342");
         input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setDevice_info("device...");
         input.setBody("pay test");
@@ -199,12 +213,12 @@ public class WechatClientTest {
         MicroMchInput wr = new MicroMchInput();
         wr.setAppid(sp_wechat_appid);
         wr.setMch_id(sp_wechat_mchid);
-        wr.setMerchant_name("翰林美食铺");
+        wr.setMerchant_name("THLWS");
         wr.setMerchant_shortname("Hanley");
         wr.setRecipient_name("汤翰林");
         wr.setRecipient_idcardno("511381198710080079");
         wr.setRecipient_wechatid("hanleytang");
-        wr.setBusiness("食品");
+        wr.setBusiness("收款");
         wr.setMerchant_remark("hanley20160827");
         wr.setMerchant_gbaddress("310105");
         wr.setMerchant_detailaddress("昭化路505号301室");
