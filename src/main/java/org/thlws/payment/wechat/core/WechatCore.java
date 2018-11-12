@@ -4,8 +4,8 @@ import com.thoughtworks.xstream.XStream;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import org.thlws.payment.wechat.api.WechatApi;
-import org.thlws.payment.wechat.entity.input.*;
-import org.thlws.payment.wechat.entity.output.*;
+import org.thlws.payment.wechat.entity.request.*;
+import org.thlws.payment.wechat.entity.response.*;
 import org.thlws.payment.wechat.extra.xml.XStreamCreator;
 import org.thlws.payment.wechat.utils.ConnUtil;
 import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
@@ -27,29 +27,30 @@ public class WechatCore implements WechatApi{
      * 微信统一下单，同时支援扫码支付统一下单 和 微信公众号统一下单 <br>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1</a>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_1">https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_1</a>
-     * @param data   统一下单参数对象 {@link UnifiedOrderInput}
+     * @param request   统一下单参数对象 {@link UnifiedOrderRequest}
      * @param apiKey 微信API秘钥
-     * @return  统一下单结果对象 {@link UnifiedOrderOutput}
+     * @return  统一下单结果对象 {@link UnifiedOrderResponse}
      */
-    public static UnifiedOrderOutput unifiedorder(UnifiedOrderInput data, String apiKey){
+    public static UnifiedOrderResponse unifiedorder(UnifiedOrderRequest request, String apiKey) throws  Exception{
 
-        UnifiedOrderOutput output = null;
+        UnifiedOrderResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,UnifiedOrderInput.class,apiKey);
-            XStream xStream =  XStreamCreator.create(UnifiedOrderInput.class);
+            Object input = WechatUtil.buildRequest(request, UnifiedOrderRequest.class,apiKey);
+            XStream xStream =  XStreamCreator.create(UnifiedOrderRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信统一下单请求数据[unifiedorder]->xmlRequest:\n {}",xml);
+            log.debug("微信统一下单请求数据[unifiedorder]->xmlRequest:\n {}",xml);
 
             String xmlResponse = ConnUtil.connRemoteWithXml(xml,pay_unifiedorder);
-            log.info("微信统一下单返回数据[unifiedorder]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(UnifiedOrderOutput.class);
-            output = (UnifiedOrderOutput) xStreamOut.fromXML(xmlResponse);
+            log.debug("微信统一下单返回数据[unifiedorder]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(UnifiedOrderResponse.class);
+            response = (UnifiedOrderResponse) xStreamOut.fromXML(xmlResponse);
         } catch (Exception e) {
-            log.info("微信统一下单[unifiedorder]失败:{}",e.getMessage());
+            log.error(e);
+            throw e;
         }
 
-        return output;
+        return response;
 
     }
 
@@ -65,30 +66,31 @@ public class WechatCore implements WechatApi{
      * </ol>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_4">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_4</a>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_4">https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_4</a>
-     * @param data        退款参数对象 {@link WechatRefundInput}
+     * @param request        退款参数对象 {@link WechatRefundRequest}
      * @param apiKey      微信API秘钥
      * @param p12FilePath 微信p12文件路径
-     * @return 微信退款结果对象 {@link WechatRefundOutput}
+     * @return 微信退款结果对象 {@link WechatRefundResponse}
      */
-    public static WechatRefundOutput refund(WechatRefundInput data, String apiKey, String p12FilePath){
+    public static WechatRefundResponse refund(WechatRefundRequest request, String apiKey, String p12FilePath) throws  Exception{
 
-        WechatRefundOutput output = null;
+        WechatRefundResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,WechatRefundInput.class,apiKey);
-            XStream xStream = XStreamCreator.create(WechatRefundInput.class);
+            Object input = WechatUtil.buildRequest(request, WechatRefundRequest.class,apiKey);
+            XStream xStream = XStreamCreator.create(WechatRefundRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信退款请求数据[refund]->xmlRequest:\n {}",xml);
+            log.debug("微信退款请求数据[refund]->xmlRequest:\n {}",xml);
 
-            String xmlResponse = ConnUtil.encryptPost(xml, pay_refund, data.getMch_id(), p12FilePath);
-            log.info("微信退款响应数据[refund]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(WechatRefundOutput.class);
-            output = (WechatRefundOutput) xStreamOut.fromXML(xmlResponse);
+            String xmlResponse = ConnUtil.encryptPost(xml, pay_refund, request.getMch_id(), p12FilePath);
+            log.debug("微信退款响应数据[refund]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(WechatRefundResponse.class);
+            response = (WechatRefundResponse) xStreamOut.fromXML(xmlResponse);
 
         } catch (Exception e) {
-            log.error("微信退款[refund]失败:{}",e.getMessage());
+            log.error(e);
+            throw  e;
         }
-        return output;
+        return response;
 
     }
 
@@ -107,29 +109,30 @@ public class WechatCore implements WechatApi{
      *
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_2">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_2</a>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_2">https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_2</a>
-     * @param data  查询参数对象 {@link OrderQueryInput}
+     * @param request  查询参数对象 {@link OrderQueryRequest}
      * @param apiKey API秘钥
-     * @return 订单查询结果对象 {@link OrderQueryOutput}
+     * @return 订单查询结果对象 {@link OrderQueryResponse}
      */
-    public static OrderQueryOutput orderQuery(OrderQueryInput data, String apiKey){
+    public static OrderQueryResponse orderQuery(OrderQueryRequest request, String apiKey) throws  Exception{
 
-        OrderQueryOutput output = null;
+        OrderQueryResponse response = null;
 
         try {
-            Object input = WechatUtil.buildRequest(data,OrderQueryInput.class,apiKey);
-            XStream xStream =  XStreamCreator.create(OrderQueryInput.class);
+            Object input = WechatUtil.buildRequest(request, OrderQueryRequest.class,apiKey);
+            XStream xStream =  XStreamCreator.create(OrderQueryRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信订单查询请求数据[orderQuery]->xmlRequest:\n {}",xml);
+            log.debug("微信订单查询请求数据[orderQuery]->xmlRequest:\n {}",xml);
 
             String xmlResponse = ConnUtil.connRemoteWithXml(xml,pay_orderquery);
-            log.info("微信订单查询响应数据[orderQuery]->response xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut =  XStreamCreator.create(OrderQueryOutput.class);
-            output = (OrderQueryOutput) xStreamOut.fromXML(xmlResponse);
-        } catch (Exception e) {
-           log.error("微信订单查询失败:{}",e.getMessage());
+            log.debug("微信订单查询响应数据[orderQuery]->response xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut =  XStreamCreator.create(OrderQueryResponse.class);
+            response = (OrderQueryResponse) xStreamOut.fromXML(xmlResponse);
+        } catch (Exception e) { 
+            log.error(e);
+            throw e;
         }
 
-        return  output;
+        return  response;
     }
 
 
@@ -141,30 +144,31 @@ public class WechatCore implements WechatApi{
      * <p>7天以内的交易单可调用撤销，其他正常支付的单如需实现相同功能请调用申请退款API。提交支付交易后调用【查询订单API】，  没有明确的支付结果再调用【撤销订单API】</p>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_11&index=3">普通商户撤销接口</a>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay_sl.php?chapter=9_11&index=3">服务商撤销接口</a>
-     * @param data        撤销参数对象 {@link WechatReverseInput}
+     * @param request        撤销参数对象 {@link WechatReverseRequest}
      * @param apiKey      API秘钥
      * @param p12FilePath p12文件路径
-     * @return 撤销结果对象 {@link WechatReverseOutput}
+     * @return 撤销结果对象 {@link WechatReverseResponse}
      */
-    public static WechatReverseOutput reverse(WechatReverseInput data, String apiKey, String p12FilePath){
+    public static WechatReverseResponse reverse(WechatReverseRequest request, String apiKey, String p12FilePath) throws  Exception{
 
-        WechatReverseOutput output = null;
+        WechatReverseResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,WechatReverseInput.class,apiKey);
-            XStream xStream = XStreamCreator.create(WechatReverseInput.class);
+            Object input = WechatUtil.buildRequest(request, WechatReverseRequest.class,apiKey);
+            XStream xStream = XStreamCreator.create(WechatReverseRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信撤销订单请求数据[reverse]->xmlRequest:\n {}",xml);
+            log.debug("微信撤销订单请求数据[reverse]->xmlRequest:\n {}",xml);
 
-            String xmlResponse = ConnUtil.encryptPost(xml, pay_reverse, data.getMch_id(), p12FilePath);
-            log.info("微信撤销订单响应数据[reverse]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(WechatReverseOutput.class);
-            output = (WechatReverseOutput) xStreamOut.fromXML(xmlResponse);
+            String xmlResponse = ConnUtil.encryptPost(xml, pay_reverse, request.getMch_id(), p12FilePath);
+            log.debug("微信撤销订单响应数据[reverse]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(WechatReverseResponse.class);
+            response = (WechatReverseResponse) xStreamOut.fromXML(xmlResponse);
 
         } catch (Exception e) {
-            log.error("微信撤销订单[reverse]失败:{}",e.getMessage());
+            log.error(e);
+            throw e;
         }
-        return output;
+        return response;
 
     }
 
@@ -174,30 +178,31 @@ public class WechatCore implements WechatApi{
      * <span style="color:red;">订单生成后不能马上调用关单接口，最短调用时间间隔为5分钟。</span>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_3">普通商户关闭订单接口</a> <br>
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/native_sl.php?chapter=9_3">服务商关闭订单接口</a>
-     * @param data   参数对象 {@link CloseOrderInput}
+     * @param request   参数对象 {@link CloseOrderRequest}
      * @param apiKey 微信API秘钥
-     * @return 订单关闭结果对象 {@link CloseOrderOutput}
+     * @return 订单关闭结果对象 {@link CloseOrderResponse}
      */
-    public static CloseOrderOutput closeOrder(CloseOrderInput data, String apiKey){
+    public static CloseOrderResponse closeOrder(CloseOrderRequest request, String apiKey) throws  Exception{
 
-        CloseOrderOutput output = null;
+        CloseOrderResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,CloseOrderInput.class,apiKey);
-            XStream xStream = XStreamCreator.create(CloseOrderInput.class);
+            Object input = WechatUtil.buildRequest(request, CloseOrderRequest.class,apiKey);
+            XStream xStream = XStreamCreator.create(CloseOrderRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信关闭订单请求数据[closeOrder]->xmlRequest:\n {}",xml);
+            log.debug("微信关闭订单请求数据[closeOrder]->xmlRequest:\n {}",xml);
 
             String xmlResponse = ConnUtil.connRemoteWithXml(xml,close_order);
 
-            log.info("微信关闭订单响应数据[closeOrder]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(CloseOrderOutput.class);
-            output = (CloseOrderOutput) xStreamOut.fromXML(xmlResponse);
+            log.debug("微信关闭订单响应数据[closeOrder]->xmlResponse:\n {}",ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(CloseOrderResponse.class);
+            response = (CloseOrderResponse) xStreamOut.fromXML(xmlResponse);
 
         } catch (Exception e) {
-            log.error("微信关闭订单[closeOrder]失败:{}",e.getMessage());
+            log.error(e);
+            throw e;
         }
-        return output;
+        return response;
     }
 
 
@@ -212,57 +217,59 @@ public class WechatCore implements WechatApi{
      *     <li>提交支付请求后微信会同步返回支付结果。当返回结果为“系统错误”时，商户系统等待5秒后调用【查询订单API】，查询支付实际交易结果；当返回结果为“USERPAYING”时，商户系统可设置间隔时间(建议10秒)重新查询支付结果，直到支付成功或超时(建议30秒)；</li>
      *     <li>在调用查询接口返回后，如果交易状况不明晰，请调用【撤销订单API】，此时如果交易失败则关闭订单，该单不能再支付成功；如果交易成功，则将扣款退回到用户账户。当撤销无返回或错误时，请再次调用。注意：请勿扣款后立即调用【撤销订单API】,建议至少15秒后再调用。撤销订单API需要双向证书。</li>
      * </ol>
-     * @param data 支付参数对象 {@link WechatPayInput}
+     * @param request 支付参数对象 {@link WechatPayRequest}
      * @param apiKey 微信API秘钥
-     * @return 支付结果对象 {@link WechatPayOutput}
+     * @return 支付结果对象 {@link WechatPayResponse}
      */
-    public static WechatPayOutput micropay(WechatPayInput data, String apiKey){
+    public static WechatPayResponse micropay(WechatPayRequest request, String apiKey) throws  Exception{
 
-        WechatPayOutput output = null;
+        WechatPayResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,WechatPayInput.class,apiKey);
-            XStream xStream = XStreamCreator.create(WechatPayInput.class);
+            Object input = WechatUtil.buildRequest(request, WechatPayRequest.class,apiKey);
+            XStream xStream = XStreamCreator.create(WechatPayRequest.class);
             String xml = xStream.toXML(input);
-            log.info("微信支付请求数据[micropay]->xmlRequest:\n {}",xml);
+            log.debug("微信支付请求数据[micropay]->xmlRequest:\n {}",xml);
 
             String xmlResponse = ConnUtil.connRemoteWithXml(xml,pay_micropay);
-            log.info("微信支付响应数据[micropay]->response xmlResponse:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(WechatPayOutput.class);
-            output = (WechatPayOutput) xStreamOut.fromXML(xmlResponse);
+            log.debug("微信支付响应数据[micropay]->response xmlResponse:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(WechatPayResponse.class);
+            response = (WechatPayResponse) xStreamOut.fromXML(xmlResponse);
         } catch (Exception e) {
-            log.error("微信线下支付失败:{}",e.getMessage());
+            log.error(e);
+            throw e;
         }
 
-        return output;
+        return response;
     }
 
     /**
      * 根据用户支付码查询用户在该账户的openid.
      * @see <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_13&index=10">授权码查询openid</a>
-     * @param data   data 支付参数对象 {@link OpenidQueryInput}
+     * @param request   data 支付参数对象 {@link OpenidQueryRequest}
      * @param apiKey 微信API秘钥
-     * @return 查询结果对象 {@link OpenidQueryOutput}
+     * @return 查询结果对象 {@link OpenidQueryResponse}
      */
-    public static OpenidQueryOutput openidQuery(OpenidQueryInput data,String apiKey){
+    public static OpenidQueryResponse openidQuery(OpenidQueryRequest request, String apiKey) throws  Exception{
 
-        OpenidQueryOutput output = null;
+        OpenidQueryResponse response;
 
         try {
-            Object input = WechatUtil.buildRequest(data,OpenidQueryInput.class,apiKey);
-            XStream xStream = XStreamCreator.create(OpenidQueryInput.class);
+            Object input = WechatUtil.buildRequest(request, OpenidQueryRequest.class,apiKey);
+            XStream xStream = XStreamCreator.create(OpenidQueryRequest.class);
             String xml = xStream.toXML(input);
-            log.info("查询用户openid[openidQuery]->xmlRequest:\n {}",xml);
+            log.debug("查询用户openid[openidQuery]->xmlRequest:\n {}",xml);
 
             String xmlResponse = ConnUtil.connRemoteWithXml(xml,pay_openidquery);
-            log.info("查询用户openid[openidQuery]->response xmlResponse:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
-            XStream xStreamOut = XStreamCreator.create(OpenidQueryOutput.class);
-            output = (OpenidQueryOutput) xStreamOut.fromXML(xmlResponse);
+            log.debug("查询用户openid[openidQuery]->response xmlResponse:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
+            XStream xStreamOut = XStreamCreator.create(OpenidQueryResponse.class);
+            response = (OpenidQueryResponse) xStreamOut.fromXML(xmlResponse);
         } catch (Exception e) {
-            log.error("查询用户oepnid失败:{}",e.getMessage());
+            log.error(e);
+            throw e;
         }
 
-        return output;
+        return response;
     }
 
 }

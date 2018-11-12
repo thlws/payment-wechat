@@ -1,6 +1,8 @@
 package org.thlws.payment.wechat.entity.extra;
 
 import cn.hutool.json.JSONUtil;
+import org.thlws.payment.wechat.entity.request.UnifiedOrderRequest;
+import org.thlws.payment.wechat.entity.request.WechatPayRequest;
 
 import java.util.HashMap;
 
@@ -103,8 +105,8 @@ public class WStoreInfo{
 
     /**
      * 创建场景JSON数据,完成创建后，请将结果赋值给 scene_info
-     * {@link org.thlws.payment.wechat.entity.input.WechatPayInput#scene_info}
-     * {@link org.thlws.payment.wechat.entity.input.UnifiedOrderInput#scene_info}
+     * {@link WechatPayRequest#scene_info}
+     * {@link UnifiedOrderRequest#scene_info}
      * @param id        the id 门店唯一编号
      * @param name      the name 门店名称
      * @param area_code the area code 区域编码
