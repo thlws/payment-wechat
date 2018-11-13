@@ -1,13 +1,11 @@
 package org.thlws.payment.wechat.client;
 
-import com.thoughtworks.xstream.XStream;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import org.thlws.payment.wechat.api.WechatApi;
 import org.thlws.payment.wechat.core.WechatCore;
 import org.thlws.payment.wechat.entity.request.*;
 import org.thlws.payment.wechat.entity.response.*;
-import org.thlws.payment.wechat.extra.xml.XStreamCreator;
 import org.thlws.payment.wechat.utils.ConnUtil;
 import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
 import org.thlws.payment.wechat.utils.WechatUtil;
@@ -36,32 +34,23 @@ public class WechatPayClient implements WechatApi {
 	 * @return the micro mch response
 	 */
 	public static MicroMchResponse postMicroMch(MicroMchRequest request, String apiKey, String p12FilePath) throws  Exception{
-		MicroMchResponse resp = null;
+		MicroMchResponse response = null;
 		try {
-			Map<String, Object> mapData = ThlwsBeanUtil.ObjectToMap(request);
-			mapData = ThlwsBeanUtil.dataFilter(mapData);
-			String sign = WechatUtil.sign(mapData,apiKey);
-			mapData.put("sign", sign);
-			MicroMchRequest xwr = (MicroMchRequest) ThlwsBeanUtil.mapToObject(mapData, MicroMchRequest.class);
 
-			String nonceStr = ThlwsBeanUtil.getRandomString(32);//随机生成32为的字符串
-			xwr.setNonce_str(nonceStr);
-
-			XStream xStream = XStreamCreator.create(MicroMchRequest.class);
-			String xml = xStream.toXML(xwr);
+			String xml = WechatUtil.buildXmlRequest(request, MicroMchRequest.class,apiKey);
 			log.debug("申请小微收款识别码 [submchmanage] xml request:\n {}",xml);
 
 			//p12FilePath = "/zone/1.p12";
-			String xmlResp = ConnUtil.encryptPost(xml, micro_mch_add, request.getMch_id(), p12FilePath);
-			log.debug("申请小微收款识别码 [submchmanage] xml response:\n {}", ThlwsBeanUtil.formatXml(xmlResp));
-			XStream xStreamOut = XStreamCreator.create( MicroMchResponse.class);
-			resp = (MicroMchResponse) xStreamOut.fromXML(xmlResp);
+			String xmlResponse = ConnUtil.encryptPost(xml, micro_mch_add, request.getMchId(), p12FilePath);
+			log.debug("申请小微收款识别码 [submchmanage] xml response:\n {}", ThlwsBeanUtil.formatXml(xmlResponse));
+			response = ThlwsBeanUtil.xmlToBean(xmlResponse,MicroMchResponse.class);
+
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
 		}
 
-		return resp;
+		return response;
 
 	}
 
@@ -75,28 +64,22 @@ public class WechatPayClient implements WechatApi {
 	 * @return string
 	 * @author HanleyTang
 	 */
-	public static String queryMicroMch(MicroMchRequest request, String apiKey, String p12FilePath) throws  Exception{
+	public static MicroMchResponse queryMicroMch(MicroMchRequest request, String apiKey, String p12FilePath) throws  Exception{
 
-		String result = "";
+		MicroMchResponse response;
 		try {
-			Map<String, Object> mapData = ThlwsBeanUtil.ObjectToMap(request);
-			mapData = ThlwsBeanUtil.dataFilter(mapData);
-			String sign = WechatUtil.sign(mapData,apiKey);
-			mapData.put("sign", sign);
-			MicroMchRequest xwr = (MicroMchRequest) ThlwsBeanUtil.mapToObject(mapData, MicroMchRequest.class);
-			xwr.setNonce_str(ThlwsBeanUtil.getRandomString(32));
 
-			XStream xStream = XStreamCreator.create(MicroMchRequest.class);
-			String xml = xStream.toXML(xwr);
+			String xml = WechatUtil.buildXmlRequest(request, MicroMchRequest.class,apiKey);
 			log.debug("查询小微收款人资料[submchmanage?action=query] xml request:\n {}",xml);
 
-			result =ConnUtil.encryptPost(xml, micro_mch_qry, request.getMch_id(), p12FilePath);
-			log.debug("查询小微收款人资料[submchmanage?action=query] xml response:\n {}",result);
+			String xmlResponse =ConnUtil.encryptPost(xml, micro_mch_qry, request.getMchId(), p12FilePath);
+			log.debug("查询小微收款人资料[submchmanage?action=query] xml response:\n {}",xmlResponse);
+			response = ThlwsBeanUtil.xmlToBean(xmlResponse,MicroMchResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
 		}
-		return result;
+		return response;
 
 	}
 

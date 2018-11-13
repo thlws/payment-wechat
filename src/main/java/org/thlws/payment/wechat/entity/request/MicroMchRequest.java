@@ -1,6 +1,12 @@
 package org.thlws.payment.wechat.entity.request;
 
 import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 新增收款个人用户资料 Req POJO
@@ -8,198 +14,235 @@ import org.thlws.payment.wechat.utils.JsonUtil;
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MicroMchRequest {
 
-	private String appid                  ;
-	private String mch_id                 ;
-	private String sign                   ;
-	private String merchant_name          ;
-	private String merchant_shortname     ;
-	private String recipient_name         ;
-	private String recipient_idcardno     ;
+	@XmlElement(name="appid")
+	private String appid                 ;
+
+	@XmlElement(name="mch_id")
+	private String mchId                 ;
+
+	@XmlElement(name="sign")
+	private String sign                  ;
+
+	@XmlElement(name="merchant_name")
+	private String merchantName          ;
+
+	@XmlElement(name="merchant_shortname")
+	private String merchantShortname     ;
+
+	@XmlElement(name="recipient_name")
+	private String recipientName         ;
+
+	@XmlElement(name="recipient_idcardno")
+	private String recipientIdcardno     ;
+
+	@XmlElement(name="business")
 	private String business               ;
-	private String merchant_remark        ;
-	private String service_phone          ;
-	private String merchant_gbaddress     ;
-	private String merchant_detailaddress ;
+
+	@XmlElement(name="merchant_remark")
+	private String merchantRemark        ;
+
+	@XmlElement(name="service_phone")
+	private String servicePhone          ;
+
+	@XmlElement(name="merchant_gbaddress")
+	private String merchantGbaddress     ;
+
+	@XmlElement(name="merchant_detailaddress")
+	private String merchantDetailaddress ;
+
+	@XmlElement(name="contact")
 	private String contact                ;
-	private String contact_phone          ;
-	private String contact_email          ;
+
+	@XmlElement(name="contact_phone")
+	private String contactPhone          ;
+
+	@XmlElement(name="contact_email")
+	private String contactEmail          ;
 	
 	/**查询收款个人用户资料 [收款识别码 收款人微信号] 二选一*/
-	private String recipient_wechatid     ;
-	private String micro_mch_id;//收款识别码
-	
-	
-	private String device_info;
+
+	@XmlElement(name="recipient_wechatid")
+	private String recipientWechatid     ;
+
+	@XmlElement(name="micro_mch_id")
+	private String microMchId;//收款识别码
+
+	@XmlElement(name="device_info")
+	private String deviceInfo;
+
+	@XmlElement(name="body")
 	private String body;
-	private String nonce_str;
 
-	public String getDevice_info() {
-		return device_info;
+	@XmlElement(name="nonce_str")
+	private String nonceStr = ThlwsBeanUtil.getRandomString(32);
+
+	@Override
+	public String toString() {
+		return JsonUtil.format(this);
 	}
 
-	public String getBody() {
-		return body;
-	}
-
-	public String getNonce_str() {
-		return nonce_str;
-	}
-
-	public void setDevice_info(String device_info) {
-		this.device_info = device_info;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public void setNonce_str(String nonce_str) {
-		this.nonce_str = nonce_str;
-	}
-
-	public MicroMchRequest() {
-	}
-
-	public String getMicro_mch_id() {
-		return micro_mch_id;
-	}
-
-	public void setMicro_mch_id(String micro_mch_id) {
-		this.micro_mch_id = micro_mch_id;
-	}
 
 	public String getAppid() {
 		return appid;
-	}
-
-	public String getMch_id() {
-		return mch_id;
-	}
-
-	public String getSign() {
-		return sign;
-	}
-
-	public String getMerchant_name() {
-		return merchant_name;
-	}
-
-	public String getMerchant_shortname() {
-		return merchant_shortname;
-	}
-
-	public String getRecipient_name() {
-		return recipient_name;
-	}
-
-	public String getRecipient_idcardno() {
-		return recipient_idcardno;
-	}
-
-	public String getRecipient_wechatid() {
-		return recipient_wechatid;
-	}
-
-	public String getBusiness() {
-		return business;
-	}
-
-	public String getMerchant_remark() {
-		return merchant_remark;
-	}
-
-	public String getService_phone() {
-		return service_phone;
-	}
-
-	public String getMerchant_gbaddress() {
-		return merchant_gbaddress;
-	}
-
-	public String getMerchant_detailaddress() {
-		return merchant_detailaddress;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public String getContact_phone() {
-		return contact_phone;
-	}
-
-	public String getContact_email() {
-		return contact_email;
 	}
 
 	public void setAppid(String appid) {
 		this.appid = appid;
 	}
 
-	public void setMch_id(String mch_id) {
-		this.mch_id = mch_id;
+	public String getMchId() {
+		return mchId;
+	}
+
+	public void setMchId(String mchId) {
+		this.mchId = mchId;
+	}
+
+	public String getSign() {
+		return sign;
 	}
 
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
 
-	public void setMerchant_name(String merchant_name) {
-		this.merchant_name = merchant_name;
+	public String getMerchantName() {
+		return merchantName;
 	}
 
-	public void setMerchant_shortname(String merchant_shortname) {
-		this.merchant_shortname = merchant_shortname;
+	public void setMerchantName(String merchantName) {
+		this.merchantName = merchantName;
 	}
 
-	public void setRecipient_name(String recipient_name) {
-		this.recipient_name = recipient_name;
+	public String getMerchantShortname() {
+		return merchantShortname;
 	}
 
-	public void setRecipient_idcardno(String recipient_idcardno) {
-		this.recipient_idcardno = recipient_idcardno;
+	public void setMerchantShortname(String merchantShortname) {
+		this.merchantShortname = merchantShortname;
 	}
 
-	public void setRecipient_wechatid(String recipient_wechatid) {
-		this.recipient_wechatid = recipient_wechatid;
+	public String getRecipientName() {
+		return recipientName;
+	}
+
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+
+	public String getRecipientIdcardno() {
+		return recipientIdcardno;
+	}
+
+	public void setRecipientIdcardno(String recipientIdcardno) {
+		this.recipientIdcardno = recipientIdcardno;
+	}
+
+	public String getBusiness() {
+		return business;
 	}
 
 	public void setBusiness(String business) {
 		this.business = business;
 	}
 
-	public void setMerchant_remark(String merchant_remark) {
-		this.merchant_remark = merchant_remark;
+	public String getMerchantRemark() {
+		return merchantRemark;
 	}
 
-	public void setService_phone(String service_phone) {
-		this.service_phone = service_phone;
+	public void setMerchantRemark(String merchantRemark) {
+		this.merchantRemark = merchantRemark;
 	}
 
-	public void setMerchant_gbaddress(String merchant_gbaddress) {
-		this.merchant_gbaddress = merchant_gbaddress;
+	public String getServicePhone() {
+		return servicePhone;
 	}
 
-	public void setMerchant_detailaddress(String merchant_detailaddress) {
-		this.merchant_detailaddress = merchant_detailaddress;
+	public void setServicePhone(String servicePhone) {
+		this.servicePhone = servicePhone;
+	}
+
+	public String getMerchantGbaddress() {
+		return merchantGbaddress;
+	}
+
+	public void setMerchantGbaddress(String merchantGbaddress) {
+		this.merchantGbaddress = merchantGbaddress;
+	}
+
+	public String getMerchantDetailaddress() {
+		return merchantDetailaddress;
+	}
+
+	public void setMerchantDetailaddress(String merchantDetailaddress) {
+		this.merchantDetailaddress = merchantDetailaddress;
+	}
+
+	public String getContact() {
+		return contact;
 	}
 
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
 
-	public void setContact_phone(String contact_phone) {
-		this.contact_phone = contact_phone;
+	public String getContactPhone() {
+		return contactPhone;
 	}
 
-	public void setContact_email(String contact_email) {
-		this.contact_email = contact_email;
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
 	}
 
-	@Override
-	public String toString() {
-		return JsonUtil.format(this);
+	public String getContactEmail() {
+		return contactEmail;
+	}
+
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
+	}
+
+	public String getRecipientWechatid() {
+		return recipientWechatid;
+	}
+
+	public void setRecipientWechatid(String recipientWechatid) {
+		this.recipientWechatid = recipientWechatid;
+	}
+
+	public String getMicroMchId() {
+		return microMchId;
+	}
+
+	public void setMicroMchId(String microMchId) {
+		this.microMchId = microMchId;
+	}
+
+	public String getDeviceInfo() {
+		return deviceInfo;
+	}
+
+	public void setDeviceInfo(String deviceInfo) {
+		this.deviceInfo = deviceInfo;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public String getNonceStr() {
+		return nonceStr;
+	}
+
+	public void setNonceStr(String nonceStr) {
+		this.nonceStr = nonceStr;
 	}
 }

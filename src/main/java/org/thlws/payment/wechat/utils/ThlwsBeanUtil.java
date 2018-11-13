@@ -1,5 +1,6 @@
 package org.thlws.payment.wechat.utils;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -12,11 +13,14 @@ import java.util.Random;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import cn.hutool.core.bean.BeanUtil;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -208,6 +212,44 @@ public class ThlwsBeanUtil {
 		} catch (Exception e) {
 			return "";
 		}
+	}
+
+
+	/***
+	 * bean to xml
+	 * @param clazz
+	 * @param bean
+	 * @return
+	 * @throws JAXBException
+	 */
+	public static String beanToXml(Class clazz,Object bean) throws JAXBException {
+
+		StringWriter writer = new StringWriter();;
+		JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+		Marshaller marshaller = jaxbContext.createMarshaller();
+		//默认为false表示含xml头部信息,true不包含
+		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+		marshaller.marshal(bean, writer);
+		return writer.toString();
+	}
+
+
+	/***
+	 * xml to bean
+	 * @param xml
+	 * @param cls
+	 * @param <T>
+	 * @return
+	 * @throws JAXBException
+	 * @throws IOException
+	 */
+	public static <T> T xmlToBean(String xml,Class<T> cls) throws JAXBException {
+
+		StringReader reader = new StringReader(xml);
+		JAXBContext context = JAXBContext.newInstance(cls);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		return  (T)unmarshaller.unmarshal(reader);
+
 	}
 
 

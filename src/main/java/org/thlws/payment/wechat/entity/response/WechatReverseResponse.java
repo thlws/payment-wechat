@@ -3,33 +3,47 @@ package org.thlws.payment.wechat.entity.response;
 import org.thlws.payment.wechat.entity.WechatResponse;
 import org.thlws.payment.wechat.utils.JsonUtil;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /***
  * 微信撤销订单返回对象
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WechatReverseResponse extends WechatResponse {
 
     /**公众账号ID*/
-    private String appid           ;
+    @XmlElement(name="appid")
+    private String appId           ;
 
     /**商户号*/
-    private String mch_id          ;
+    @XmlElement(name="mch_id")
+    private String mchId          ;
 
     /**子商户公众账号ID*/
-    private String sub_appid       ;
+    @XmlElement(name="sub_appid")
+    private String subAppId       ;
 
     /**子商户号*/
-    private String sub_mch_id      ;
+    @XmlElement(name="sub_mch_id")
+    private String subMchId      ;
 
     /**随机字符串*/
-    private String nonce_str       ;
+    @XmlElement(name="nonce_str")
+    private String nonceStr       ;
 
     /**签名*/
+    @XmlElement(name="sign")
     private String sign            ;
 
     /**是否重调,是否需要继续调用撤销，Y-需要，N-不需要*/
-    private String recall;
+    @XmlElement(name="recall")
+    private String reCall;
 
     /**
      * Instantiates a new Wechat reverse response.
@@ -37,136 +51,65 @@ public class WechatReverseResponse extends WechatResponse {
     public WechatReverseResponse() {
     }
 
-
-    /**
-     * Gets appid.
-     *
-     * @return the appid
-     */
-    public String getAppid() {
-        return appid;
+    @Override
+    public String toString() {
+        return JsonUtil.format(this);
     }
 
-    /**
-     * Sets appid.
-     *
-     * @param appid the appid
-     */
-    public void setAppid(String appid) {
-        this.appid = appid;
+
+    public String getAppId() {
+        return appId;
     }
 
-    /**
-     * Gets mch id.
-     *
-     * @return the mch id
-     */
-    public String getMch_id() {
-        return mch_id;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    /**
-     * Sets mch id.
-     *
-     * @param mch_id the mch id
-     */
-    public void setMch_id(String mch_id) {
-        this.mch_id = mch_id;
+    public String getMchId() {
+        return mchId;
     }
 
-    /**
-     * Gets sub appid.
-     *
-     * @return the sub appid
-     */
-    public String getSub_appid() {
-        return sub_appid;
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
     }
 
-    /**
-     * Sets sub appid.
-     *
-     * @param sub_appid the sub appid
-     */
-    public void setSub_appid(String sub_appid) {
-        this.sub_appid = sub_appid;
+    public String getSubAppId() {
+        return subAppId;
     }
 
-    /**
-     * Gets sub mch id.
-     *
-     * @return the sub mch id
-     */
-    public String getSub_mch_id() {
-        return sub_mch_id;
+    public void setSubAppId(String subAppId) {
+        this.subAppId = subAppId;
     }
 
-    /**
-     * Sets sub mch id.
-     *
-     * @param sub_mch_id the sub mch id
-     */
-    public void setSub_mch_id(String sub_mch_id) {
-        this.sub_mch_id = sub_mch_id;
+    public String getSubMchId() {
+        return subMchId;
     }
 
-    /**
-     * Gets nonce str.
-     *
-     * @return the nonce str
-     */
-    public String getNonce_str() {
-        return nonce_str;
+    public void setSubMchId(String subMchId) {
+        this.subMchId = subMchId;
     }
 
-    /**
-     * Sets nonce str.
-     *
-     * @param nonce_str the nonce str
-     */
-    public void setNonce_str(String nonce_str) {
-        this.nonce_str = nonce_str;
+    public String getNonceStr() {
+        return nonceStr;
     }
 
-    /**
-     * Gets sign.
-     *
-     * @return the sign
-     */
+    public void setNonceStr(String nonceStr) {
+        this.nonceStr = nonceStr;
+    }
+
     public String getSign() {
         return sign;
     }
 
-    /**
-     * Sets sign.
-     *
-     * @param sign the sign
-     */
     public void setSign(String sign) {
         this.sign = sign;
     }
 
-
-    /**
-     * Gets recall.
-     *
-     * @return the recall
-     */
-    public String getRecall() {
-        return recall;
+    public String getReCall() {
+        return reCall;
     }
 
-    /**
-     * Sets recall.
-     *
-     * @param recall the recall
-     */
-    public void setRecall(String recall) {
-        this.recall = recall;
-    }
-
-    @Override
-    public String toString() {
-        return JsonUtil.format(this);
+    public void setReCall(String reCall) {
+        this.reCall = reCall;
     }
 }

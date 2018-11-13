@@ -1,6 +1,12 @@
 package org.thlws.payment.wechat.entity.request;
 
 import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /***
  * Created by HanleyTang on 2017/10/19.
@@ -8,31 +14,41 @@ import org.thlws.payment.wechat.utils.JsonUtil;
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WechatReverseRequest {
 
     /**公众账号ID*/
-    private String appid;
+    @XmlElement(name="appid")
+    private String appId;
 
     /**商户号*/
-    private String mch_id;
+    @XmlElement(name="mch_id")
+    private String mchId;
 
     /**微信订单号,transaction_id、out_trade_no二选一*/
-    private String transaction_id;
+    @XmlElement(name="transaction_id")
+    private String transactionId;
 
     /**商户订单号 ,transaction_id、out_trade_no二选一*/
-    private String out_trade_no;
+    @XmlElement(name="out_trade_no")
+    private String outTradeNo;
 
     /**随机字符串 <= 32*/
-    private String nonce_str;
+    @XmlElement(name="nonce_str")
+    private final String nonceStr = ThlwsBeanUtil.getRandomString(32);
 
     /**签名*/
+    @XmlElement(name="sign")
     private String sign;
 
     /**子商户公众账号ID*/
-    private String sub_appid;
+    @XmlElement(name="sub_appid")
+    private String subAppId;
 
     /**子商户号*/
-    private String sub_mch_id;
+    @XmlElement(name="sub_mch_id")
+    private String subMchId;
 
     /**
      * Instantiates a new Wechat reverse request.
@@ -40,152 +56,64 @@ public class WechatReverseRequest {
     public WechatReverseRequest() {
     }
 
-    /**
-     * Gets appid.
-     *
-     * @return the appid
-     */
-    public String getAppid() {
-        return appid;
+    @Override
+    public String toString() {
+        return JsonUtil.format(this);
     }
 
-    /**
-     * Sets appid.
-     *
-     * @param appid the appid
-     */
-    public void setAppid(String appid) {
-        this.appid = appid;
+    public String getAppId() {
+        return appId;
     }
 
-    /**
-     * Gets mch id.
-     *
-     * @return the mch id
-     */
-    public String getMch_id() {
-        return mch_id;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    /**
-     * Sets mch id.
-     *
-     * @param mch_id the mch id
-     */
-    public void setMch_id(String mch_id) {
-        this.mch_id = mch_id;
+    public String getMchId() {
+        return mchId;
     }
 
-    /**
-     * Gets transaction id.
-     *
-     * @return the transaction id
-     */
-    public String getTransaction_id() {
-        return transaction_id;
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
     }
 
-    /**
-     * Sets transaction id.
-     *
-     * @param transaction_id the transaction id
-     */
-    public void setTransaction_id(String transaction_id) {
-        this.transaction_id = transaction_id;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    /**
-     * Gets out trade no.
-     *
-     * @return the out trade no
-     */
-    public String getOut_trade_no() {
-        return out_trade_no;
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
-    /**
-     * Sets out trade no.
-     *
-     * @param out_trade_no the out trade no
-     */
-    public void setOut_trade_no(String out_trade_no) {
-        this.out_trade_no = out_trade_no;
+    public String getOutTradeNo() {
+        return outTradeNo;
     }
 
-    /**
-     * Gets nonce str.
-     *
-     * @return the nonce str
-     */
-    public String getNonce_str() {
-        return nonce_str;
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 
-    /**
-     * Sets nonce str.
-     *
-     * @param nonce_str the nonce str
-     */
-    public void setNonce_str(String nonce_str) {
-        this.nonce_str = nonce_str;
-    }
-
-    /**
-     * Gets sign.
-     *
-     * @return the sign
-     */
     public String getSign() {
         return sign;
     }
 
-    /**
-     * Sets sign.
-     *
-     * @param sign the sign
-     */
     public void setSign(String sign) {
         this.sign = sign;
     }
 
-    /**
-     * Gets sub appid.
-     *
-     * @return the sub appid
-     */
-    public String getSub_appid() {
-        return sub_appid;
+    public String getSubAppId() {
+        return subAppId;
     }
 
-    /**
-     * Sets sub appid.
-     *
-     * @param sub_appid the sub appid
-     */
-    public void setSub_appid(String sub_appid) {
-        this.sub_appid = sub_appid;
+    public void setSubAppId(String subAppId) {
+        this.subAppId = subAppId;
     }
 
-    /**
-     * Gets sub mch id.
-     *
-     * @return the sub mch id
-     */
-    public String getSub_mch_id() {
-        return sub_mch_id;
+    public String getSubMchId() {
+        return subMchId;
     }
 
-    /**
-     * Sets sub mch id.
-     *
-     * @param sub_mch_id the sub mch id
-     */
-    public void setSub_mch_id(String sub_mch_id) {
-        this.sub_mch_id = sub_mch_id;
-    }
-
-    @Override
-    public String toString() {
-        return JsonUtil.format(this);
+    public void setSubMchId(String subMchId) {
+        this.subMchId = subMchId;
     }
 }

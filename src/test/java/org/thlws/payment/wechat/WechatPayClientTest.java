@@ -58,8 +58,8 @@ public class WechatPayClientTest {
     public  void test_unifiedOrder() throws Exception{
 
         UnifiedOrderRequest input = new UnifiedOrderRequest();
-        input.setAppid(test_wechat_appid);
-        input.setMch_id(test_wechat_mchid);
+        input.setAppId(test_wechat_appid);
+        input.setMchId(test_wechat_mchid);
 
         /*普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001*/
         //request.setSub_mch_id("1396726602");
@@ -70,19 +70,18 @@ public class WechatPayClientTest {
         /*open_id 与 sub_openid 择其一即可,具体传值方式以参数说明为准*/
         //request.setSub_openid("用户在sub_appid下用户标识");
         String body = "动态二维码支付测试";
-        input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
         input.setBody(body);
-        input.setOut_trade_no(System.currentTimeMillis()+"");
-        input.setTotal_fee("1");
-        input.setTrade_type("NATIVE");
-        input.setNotify_url("http://www.thlws.com/notify4Wechat.html");
-        input.setSpbill_create_ip(NetUtil.getLocalhostStr());
+        input.setOutTradeNo(System.currentTimeMillis()+"");
+        input.setTotalFee("1");
+        input.setTradeType("NATIVE");
+        input.setNotifyUrl("http://www.thlws.com/notify4Wechat.html");
+        input.setSpbillCreateIp(NetUtil.getLocalhostStr());
 
         UnifiedOrderResponse response = WechatPayClient.unifiedorder(input,test_wechat_apikey);
         boolean flag = response.isSuccess();
         String  message = response.getMessage();
         log.debug("isSuccess="+flag+", message="+message);
-        String qrcode = response.getCode_url();
+        String qrcode = response.getCodeUrl();
         assertNotNull(qrcode);
        
         //生成支付二维码，供用户扫码支付
@@ -100,19 +99,18 @@ public class WechatPayClientTest {
             log.info("微信下线[支付]测试开始-WechatPayClient.micropay");
             String apiKey = test_wechat_apikey;
             WechatPayRequest request = new WechatPayRequest();
-            request.setAppid(test_wechat_appid);
-            request.setMch_id(test_wechat_mchid);
+            request.setAppId(test_wechat_appid);
+            request.setMchId(test_wechat_mchid);
 
             /*普通模式无需设置,子商户需设置子商户号*/
 //        request.setSub_mch_id(sp_wechat_sub_mchid);
 
-            request.setSpbill_create_ip(NetUtil.getLocalhostStr());
-            request.setTotal_fee("1");
+            request.setSpbillCreateIp(NetUtil.getLocalhostStr());
+            request.setTotalFee("1");
             request.setAttach("00001025104487");
-            request.setOut_trade_no(ThlwsBeanUtil.getRandomString(32));
-            request.setAuth_code("134593261103056527");
-            request.setNonce_str(ThlwsBeanUtil.getRandomString(32));
-            request.setDevice_info("device...");
+            request.setOutTradeNo(ThlwsBeanUtil.getRandomString(32));
+            request.setAuthCode("134593261103056527");
+            request.setDeviceInfo("device...");
             request.setBody("pay test");
 
             WechatPayResponse response = WechatPayClient.micropay(request,apiKey);
@@ -142,13 +140,12 @@ public class WechatPayClientTest {
             //request.setSub_mch_id("1490071962");//若为子商户退款需设置该参数
 
             String apiKey = test_wechat_apikey;
-            request.setAppid(test_wechat_appid);
-            request.setMch_id(test_wechat_mchid);
-            request.setOut_trade_no("axwarw24zvz4j7wdtn02a2uzxq6i6gbd");
-            request.setOut_refund_no(ThlwsBeanUtil.getRandomString(24));
-            request.setTotal_fee("1");
-            request.setRefund_fee("1");
-            request.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+            request.setAppId(test_wechat_appid);
+            request.setMchId(test_wechat_mchid);
+            request.setOutTradeNo("axwarw24zvz4j7wdtn02a2uzxq6i6gbd");
+            request.setOutRefundNo(ThlwsBeanUtil.getRandomString(24));
+            request.setTotalFee("1");
+            request.setRefundFee("1");
 
             WechatRefundResponse response = WechatPayClient.refund(request,apiKey,p12FilePath);
             boolean flag = response.isSuccess();
@@ -171,12 +168,11 @@ public class WechatPayClientTest {
         try {
             log.info("微信[订单查询]测试开始-WechatPayClient.orderQuery");
             OrderQueryRequest request = new OrderQueryRequest();
-            request.setAppid(test_wechat_appid);
-            request.setMch_id(test_wechat_mchid);
+            request.setAppId(test_wechat_appid);
+            request.setMchId(test_wechat_mchid);
             //request.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
-            request.setTransaction_id("4005332001201610166835977303");
-            request.setOut_trade_no("20160902224757");
-            request.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+            request.setTransactionId("4005332001201610166835977303");
+            request.setOutTradeNo("20160902224757");
             OrderQueryResponse response = WechatPayClient.orderQuery(request,test_wechat_apikey);
 
             boolean flag = response.isSuccess();
@@ -201,12 +197,11 @@ public class WechatPayClientTest {
         try {
             log.info("微信[撤销订单]测试开始-WechatPayClient.reverse");
             WechatReverseRequest request = new WechatReverseRequest();
-            request.setAppid(test_wechat_appid);
-            request.setMch_id(test_wechat_mchid);
+            request.setAppId(test_wechat_appid);
+            request.setMchId(test_wechat_mchid);
             //request.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
-            request.setTransaction_id("1217752501201407033233368018");
-            request.setOut_trade_no("20160902224757");
-            request.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+            request.setTransactionId("1217752501201407033233368018");
+            request.setOutTradeNo("20160902224757");
             String p12FilePath = "/zone/p12/1336236101.p12";
             WechatReverseResponse response = WechatPayClient.reverse(request,test_wechat_apikey,p12FilePath);
             boolean flag = response.isSuccess();
@@ -223,11 +218,10 @@ public class WechatPayClientTest {
 
         try {
             CloseOrderRequest input = new CloseOrderRequest();
-            input.setAppid(test_wechat_appid);
-            input.setMch_id(test_wechat_mchid);
+            input.setAppId(test_wechat_appid);
+            input.setMchId(test_wechat_mchid);
             //request.setSub_mch_id("1396726602");//若为子商户退款需设置该参数
-            input.setOut_trade_no("20160902224757");
-            input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+            input.setOutTradeNo("20160902224757");
             CloseOrderResponse response = WechatPayClient.closeOrder(input,test_wechat_apikey);
             boolean flag = response.isSuccess();
             String  message = response.getMessage();
@@ -246,22 +240,28 @@ public class WechatPayClientTest {
     @Test
     public void test_postMciroMch(){
 
-//        String p12FilePath = "/zone/p12/1386246702.p12";
-//        //just for  add(新增收款个人用户)
-//        MicroMchRequest wr = new MicroMchRequest();
-//        wr.setAppid(sp_wechat_appid);
-//        wr.setMch_id(sp_wechat_mchid);
-//        wr.setMerchant_name("THLWS");
-//        wr.setMerchant_shortname("Hanley");
-//        wr.setRecipient_name("汤翰林");
-//        wr.setRecipient_idcardno("511381198710080079");
-//        wr.setRecipient_wechatid("hanleytang");
-//        wr.setBusiness("收款");
-//        wr.setMerchant_remark("hanley20160827");
-//        wr.setMerchant_gbaddress("310105");
-//        wr.setMerchant_detailaddress("昭化路505号301室");
-//        MicroMchResponse response = WechatPayClient.postMicroMch(wr,sp_wechat_apikey,p12FilePath);
-//        assertNotNull(response);
+        try {
+            String p12FilePath = "/zone/p12/ci/1511132631.p12";
+            //just for  add(新增收款个人用户)
+            MicroMchRequest wr = new MicroMchRequest();
+            wr.setAppid(sp_ci_wechat_appid);
+            wr.setMchId(sp_ci_wechat_mchid);
+            wr.setMerchantName("THLWS");
+            wr.setMerchantShortname("Hanley");
+            wr.setRecipientName("新安江发");
+            wr.setRecipientIdcardno("433453534534435");
+            wr.setRecipientWechatid("helloworld");
+            wr.setBusiness("THLWS");
+            wr.setMerchantRemark("THLWS");
+            wr.setMerchantGbaddress("200041");
+            wr.setMerchantDetailaddress("上海市武威东路821弄16号101");
+            MicroMchResponse response = WechatPayClient.postMicroMch(wr,sp_ci_wechat_apikey,p12FilePath);
+            boolean flag = response.isSuccess();
+            String message = response.getMessage();
+            assertNotNull(response);
+        } catch (Exception e) {
+            log.error(e);
+        }
     }
 
     /***
@@ -271,14 +271,18 @@ public class WechatPayClientTest {
     @Test
     public void test_QueryMciro(){
 
-//        String p12FilePath = "/zone/p12/1386246702.p12";
-//        //just for query
-//        MicroMchRequest wr2 = new MicroMchRequest();
-//        wr2.setAppid(sp_wechat_appid);
-//        wr2.setMch_id(sp_wechat_mchid);
-//        wr2.setRecipient_wechatid("hanleytang");
-//        String result = WechatPayClient.queryMicroMch(wr2,sp_wechat_apikey,p12FilePath);
-//        assertNotNull(result);
+        try {
+            String p12FilePath = "/zone/p12/1386246702.p12";
+            //just for query
+            MicroMchRequest wr2 = new MicroMchRequest();
+            wr2.setAppid(sp_enjar_wechat_appid);
+            wr2.setMchId(sp_enjar_wechat_mchid);
+            wr2.setRecipientWechatid("hanleytang");
+            MicroMchResponse result = WechatPayClient.queryMicroMch(wr2,sp_enjar_wechat_apikey,p12FilePath);
+            assertNotNull(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -287,10 +291,9 @@ public class WechatPayClientTest {
 
         try {
             OpenidQueryRequest input = new OpenidQueryRequest();
-            input.setAppid(test_wechat_appid);
-            input.setMch_id(test_wechat_mchid);
-            input.setAuth_code("134599863674410654");
-            input.setNonce_str(ThlwsBeanUtil.getRandomString(32));
+            input.setAppId(test_wechat_appid);
+            input.setMchId(test_wechat_mchid);
+            input.setAuthCode("134599863674410654");
 
             OpenidQueryResponse response = WechatPayClient.openidQuery(input, test_wechat_apikey);
             boolean flag = response.isSuccess();

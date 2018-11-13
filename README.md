@@ -17,7 +17,10 @@
 - v1.0.2 修正Junit测试,增加Javadoc注释内容;
 - v1.0.3 新增公众号支付示例代码,升级依赖库hutool;
 - v1.0.4 依赖更新,新增授权码查询 openid 接口;
-- v1.0.5 项目重构,部分修复 [issue#IOJTH](https://gitee.com/thlws/payment-wechat/issues/IOJTH),感谢永夜.
+#### v1.1.0 (待测)
+- 底层xml基于jdk实现，移除xStream.
+- 项目重构,部分修复 [issue#IOJTH](https://gitee.com/thlws/payment-wechat/issues/IOJTH),感谢永夜.
+- 此版本暂无经过完整测试，maven中央仓库预计一周内提交.
 
 
 ### 在线文档

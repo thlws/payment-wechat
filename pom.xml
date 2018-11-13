@@ -12,7 +12,6 @@
   <description>基于Java实现的 微信支付 依赖库</description>
 
   <properties>
-    <version.xstream>1.4.11.1</version.xstream>
     <version.zxing>3.3.3</version.zxing>
     <version.gson>2.8.5</version.gson>
     <version.hutool>4.1.19</version.hutool>
@@ -34,14 +33,6 @@
       <version>${version.hutool}</version>
     </dependency>
 
-
-    <!-- xml start -->
-    <dependency>
-      <groupId>com.thoughtworks.xstream</groupId>
-      <artifactId>xstream</artifactId>
-      <version>${version.xstream}</version>
-    </dependency>
-    <!-- xml end -->
 
     <!-- Google libs start-->
     <dependency>

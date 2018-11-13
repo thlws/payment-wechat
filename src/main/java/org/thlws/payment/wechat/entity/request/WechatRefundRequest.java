@@ -1,52 +1,67 @@
 package org.thlws.payment.wechat.entity.request;
 
 import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /***
  * 微信退款参数对象
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WechatRefundRequest {
 
 	//如下为必须参数
 
 	/**公众账号ID*/
-	private String appid            ;
+	@XmlElement(name="appid")
+	private String appId            ;
 
 	/**商户号*/
-	private String mch_id           ;
+	@XmlElement(name="mch_id")
+	private String mchId           ;
 
 	/**随机字符串*/
-	private String nonce_str        ;
-
-	/**签名*/
-	private String sign             ;
+	@XmlElement(name="nonce_str")
+	final private String nonceStr  = ThlwsBeanUtil.getRandomString(32);      ;
 
 	/**商户退款单号*/
-	private String out_refund_no    ;
+	@XmlElement(name="out_refund_no")
+	private String outRefundNo     ;
 
 	/**订单总金额*/
-	private String total_fee        ;
+	@XmlElement(name="total_fee")
+	private String totalFee        ;
 
 	/**申请退款金额*/
-	private String refund_fee       ;
+	@XmlElement(name="refund_fee")
+	private String refundFee       ;
 
 	//transaction_id&out_trade_no二选一
 
 	/**微信订单号*/
-	private String transaction_id   ;
+	@XmlElement(name="transaction_id")
+	private String transactionId   ;
 
 	/**商户订单号*/
-	private String out_trade_no     ;
+	@XmlElement(name="out_trade_no")
+	private String outTradeNo     ;
 	
 	//如下参数可选
 
 	/**货币种类 货币类型，符合ISO 4217标准的三位字母代码，默认人民币：CNY*/
-	private String refund_fee_type  ;
+	@XmlElement(name="refund_fee_type")
+	private String refundFeeType  ;
 
 	/**退款原因*/
-	private String refund_desc;
+	@XmlElement(name="refund_desc")
+	private String refundDesc;
 
 	/**
 	 * 退款资金来源
@@ -55,269 +70,117 @@ public class WechatRefundRequest {
 	 		REFUND_SOURCE_RECHARGE_FUNDS---可用余额退款
 	 * </pre>
 	 * */
-	private String refund_account;
+	@XmlElement(name="refund_account")
+	private String refundAccount;
 
 	/**子商户公众账号ID*/
-	private String sub_appid;
+	@XmlElement(name="sub_appid")
+	private String subAppId;
 
 	/**子商户号*/
-	private String sub_mch_id;
+	@XmlElement(name="sub_mch_id")
+	private String subMchId;
 
 	/**
 	 * Instantiates a new Wechat refund request.
 	 */
 	public WechatRefundRequest(){}
 
-	/**
-	 * Gets sub appid.
-	 *
-	 * @return the sub appid
-	 */
-	public String getSub_appid() {
-		return sub_appid;
+
+	public String getAppId() {
+		return appId;
 	}
 
-	/**
-	 * Sets sub appid.
-	 *
-	 * @param sub_appid the sub appid
-	 */
-	public void setSub_appid(String sub_appid) {
-		this.sub_appid = sub_appid;
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 
-	/**
-	 * Gets sub mch id.
-	 *
-	 * @return the sub mch id
-	 */
-	public String getSub_mch_id() {
-		return sub_mch_id;
+	public String getMchId() {
+		return mchId;
 	}
 
-	/**
-	 * Sets sub mch id.
-	 *
-	 * @param sub_mch_id the sub mch id
-	 */
-	public void setSub_mch_id(String sub_mch_id) {
-		this.sub_mch_id = sub_mch_id;
+	public void setMchId(String mchId) {
+		this.mchId = mchId;
 	}
 
-	/**
-	 * Gets appid.
-	 *
-	 * @return the appid
-	 */
-	public String getAppid() {
-		return appid;
+	public String getOutRefundNo() {
+		return outRefundNo;
 	}
 
-	/**
-	 * Gets mch id.
-	 *
-	 * @return the mch id
-	 */
-	public String getMch_id() {
-		return mch_id;
+	public void setOutRefundNo(String outRefundNo) {
+		this.outRefundNo = outRefundNo;
 	}
 
-	/**
-	 * Gets nonce str.
-	 *
-	 * @return the nonce str
-	 */
-	public String getNonce_str() {
-		return nonce_str;
+	public String getTotalFee() {
+		return totalFee;
 	}
 
-	/**
-	 * Gets sign.
-	 *
-	 * @return the sign
-	 */
-	public String getSign() {
-		return sign;
+	public void setTotalFee(String totalFee) {
+		this.totalFee = totalFee;
 	}
 
-	/**
-	 * Gets out refund no.
-	 *
-	 * @return the out refund no
-	 */
-	public String getOut_refund_no() {
-		return out_refund_no;
+	public String getRefundFee() {
+		return refundFee;
 	}
 
-	/**
-	 * Gets total fee.
-	 *
-	 * @return the total fee
-	 */
-	public String getTotal_fee() {
-		return total_fee;
+	public void setRefundFee(String refundFee) {
+		this.refundFee = refundFee;
 	}
 
-	/**
-	 * Gets refund fee.
-	 *
-	 * @return the refund fee
-	 */
-	public String getRefund_fee() {
-		return refund_fee;
+	public String getTransactionId() {
+		return transactionId;
 	}
 
-	/**
-	 * Gets transaction id.
-	 *
-	 * @return the transaction id
-	 */
-	public String getTransaction_id() {
-		return transaction_id;
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 
-	/**
-	 * Gets out trade no.
-	 *
-	 * @return the out trade no
-	 */
-	public String getOut_trade_no() {
-		return out_trade_no;
+	public String getOutTradeNo() {
+		return outTradeNo;
 	}
 
-	/**
-	 * Gets refund fee type.
-	 *
-	 * @return the refund fee type
-	 */
-	public String getRefund_fee_type() {
-		return refund_fee_type;
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
 	}
 
-	/**
-	 * Sets appid.
-	 *
-	 * @param appid the appid
-	 */
-	public void setAppid(String appid) {
-		this.appid = appid;
+	public String getRefundFeeType() {
+		return refundFeeType;
 	}
 
-	/**
-	 * Sets mch id.
-	 *
-	 * @param mch_id the mch id
-	 */
-	public void setMch_id(String mch_id) {
-		this.mch_id = mch_id;
+	public void setRefundFeeType(String refundFeeType) {
+		this.refundFeeType = refundFeeType;
 	}
 
-	/**
-	 * Sets nonce str.
-	 *
-	 * @param nonce_str the nonce str
-	 */
-	public void setNonce_str(String nonce_str) {
-		this.nonce_str = nonce_str;
+	public String getRefundDesc() {
+		return refundDesc;
 	}
 
-	/**
-	 * Sets sign.
-	 *
-	 * @param sign the sign
-	 */
-	public void setSign(String sign) {
-		this.sign = sign;
+	public void setRefundDesc(String refundDesc) {
+		this.refundDesc = refundDesc;
 	}
 
-	/**
-	 * Sets out refund no.
-	 *
-	 * @param out_refund_no the out refund no
-	 */
-	public void setOut_refund_no(String out_refund_no) {
-		this.out_refund_no = out_refund_no;
+	public String getRefundAccount() {
+		return refundAccount;
 	}
 
-	/**
-	 * Sets total fee.
-	 *
-	 * @param total_fee the total fee
-	 */
-	public void setTotal_fee(String total_fee) {
-		this.total_fee = total_fee;
+	public void setRefundAccount(String refundAccount) {
+		this.refundAccount = refundAccount;
 	}
 
-	/**
-	 * Sets refund fee.
-	 *
-	 * @param refund_fee the refund fee
-	 */
-	public void setRefund_fee(String refund_fee) {
-		this.refund_fee = refund_fee;
+	public String getSubAppId() {
+		return subAppId;
 	}
 
-	/**
-	 * Sets transaction id.
-	 *
-	 * @param transaction_id the transaction id
-	 */
-	public void setTransaction_id(String transaction_id) {
-		this.transaction_id = transaction_id;
+	public void setSubAppId(String subAppId) {
+		this.subAppId = subAppId;
 	}
 
-	/**
-	 * Sets out trade no.
-	 *
-	 * @param out_trade_no the out trade no
-	 */
-	public void setOut_trade_no(String out_trade_no) {
-		this.out_trade_no = out_trade_no;
+	public String getSubMchId() {
+		return subMchId;
 	}
 
-	/**
-	 * Sets refund fee type.
-	 *
-	 * @param refund_fee_type the refund fee type
-	 */
-	public void setRefund_fee_type(String refund_fee_type) {
-		this.refund_fee_type = refund_fee_type;
-	}
-
-	/**
-	 * Gets refund desc.
-	 *
-	 * @return the refund desc
-	 */
-	public String getRefund_desc() {
-		return refund_desc;
-	}
-
-	/**
-	 * Sets refund desc.
-	 *
-	 * @param refund_desc the refund desc
-	 */
-	public void setRefund_desc(String refund_desc) {
-		this.refund_desc = refund_desc;
-	}
-
-	/**
-	 * Gets refund account.
-	 *
-	 * @return the refund account
-	 */
-	public String getRefund_account() {
-		return refund_account;
-	}
-
-	/**
-	 * Sets refund account.
-	 *
-	 * @param refund_account the refund account
-	 */
-	public void setRefund_account(String refund_account) {
-		this.refund_account = refund_account;
+	public void setSubMchId(String subMchId) {
+		this.subMchId = subMchId;
 	}
 
 	@Override

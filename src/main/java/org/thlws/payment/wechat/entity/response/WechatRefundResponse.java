@@ -3,684 +3,388 @@ package org.thlws.payment.wechat.entity.response;
 import org.thlws.payment.wechat.entity.WechatResponse;
 import org.thlws.payment.wechat.utils.JsonUtil;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /***
  * 微信退款返回对象
  * @author Hanley | hanley@thlws.com
  * @version 1.0
  */
+
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WechatRefundResponse extends WechatResponse {
 
 
 	/**公众账号ID*/
-	private String appid                ;
+	@XmlElement(name="appid")
+	private String appId                ;
 
 	/**商户号*/
-	private String mch_id               ;
+	@XmlElement(name="mch_id")
+	private String mchId               ;
 
 	/***/
-	private String device_info          ;
+	@XmlElement(name="device_info")
+	private String deviceInfo          ;
 
 	/**随机字符串*/
-	private String nonce_str            ;
+	@XmlElement(name="nonce_str")
+	private String nonceStr            ;
 
 	/**签名*/
+	@XmlElement(name="sign")
 	private String sign                 ;
 
 	/**微信订单号*/
-	private String transaction_id       ;
+	@XmlElement(name="transaction_id")
+	private String transactionId       ;
 
 	/**商户订单号*/
-	private String out_trade_no         ;
+	@XmlElement(name="out_trade_no")
+	private String outTradeNo         ;
 
 	/**商户退款单号*/
-	private String out_refund_no        ;
+	@XmlElement(name="out_refund_no")
+	private String outRefundNo        ;
 
 	/**微信退款单号*/
-	private String refund_id            ;
+	@XmlElement(name="refund_id")
+	private String refundId            ;
 
 	/**文档返回参数列表中无该参数，但DEMO示例存在,暂时保留 FIXME*/
-	private String refund_channel       ;
+	@XmlElement(name="refund_channel")
+	private String refundChannel       ;
 
 	/**申请退款金额*/
-	private String refund_fee           ;
+	@XmlElement(name="refund_fee")
+	private String refundFee           ;
 
 	/**退款金额*/
-	private String settlement_refund_fee;
+	@XmlElement(name="settlement_refund_fee")
+	private String settlementFefundFee;
 
 	/**订单金额*/
-	private String total_fee            ;
+	@XmlElement(name="total_fee")
+	private String totalFee            ;
 
 	/**
 	 * 应结订单金额<br>
 	 * 应结订单金额=订单金额-免充值代金券金额，应结订单金额<=订单金额
 	 * */
-	private String settlement_total_fee ;
+	@XmlElement(name="settlement_total_fee")
+	private String settlementTotalFee ;
 
 	/**订单金额货币类型，符合ISO 4217标准的三位字母代码，默认人民币：CNY*/
-	private String fee_type             ;
+	@XmlElement(name="fee_type")
+	private String feeType             ;
 
 	/**现金支付金额*/
-	private String cash_fee             ;
+	@XmlElement(name="cash_fee")
+	private String cashFee             ;
 
 	/**现金退款金额*/
-	private String cash_refund_fee      ;
+	@XmlElement(name="cash_refund_fee")
+	private String cashRefundFee      ;
 
 	/**代金券退款总金额*/
-	private String coupon_refund_fee	;
+	@XmlElement(name="coupon_refund_fee")
+	private String couponFefundFee	;
 
 	/**退款代金券使用数量*/
+	@XmlElement(name="couponFefundCount")
 	private String coupon_refund_count	;
 
 	/**子商户公众账号ID*/
-	private String sub_appid;
+	@XmlElement(name="sub_appid")
+	private String subAppId;
 
 	/**子商户号*/
-	private String sub_mch_id;
+	@XmlElement(name="sub_mch_id")
+	private String subMchId;
 
 	/**代金券类型-0*/
-	private String coupon_type_0;
+	@XmlElement(name="coupon_type_0")
+	private String couponType0;
 
 	/**代金券类型-1*/
-	private String coupon_type_1;
+	@XmlElement(name="coupon_type_1")
+	private String couponType1;
 
 	/**代金券类型-2*/
-	private String coupon_type_2;
+	@XmlElement(name="coupon_type_2")
+	private String couponType2;
 
 	/**退款代金券ID-0*/
-	private String coupon_refund_id_0;
+	@XmlElement(name="coupon_refund_id_0")
+	private String couponRefundId0;
 
 	/**退款代金券ID-1*/
-	private String coupon_refund_id_1;
+	@XmlElement(name="coupon_refund_id_1")
+	private String couponRefundId1;
 
 	/**退款代金券ID-2*/
-	private String coupon_refund_id_2;
+	@XmlElement(name="coupon_refund_id_2")
+	private String couponRefundId2;
 
 	/**单个代金券退款金额-0*/
-	private String coupon_refund_fee_0;
+	@XmlElement(name="coupon_refund_fee_0")
+	private String couponRefundFee0;
 
 	/**单个代金券退款金额-1*/
-	private String coupon_refund_fee_1;
+	@XmlElement(name="coupon_refund_fee_1")
+	private String couponRefundFee1;
 
 	/**单个代金券退款金额-2*/
-	private String coupon_refund_fee_2;
+	@XmlElement(name="coupon_refund_fee_2")
+	private String couponRefundFee2;
 
 	/**
 	 * Instantiates a new Wechat refund response.
 	 */
 	public WechatRefundResponse(){}
 
-	/**
-	 * Gets coupon refund count.
-	 *
-	 * @return the coupon refund count
-	 */
-	public String getCoupon_refund_count() {
-		return coupon_refund_count;
+	public String getAppId() {
+		return appId;
 	}
 
-	/**
-	 * Sets coupon refund count.
-	 *
-	 * @param coupon_refund_count the coupon refund count
-	 */
-	public void setCoupon_refund_count(String coupon_refund_count) {
-		this.coupon_refund_count = coupon_refund_count;
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 
-	/**
-	 * Gets sub appid.
-	 *
-	 * @return the sub appid
-	 */
-	public String getSub_appid() {
-		return sub_appid;
+	public String getMchId() {
+		return mchId;
 	}
 
-	/**
-	 * Sets sub appid.
-	 *
-	 * @param sub_appid the sub appid
-	 */
-	public void setSub_appid(String sub_appid) {
-		this.sub_appid = sub_appid;
+	public void setMchId(String mchId) {
+		this.mchId = mchId;
 	}
 
-	/**
-	 * Gets sub mch id.
-	 *
-	 * @return the sub mch id
-	 */
-	public String getSub_mch_id() {
-		return sub_mch_id;
+	public String getDeviceInfo() {
+		return deviceInfo;
 	}
 
-	/**
-	 * Sets sub mch id.
-	 *
-	 * @param sub_mch_id the sub mch id
-	 */
-	public void setSub_mch_id(String sub_mch_id) {
-		this.sub_mch_id = sub_mch_id;
+	public void setDeviceInfo(String deviceInfo) {
+		this.deviceInfo = deviceInfo;
 	}
 
-
-	/**
-	 * Gets coupon refund fee.
-	 *
-	 * @return the coupon refund fee
-	 */
-	public String getCoupon_refund_fee() {
-		return coupon_refund_fee;
+	public String getNonceStr() {
+		return nonceStr;
 	}
 
-	/**
-	 * Sets coupon refund fee.
-	 *
-	 * @param coupon_refund_fee the coupon refund fee
-	 */
-	public void setCoupon_refund_fee(String coupon_refund_fee) {
-		this.coupon_refund_fee = coupon_refund_fee;
+	public void setNonceStr(String nonceStr) {
+		this.nonceStr = nonceStr;
 	}
 
-	/**
-	 * Gets appid.
-	 *
-	 * @return the appid
-	 */
-	public String getAppid() {
-		return appid;
-	}
-
-
-	/**
-	 * Gets mch id.
-	 *
-	 * @return the mch id
-	 */
-	public String getMch_id() {
-		return mch_id;
-	}
-
-
-	/**
-	 * Gets device info.
-	 *
-	 * @return the device info
-	 */
-	public String getDevice_info() {
-		return device_info;
-	}
-
-
-	/**
-	 * Gets nonce str.
-	 *
-	 * @return the nonce str
-	 */
-	public String getNonce_str() {
-		return nonce_str;
-	}
-
-
-	/**
-	 * Gets sign.
-	 *
-	 * @return the sign
-	 */
 	public String getSign() {
 		return sign;
 	}
 
-
-	/**
-	 * Gets transaction id.
-	 *
-	 * @return the transaction id
-	 */
-	public String getTransaction_id() {
-		return transaction_id;
-	}
-
-
-	/**
-	 * Gets out trade no.
-	 *
-	 * @return the out trade no
-	 */
-	public String getOut_trade_no() {
-		return out_trade_no;
-	}
-
-
-	/**
-	 * Gets out refund no.
-	 *
-	 * @return the out refund no
-	 */
-	public String getOut_refund_no() {
-		return out_refund_no;
-	}
-
-
-	/**
-	 * Gets refund id.
-	 *
-	 * @return the refund id
-	 */
-	public String getRefund_id() {
-		return refund_id;
-	}
-
-
-	/**
-	 * Gets refund channel.
-	 *
-	 * @return the refund channel
-	 */
-	public String getRefund_channel() {
-		return refund_channel;
-	}
-
-
-	/**
-	 * Gets refund fee.
-	 *
-	 * @return the refund fee
-	 */
-	public String getRefund_fee() {
-		return refund_fee;
-	}
-
-
-	/**
-	 * Gets settlement refund fee.
-	 *
-	 * @return the settlement refund fee
-	 */
-	public String getSettlement_refund_fee() {
-		return settlement_refund_fee;
-	}
-
-
-	/**
-	 * Gets total fee.
-	 *
-	 * @return the total fee
-	 */
-	public String getTotal_fee() {
-		return total_fee;
-	}
-
-
-	/**
-	 * Gets settlement total fee.
-	 *
-	 * @return the settlement total fee
-	 */
-	public String getSettlement_total_fee() {
-		return settlement_total_fee;
-	}
-
-
-	/**
-	 * Gets fee type.
-	 *
-	 * @return the fee type
-	 */
-	public String getFee_type() {
-		return fee_type;
-	}
-
-
-	/**
-	 * Gets cash fee.
-	 *
-	 * @return the cash fee
-	 */
-	public String getCash_fee() {
-		return cash_fee;
-	}
-
-
-	/**
-	 * Gets cash refund fee.
-	 *
-	 * @return the cash refund fee
-	 */
-	public String getCash_refund_fee() {
-		return cash_refund_fee;
-	}
-
-
-	/**
-	 * Sets appid.
-	 *
-	 * @param appid the appid
-	 */
-	public void setAppid(String appid) {
-		this.appid = appid;
-	}
-
-
-	/**
-	 * Sets mch id.
-	 *
-	 * @param mch_id the mch id
-	 */
-	public void setMch_id(String mch_id) {
-		this.mch_id = mch_id;
-	}
-
-
-	/**
-	 * Sets device info.
-	 *
-	 * @param device_info the device info
-	 */
-	public void setDevice_info(String device_info) {
-		this.device_info = device_info;
-	}
-
-
-	/**
-	 * Sets nonce str.
-	 *
-	 * @param nonce_str the nonce str
-	 */
-	public void setNonce_str(String nonce_str) {
-		this.nonce_str = nonce_str;
-	}
-
-
-	/**
-	 * Sets sign.
-	 *
-	 * @param sign the sign
-	 */
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
 
-
-	/**
-	 * Sets transaction id.
-	 *
-	 * @param transaction_id the transaction id
-	 */
-	public void setTransaction_id(String transaction_id) {
-		this.transaction_id = transaction_id;
+	public String getTransactionId() {
+		return transactionId;
 	}
 
-
-	/**
-	 * Sets out trade no.
-	 *
-	 * @param out_trade_no the out trade no
-	 */
-	public void setOut_trade_no(String out_trade_no) {
-		this.out_trade_no = out_trade_no;
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 
-
-	/**
-	 * Sets out refund no.
-	 *
-	 * @param out_refund_no the out refund no
-	 */
-	public void setOut_refund_no(String out_refund_no) {
-		this.out_refund_no = out_refund_no;
+	public String getOutTradeNo() {
+		return outTradeNo;
 	}
 
-
-	/**
-	 * Sets refund id.
-	 *
-	 * @param refund_id the refund id
-	 */
-	public void setRefund_id(String refund_id) {
-		this.refund_id = refund_id;
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
 	}
 
-
-	/**
-	 * Sets refund channel.
-	 *
-	 * @param refund_channel the refund channel
-	 */
-	public void setRefund_channel(String refund_channel) {
-		this.refund_channel = refund_channel;
+	public String getOutRefundNo() {
+		return outRefundNo;
 	}
 
-
-	/**
-	 * Sets refund fee.
-	 *
-	 * @param refund_fee the refund fee
-	 */
-	public void setRefund_fee(String refund_fee) {
-		this.refund_fee = refund_fee;
+	public void setOutRefundNo(String outRefundNo) {
+		this.outRefundNo = outRefundNo;
 	}
 
-
-	/**
-	 * Sets settlement refund fee.
-	 *
-	 * @param settlement_refund_fee the settlement refund fee
-	 */
-	public void setSettlement_refund_fee(String settlement_refund_fee) {
-		this.settlement_refund_fee = settlement_refund_fee;
+	public String getRefundId() {
+		return refundId;
 	}
 
-
-	/**
-	 * Sets total fee.
-	 *
-	 * @param total_fee the total fee
-	 */
-	public void setTotal_fee(String total_fee) {
-		this.total_fee = total_fee;
+	public void setRefundId(String refundId) {
+		this.refundId = refundId;
 	}
 
-
-	/**
-	 * Sets settlement total fee.
-	 *
-	 * @param settlement_total_fee the settlement total fee
-	 */
-	public void setSettlement_total_fee(String settlement_total_fee) {
-		this.settlement_total_fee = settlement_total_fee;
+	public String getRefundChannel() {
+		return refundChannel;
 	}
 
-
-	/**
-	 * Sets fee type.
-	 *
-	 * @param fee_type the fee type
-	 */
-	public void setFee_type(String fee_type) {
-		this.fee_type = fee_type;
+	public void setRefundChannel(String refundChannel) {
+		this.refundChannel = refundChannel;
 	}
 
-
-	/**
-	 * Sets cash fee.
-	 *
-	 * @param cash_fee the cash fee
-	 */
-	public void setCash_fee(String cash_fee) {
-		this.cash_fee = cash_fee;
+	public String getRefundFee() {
+		return refundFee;
 	}
 
-
-	/**
-	 * Sets cash refund fee.
-	 *
-	 * @param cash_refund_fee the cash refund fee
-	 */
-	public void setCash_refund_fee(String cash_refund_fee) {
-		this.cash_refund_fee = cash_refund_fee;
+	public void setRefundFee(String refundFee) {
+		this.refundFee = refundFee;
 	}
 
-	/**
-	 * Gets coupon type 0.
-	 *
-	 * @return the coupon type 0
-	 */
-	public String getCoupon_type_0() {
-		return coupon_type_0;
+	public String getSettlementFefundFee() {
+		return settlementFefundFee;
 	}
 
-	/**
-	 * Sets coupon type 0.
-	 *
-	 * @param coupon_type_0 the coupon type 0
-	 */
-	public void setCoupon_type_0(String coupon_type_0) {
-		this.coupon_type_0 = coupon_type_0;
+	public void setSettlementFefundFee(String settlementFefundFee) {
+		this.settlementFefundFee = settlementFefundFee;
 	}
 
-	/**
-	 * Gets coupon type 1.
-	 *
-	 * @return the coupon type 1
-	 */
-	public String getCoupon_type_1() {
-		return coupon_type_1;
+	public String getTotalFee() {
+		return totalFee;
 	}
 
-	/**
-	 * Sets coupon type 1.
-	 *
-	 * @param coupon_type_1 the coupon type 1
-	 */
-	public void setCoupon_type_1(String coupon_type_1) {
-		this.coupon_type_1 = coupon_type_1;
+	public void setTotalFee(String totalFee) {
+		this.totalFee = totalFee;
 	}
 
-	/**
-	 * Gets coupon type 2.
-	 *
-	 * @return the coupon type 2
-	 */
-	public String getCoupon_type_2() {
-		return coupon_type_2;
+	public String getSettlementTotalFee() {
+		return settlementTotalFee;
 	}
 
-	/**
-	 * Sets coupon type 2.
-	 *
-	 * @param coupon_type_2 the coupon type 2
-	 */
-	public void setCoupon_type_2(String coupon_type_2) {
-		this.coupon_type_2 = coupon_type_2;
+	public void setSettlementTotalFee(String settlementTotalFee) {
+		this.settlementTotalFee = settlementTotalFee;
 	}
 
-	/**
-	 * Gets coupon refund id 0.
-	 *
-	 * @return the coupon refund id 0
-	 */
-	public String getCoupon_refund_id_0() {
-		return coupon_refund_id_0;
+	public String getFeeType() {
+		return feeType;
 	}
 
-	/**
-	 * Sets coupon refund id 0.
-	 *
-	 * @param coupon_refund_id_0 the coupon refund id 0
-	 */
-	public void setCoupon_refund_id_0(String coupon_refund_id_0) {
-		this.coupon_refund_id_0 = coupon_refund_id_0;
+	public void setFeeType(String feeType) {
+		this.feeType = feeType;
 	}
 
-	/**
-	 * Gets coupon refund id 1.
-	 *
-	 * @return the coupon refund id 1
-	 */
-	public String getCoupon_refund_id_1() {
-		return coupon_refund_id_1;
+	public String getCashFee() {
+		return cashFee;
 	}
 
-	/**
-	 * Sets coupon refund id 1.
-	 *
-	 * @param coupon_refund_id_1 the coupon refund id 1
-	 */
-	public void setCoupon_refund_id_1(String coupon_refund_id_1) {
-		this.coupon_refund_id_1 = coupon_refund_id_1;
+	public void setCashFee(String cashFee) {
+		this.cashFee = cashFee;
 	}
 
-	/**
-	 * Gets coupon refund id 2.
-	 *
-	 * @return the coupon refund id 2
-	 */
-	public String getCoupon_refund_id_2() {
-		return coupon_refund_id_2;
+	public String getCashRefundFee() {
+		return cashRefundFee;
 	}
 
-	/**
-	 * Sets coupon refund id 2.
-	 *
-	 * @param coupon_refund_id_2 the coupon refund id 2
-	 */
-	public void setCoupon_refund_id_2(String coupon_refund_id_2) {
-		this.coupon_refund_id_2 = coupon_refund_id_2;
+	public void setCashRefundFee(String cashRefundFee) {
+		this.cashRefundFee = cashRefundFee;
 	}
 
-	/**
-	 * Gets coupon refund fee 0.
-	 *
-	 * @return the coupon refund fee 0
-	 */
-	public String getCoupon_refund_fee_0() {
-		return coupon_refund_fee_0;
+	public String getCouponFefundFee() {
+		return couponFefundFee;
 	}
 
-	/**
-	 * Sets coupon refund fee 0.
-	 *
-	 * @param coupon_refund_fee_0 the coupon refund fee 0
-	 */
-	public void setCoupon_refund_fee_0(String coupon_refund_fee_0) {
-		this.coupon_refund_fee_0 = coupon_refund_fee_0;
+	public void setCouponFefundFee(String couponFefundFee) {
+		this.couponFefundFee = couponFefundFee;
 	}
 
-	/**
-	 * Gets coupon refund fee 1.
-	 *
-	 * @return the coupon refund fee 1
-	 */
-	public String getCoupon_refund_fee_1() {
-		return coupon_refund_fee_1;
+	public String getCoupon_refund_count() {
+		return coupon_refund_count;
 	}
 
-	/**
-	 * Sets coupon refund fee 1.
-	 *
-	 * @param coupon_refund_fee_1 the coupon refund fee 1
-	 */
-	public void setCoupon_refund_fee_1(String coupon_refund_fee_1) {
-		this.coupon_refund_fee_1 = coupon_refund_fee_1;
+	public void setCoupon_refund_count(String coupon_refund_count) {
+		this.coupon_refund_count = coupon_refund_count;
 	}
 
-	/**
-	 * Gets coupon refund fee 2.
-	 *
-	 * @return the coupon refund fee 2
-	 */
-	public String getCoupon_refund_fee_2() {
-		return coupon_refund_fee_2;
+	public String getSubAppId() {
+		return subAppId;
 	}
 
-	/**
-	 * Sets coupon refund fee 2.
-	 *
-	 * @param coupon_refund_fee_2 the coupon refund fee 2
-	 */
-	public void setCoupon_refund_fee_2(String coupon_refund_fee_2) {
-		this.coupon_refund_fee_2 = coupon_refund_fee_2;
+	public void setSubAppId(String subAppId) {
+		this.subAppId = subAppId;
+	}
+
+	public String getSubMchId() {
+		return subMchId;
+	}
+
+	public void setSubMchId(String subMchId) {
+		this.subMchId = subMchId;
+	}
+
+	public String getCouponType0() {
+		return couponType0;
+	}
+
+	public void setCouponType0(String couponType0) {
+		this.couponType0 = couponType0;
+	}
+
+	public String getCouponType1() {
+		return couponType1;
+	}
+
+	public void setCouponType1(String couponType1) {
+		this.couponType1 = couponType1;
+	}
+
+	public String getCouponType2() {
+		return couponType2;
+	}
+
+	public void setCouponType2(String couponType2) {
+		this.couponType2 = couponType2;
+	}
+
+	public String getCouponRefundId0() {
+		return couponRefundId0;
+	}
+
+	public void setCouponRefundId0(String couponRefundId0) {
+		this.couponRefundId0 = couponRefundId0;
+	}
+
+	public String getCouponRefundId1() {
+		return couponRefundId1;
+	}
+
+	public void setCouponRefundId1(String couponRefundId1) {
+		this.couponRefundId1 = couponRefundId1;
+	}
+
+	public String getCouponRefundId2() {
+		return couponRefundId2;
+	}
+
+	public void setCouponRefundId2(String couponRefundId2) {
+		this.couponRefundId2 = couponRefundId2;
+	}
+
+	public String getCouponRefundFee0() {
+		return couponRefundFee0;
+	}
+
+	public void setCouponRefundFee0(String couponRefundFee0) {
+		this.couponRefundFee0 = couponRefundFee0;
+	}
+
+	public String getCouponRefundFee1() {
+		return couponRefundFee1;
+	}
+
+	public void setCouponRefundFee1(String couponRefundFee1) {
+		this.couponRefundFee1 = couponRefundFee1;
+	}
+
+	public String getCouponRefundFee2() {
+		return couponRefundFee2;
+	}
+
+	public void setCouponRefundFee2(String couponRefundFee2) {
+		this.couponRefundFee2 = couponRefundFee2;
 	}
 
 	@Override

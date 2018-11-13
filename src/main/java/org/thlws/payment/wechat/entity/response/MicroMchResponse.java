@@ -3,84 +3,52 @@ package org.thlws.payment.wechat.entity.response;
 import org.thlws.payment.wechat.entity.WechatResponse;
 import org.thlws.payment.wechat.utils.JsonUtil;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * The type Micro mch response.
  *
  * @author Hanley Tang | hanley@hanley.cn
  * @version 1.0
  */
+@XmlRootElement(name="xml")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MicroMchResponse extends WechatResponse {
 
-	private String mch_id      ;
+	@XmlElement(name="mch_id")
+	private String mchId      ;
+
+	@XmlElement(name="sign")
 	private String sign        ;
-	private String micro_mch_id;	//result_code 为 SUCCESS 的时候有返回
 
-	@Override
-	public String toString() {
-		return JsonUtil.format(this);
+	@XmlElement(name="micro_mch_id")
+	private String microMchId ;	//result_code 为 SUCCESS 的时候有返回
+
+
+	public String getMchId() {
+		return mchId;
 	}
 
-	/**
-	 * Instantiates a new Micro mch response.
-	 */
-	public MicroMchResponse(){}
-
-
-	/**
-	 * Gets mch id.
-	 *
-	 * @return the mch id
-	 */
-	public String getMch_id() {
-		return mch_id;
+	public void setMchId(String mchId) {
+		this.mchId = mchId;
 	}
 
-	/**
-	 * Gets sign.
-	 *
-	 * @return the sign
-	 */
 	public String getSign() {
 		return sign;
 	}
 
-
-	/**
-	 * Gets micro mch id.
-	 *
-	 * @return the micro mch id
-	 */
-	public String getMicro_mch_id() {
-		return micro_mch_id;
-	}
-
-
-	/**
-	 * Sets mch id.
-	 *
-	 * @param mch_id the mch id
-	 */
-	public void setMch_id(String mch_id) {
-		this.mch_id = mch_id;
-	}
-
-	/**
-	 * Sets sign.
-	 *
-	 * @param sign the sign
-	 */
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
 
-	/**
-	 * Sets micro mch id.
-	 *
-	 * @param micro_mch_id the micro mch id
-	 */
-	public void setMicro_mch_id(String micro_mch_id) {
-		this.micro_mch_id = micro_mch_id;
+	public String getMicroMchId() {
+		return microMchId;
 	}
-	
-	
+
+	public void setMicroMchId(String microMchId) {
+		this.microMchId = microMchId;
+	}
 }

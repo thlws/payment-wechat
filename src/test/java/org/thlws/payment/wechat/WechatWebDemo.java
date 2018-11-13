@@ -15,6 +15,7 @@ import org.thlws.payment.wechat.utils.WechatUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,16 +75,15 @@ public class WechatWebDemo {
             String outTradeNo = RandomUtil.randomString(32);
             String notifyUrl = "http://www.x.com/wechat/notify_wechat_pay.html";
             UnifiedOrderRequest uInput = new UnifiedOrderRequest();
-            uInput.setAppid(test_wechat_appid);
-            uInput.setMch_id(test_wechat_mchid);
-            uInput.setOpenid(openId);//上一步得到的openId
-            uInput.setNonce_str( RandomUtil.randomString(32));
+            uInput.setAppId(test_wechat_appid);
+            uInput.setMchId(test_wechat_mchid);
+            uInput.setOpenId(openId);//上一步得到的openId
             uInput.setBody("购买xx商品");
-            uInput.setOut_trade_no(outTradeNo);
-            uInput.setTotal_fee("1");//单位分
-            uInput.setTrade_type("JSAPI");//JSAPI表示公众号支付时下预订单
-            uInput.setNotify_url(notifyUrl);//URL设计应指向 notify_wechat_pay 访问路径
-            uInput.setSpbill_create_ip(NetUtil.getLocalhostStr());
+            uInput.setOutTradeNo(outTradeNo);
+            uInput.setTotalFee("1");//单位分
+            uInput.setTradeType("JSAPI");//JSAPI表示公众号支付时下预订单
+            uInput.setNotifyUrl(notifyUrl);//URL设计应指向 notify_wechat_pay 访问路径
+            uInput.setSpbillCreateIp(NetUtil.getLocalhostStr());
             //若为子商户或小微收款，还需设置sub_mch_id / attach
             UnifiedOrderResponse unifiedOrderOutput = WechatPayClient.unifiedorder(uInput,test_wechat_appsecret);
 
@@ -126,7 +126,7 @@ public class WechatWebDemo {
             NotifyResponse notifyOutput = WechatUtil.parseNotifyMsg(xmlResult.toString());
             //notifyOutput 是微信推送数据转换为Java对象，直接从该对象取值并进行相关业务操作
             //TODO 业务逻辑
-        } catch (IOException e) {
+        } catch (IOException | JAXBException e) {
             log.error(e);
         }finally {
             writer.println("<xml><return_code><![CDATA["+status+"]]></return_code><return_msg><![CDATA["+msg+"]]></return_msg></xml>");

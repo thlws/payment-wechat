@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Created by HanleyTang on 2016/11/18.
+ * 微信通知(模板消息)
  */
 public class SendDataRequest {
 

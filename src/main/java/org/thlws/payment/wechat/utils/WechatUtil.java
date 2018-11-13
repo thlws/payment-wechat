@@ -8,12 +8,12 @@
 
 package org.thlws.payment.wechat.utils;
 
-import com.thoughtworks.xstream.XStream;
+import cn.hutool.core.util.XmlUtil;
 import org.thlws.payment.wechat.entity.response.NotifyResponse;
 import org.thlws.payment.wechat.entity.response.UnifiedOrderResponse;
-import org.thlws.payment.wechat.extra.xml.XStreamCreator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,11 +45,9 @@ public class WechatUtil {
      * @param xmlResult the xml result
      * @return notify response
      */
-    public static NotifyResponse parseNotifyMsg(String xmlResult){
-
-        XStream xStream = XStreamCreator.create(NotifyResponse.class);
-        NotifyResponse output = (NotifyResponse) xStream.fromXML(xmlResult);
-        return output;
+    public static NotifyResponse parseNotifyMsg(String xmlResult) throws JAXBException {
+        NotifyResponse response = ThlwsBeanUtil.xmlToBean(xmlResult, NotifyResponse.class);
+        return response;
     }
 
     /**
@@ -67,14 +65,14 @@ public class WechatUtil {
         return ThlwsBeanUtil.mapToObject(mapData,clz);
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the request arguments
-     */
-    public static void main(String[] args) {
-        String notifyXmlResult = "<xml><appid><![CDATA[wx5f22a16d8c94dba4]]></appid><attach><![CDATA[69a8ef0cb3c742779c438e92bbc33118]]></attach><bank_type><![CDATA[CFT]]></bank_type><cash_fee><![CDATA[1]]></cash_fee><device_info><![CDATA[hanley@1025@cust_test]]></device_info><fee_type><![CDATA[CNY]]></fee_type><is_subscribe><![CDATA[Y]]></is_subscribe><mch_id><![CDATA[1336236101]]></mch_id><nonce_str><![CDATA[txjam10ant72jxl5umsl2hbl2nrb0kzr]]></nonce_str><openid><![CDATA[o2nMlwuj_cHFBcNDfPkpufta80KU]]></openid><out_trade_no><![CDATA[20170224052028]]></out_trade_no><result_code><![CDATA[SUCCESS]]></result_code><return_code><![CDATA[SUCCESS]]></return_code><sign><![CDATA[D8D69790FB5416AF86070B4DAD673E89]]></sign><time_end><![CDATA[20170224052134]]></time_end><total_fee>1</total_fee><trade_type><![CDATA[JSAPI]]></trade_type><transaction_id><![CDATA[4005332001201702241084568187]]></transaction_id></xml>";
-        parseNotifyMsg(notifyXmlResult);
+    public static String buildXmlRequest(Object o, Class clz,String apiKey) throws JAXBException {
+
+        String originXml = ThlwsBeanUtil.beanToXml(clz,o);
+        Map<String, Object> map = XmlUtil.xmlToMap(originXml);
+        String sign = WechatUtil.sign(map,apiKey);
+        map.put("sign", sign);
+        String  xml = XmlUtil.mapToXmlStr(map, "xml");
+        return xml;
     }
 
 
@@ -92,9 +90,9 @@ public class WechatUtil {
 
         long time = System.currentTimeMillis() / 1000;
         String timeStamp = String.valueOf(time);
-        String appId = response.getAppid();
-        String nonceStr = response.getNonce_str();
-        String _package = "prepay_id=" + response.getPrepay_id();
+        String appId = response.getAppId();
+        String nonceStr = response.getNonceStr();
+        String _package = "prepay_id=" + response.getPrepayId();
         Map<String, Object> sParam = new HashMap<String, Object>();
         sParam.put("appId", appId);
         sParam.put("timeStamp",timeStamp);

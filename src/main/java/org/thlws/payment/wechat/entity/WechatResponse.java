@@ -2,130 +2,85 @@ package org.thlws.payment.wechat.entity;
 
 import cn.hutool.core.util.StrUtil;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 /***
  * API请求结果
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WechatResponse implements Serializable {
 
     /**返回状态码*/
-    private String return_code;
+    @XmlElement(name="return_code")
+    private String returnCode;
 
     /**返回信息*/
-    private String return_msg ;
+    @XmlElement(name="return_msg")
+    private String returnMsg ;
 
     /**业务结果*/
-    private String result_code;
+    @XmlElement(name="result_code")
+    private String resultCode;
 
     /**错误代码*/
-    private String err_code;
+    @XmlElement(name="err_code")
+    private String errCode;
 
     /**错误代码描述*/
-    private String err_code_des;
+    @XmlElement(name="err_code_des")
+    private String errCodeDes;
 
 
     public String getMessage() {
-        String message = isSuccess() ? return_msg:err_code+","+err_code_des;
+        String message = isSuccess() ? returnMsg:errCode+","+errCodeDes;
         return message;
     }
 
 
     public boolean isSuccess() {
-        return StrUtil.equalsIgnoreCase(return_code,result_code) && StrUtil.equals("SUCCESS",result_code);
+        return StrUtil.equalsIgnoreCase(returnCode,resultCode) && StrUtil.equals("SUCCESS",resultCode);
     }
 
-
-    /**
-     * Gets err code.
-     *
-     * @return the err code
-     */
-    public String getErr_code() {
-        return err_code;
+    public String getReturnCode() {
+        return returnCode;
     }
 
-    /**
-     * Sets err code.
-     *
-     * @param err_code the err code
-     */
-    public void setErr_code(String err_code) {
-        this.err_code = err_code;
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 
-    /**
-     * Gets err code des.
-     *
-     * @return the err code des
-     */
-    public String getErr_code_des() {
-        return err_code_des;
+    public String getReturnMsg() {
+        return returnMsg;
     }
 
-    /**
-     * Sets err code des.
-     *
-     * @param err_code_des the err code des
-     */
-    public void setErr_code_des(String err_code_des) {
-        this.err_code_des = err_code_des;
+    public void setReturnMsg(String returnMsg) {
+        this.returnMsg = returnMsg;
     }
 
-    /**
-     * Gets return code.
-     *
-     * @return the return code
-     */
-    public String getReturn_code() {
-        return return_code;
+    public String getResultCode() {
+        return resultCode;
     }
 
-    /**
-     * Gets return msg.
-     *
-     * @return the return msg
-     */
-    public String getReturn_msg() {
-        return return_msg;
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
     }
 
-    /**
-     * Gets result code.
-     *
-     * @return the result code
-     */
-    public String getResult_code() {
-        return result_code;
+    public String getErrCode() {
+        return errCode;
     }
 
-    /**
-     * Sets return code.
-     *
-     * @param return_code the return code
-     */
-    public void setReturn_code(String return_code) {
-        this.return_code = return_code;
+    public void setErrCode(String errCode) {
+        this.errCode = errCode;
     }
 
-    /**
-     * Sets return msg.
-     *
-     * @param return_msg the return msg
-     */
-    public void setReturn_msg(String return_msg) {
-        this.return_msg = return_msg;
+    public String getErrCodeDes() {
+        return errCodeDes;
     }
 
-
-    /**
-     * Sets result code.
-     *
-     * @param result_code the result code
-     */
-    public void setResult_code(String result_code) {
-        this.result_code = result_code;
+    public void setErrCodeDes(String errCodeDes) {
+        this.errCodeDes = errCodeDes;
     }
-
-
 }
