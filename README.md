@@ -4,7 +4,9 @@
 [![](https://img.shields.io/badge/jdk-1.7%2B-red.svg)](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 > 基于Java实现的 微信支付 依赖库。
 
-#### <span style="color:red">正在憋招，耐心等待...</span>
+
+<div style="color:red;font-size:42">正在憋招，耐心等待...</div>
+
 
 ### 功能说明
 1. 用于微信支付，基于Java语言实现的依赖库；
