@@ -105,19 +105,19 @@ public class WStoreInfo{
 
     /**
      * 创建场景JSON数据,完成创建后，请将结果赋值给 scene_info
-     * {@link WechatPayRequest#scene_info}
-     * {@link UnifiedOrderRequest#scene_info}
+     * {@link WechatPayRequest#sceneInfo}
+     * {@link UnifiedOrderRequest#sceneInfo}
      * @param id        the id 门店唯一编号
      * @param name      the name 门店名称
-     * @param area_code the area code 区域编码
+     * @param areaCode the area code 区域编码
      * @param address   the address 门店地址
      * @return 场景信息JSON string
      */
-    public static String create(String id, String name, String area_code, String address) {
+    public static String create(String id, String name, String areaCode, String address) {
 
         WStoreInfo info = new WStoreInfo();
         info.setAddress(address);
-        info.setArea_code(area_code);
+        info.setArea_code(areaCode);
         info.setId(id);
         info.setName(name);
         HashMap<String,Object> map = new HashMap<String, Object>();

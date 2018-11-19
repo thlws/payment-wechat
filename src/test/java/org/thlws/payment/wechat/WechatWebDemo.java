@@ -4,19 +4,21 @@ import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
+import org.thlws.payment.WechatMpClient;
+import org.thlws.payment.WechatPayClient;
 import org.thlws.payment.wechat.entity.request.UnifiedOrderRequest;
 import org.thlws.payment.wechat.entity.response.NotifyResponse;
-import org.thlws.payment.wechat.entity.response.mp.OauthTokenResponse;
 import org.thlws.payment.wechat.entity.response.UnifiedOrderResponse;
-import org.thlws.payment.wechat.client.WechatPayClient;
-import org.thlws.payment.wechat.client.WechatMpClient;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.payment.wechat.entity.response.mp.OauthTokenResponse;
 import org.thlws.payment.wechat.utils.WechatUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,14 +40,18 @@ public class WechatWebDemo {
 
 
     /*此方法不用提供外部访问地址,根据项目业务编码即可*/
-    public void build_wechat_url(){
-        /*第一步，依据微信规则组装URL*/
-        String scope = "snsapi_base";
-        String callback = "http://www.x.com/wechat/pay_in_wechat.html"; //示例URL,请按照实际情况填写
-        String bizData = "";//对应微信state参数，微信会原样返回
-        String url = WechatMpClient.generateWechatUrl(test_wechat_appid, scope, callback, bizData);
+    public void buildWechatUrl(){
+        try {
+            /*第一步，依据微信规则组装URL*/
+            String scope = "snsapi_base";
+            String callback = "http://www.x.com/wechat/pay_in_wechat.html"; //示例URL,请按照实际情况填写
+            String bizData = "";//对应微信state参数，微信会原样返回
+            String url = WechatMpClient.generateWechatUrl(test_wechat_appid, scope, callback, bizData);
 
-        //其他步骤请参看 pay_in_wechat  代码示例
+            //其他步骤请参看 pay_in_wechat  代码示例
+        } catch (Exception e) {
+           log.error(e);
+        }
     }
 
 
@@ -54,7 +60,7 @@ public class WechatWebDemo {
      * 此处可以是SpringMVC、Struts2、Servlet 请根据项目前端框架编写如下代码.
      * 该方法访问路径应为如上方法 build_wechat_url 中 callback 完整地址
      */
-    public void pay_in_wechat(HttpServletRequest request, HttpServletResponse response){
+    public void payInWechat(HttpServletRequest request, HttpServletResponse response){
 
         try {
             /*第二步，引导用户触发URL（公众号添加链接按钮，或在微信H5中触发）*/
@@ -85,7 +91,7 @@ public class WechatWebDemo {
             uInput.setNotifyUrl(notifyUrl);//URL设计应指向 notify_wechat_pay 访问路径
             uInput.setSpbillCreateIp(NetUtil.getLocalhostStr());
             //若为子商户或小微收款，还需设置sub_mch_id / attach
-            UnifiedOrderResponse unifiedOrderOutput = WechatPayClient.unifiedorder(uInput,test_wechat_appsecret);
+            UnifiedOrderResponse unifiedOrderOutput = WechatPayClient.unifiedOrder(uInput,test_wechat_appsecret);
 
 
             /*第四步，数据处理用于页面调用微信JS支付模块*/
@@ -109,7 +115,7 @@ public class WechatWebDemo {
      * 此处可以是SpringMVC、Struts2、Servlet 请根据项目前端框架编写如下代码.
      * 调用微信统一下单时，传入 UnifiedOrderRequest.notify_url,应为该放方法的访问路径
      */
-    public void notify_wechat_pay(HttpServletRequest request, HttpServletResponse response){
+    public void notifyWechatPay(HttpServletRequest request, HttpServletResponse response){
 
         String status="SUCCESS",msg = "处理成功";
         PrintWriter writer = null;
@@ -122,11 +128,11 @@ public class WechatWebDemo {
             while ((buffer = br.readLine()) != null){
                 xmlResult.append(buffer);
             }
-            log.info("微信异步返回信息："+ ThlwsBeanUtil.formatXml(xmlResult.toString()));
+            log.debug("微信异步返回信息："+ ThlwsBeanUtil.formatXml(xmlResult.toString()));
             NotifyResponse notifyOutput = WechatUtil.parseNotifyMsg(xmlResult.toString());
             //notifyOutput 是微信推送数据转换为Java对象，直接从该对象取值并进行相关业务操作
             //TODO 业务逻辑
-        } catch (IOException | JAXBException e) {
+        } catch (Exception e) {
             log.error(e);
         }finally {
             writer.println("<xml><return_code><![CDATA["+status+"]]></return_code><return_msg><![CDATA["+msg+"]]></return_msg></xml>");

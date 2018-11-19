@@ -1,28 +1,19 @@
-package org.thlws.payment.wechat.utils;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+package org.thlws.utils;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
+import cn.hutool.json.JSONUtil;
+import com.google.gson.Gson;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.XMLWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.*;
 
 /**
  * The type Data util.
@@ -188,35 +179,28 @@ public class ThlwsBeanUtil {
 	 }
 
 
-	/**
-	 * Format xml string.
-	 *
-	 * @param uglyXml the ugly xml
-	 * @return the string
+	/***
+	 * 格式化XML
+	 * @param xml
+	 * @return
+	 * @throws Exception
 	 */
-	public static String formatXml(String uglyXml) {
-		try {
-			String xmlHeader= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			InputSource is = new InputSource(new StringReader(uglyXml));
-			final Document document = db.parse(is);
-			OutputFormat format = new OutputFormat(document);
-			format.setLineWidth(65);
-			format.setIndenting(true);
-			format.setIndent(2);
-			Writer out = new StringWriter();
-			XMLSerializer serializer = new XMLSerializer(out, format);
-			serializer.serialize(document);
-			return out.toString().replace(xmlHeader,"");
-		} catch (Exception e) {
-			return "";
-		}
+	public static String formatXml(String xml) throws Exception {
+		org.dom4j.Document document = DocumentHelper.parseText(xml);
+		org.dom4j.io.OutputFormat format = org.dom4j.io.OutputFormat.createPrettyPrint();
+		format.setEncoding("utf-8");
+		StringWriter writer = new StringWriter();
+		XMLWriter xmlWriter = new XMLWriter(writer, format);
+		xmlWriter.write(document);
+		xmlWriter.close();
+
+		return writer.toString();
 	}
 
 
+
 	/***
-	 * bean to xml
+	 * bean to xml,调用此方便需在Bean配置相关Annotation
 	 * @param clazz
 	 * @param bean
 	 * @return
@@ -235,7 +219,7 @@ public class ThlwsBeanUtil {
 
 
 	/***
-	 * xml to bean
+	 * xml to bean,调用此方便需在Bean配置相关Annotation
 	 * @param xml
 	 * @param cls
 	 * @param <T>
@@ -252,5 +236,41 @@ public class ThlwsBeanUtil {
 
 	}
 
+
+	/**
+	 * 格式化JSON.
+	 *
+	 * @param o 任意对象
+	 * @return 格式友好的 JSON String
+	 */
+	public static String formatJson(Object o){
+		return JSONUtil.parse(o).toStringPretty();
+	}
+
+	/**
+	 * 格式化JSON.
+	 *
+	 * @param jsonStr JSON格式字符串
+	 * @return 格式友好的 JSON String
+	 */
+	public static String formatJson(String jsonStr){
+		return JSONUtil.formatJsonStr(jsonStr);
+	}
+
+
+
+	public static <T> T jsonToBean(String json,Class<T> cls){
+
+		Gson gson = new Gson();
+		T t = gson.fromJson(json, cls);
+		return t;
+	}
+
+
+	public static String beanToJson(Object o){
+		Gson gson = new Gson();;
+		String json = gson.toJson(o);
+		return json;
+	}
 
 }

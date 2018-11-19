@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.request;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.utils.JsonUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -64,12 +64,14 @@ public class MicroMchRequest {
 	private String contactEmail          ;
 	
 	/**查询收款个人用户资料 [收款识别码 收款人微信号] 二选一*/
-
 	@XmlElement(name="recipient_wechatid")
 	private String recipientWechatid     ;
 
+	/**
+	 * 收款识别码
+	 */
 	@XmlElement(name="micro_mch_id")
-	private String microMchId;//收款识别码
+	private String microMchId;
 
 	@XmlElement(name="device_info")
 	private String deviceInfo;

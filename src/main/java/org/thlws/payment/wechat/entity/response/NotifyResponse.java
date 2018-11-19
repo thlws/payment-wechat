@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.response;
 
 import org.thlws.payment.wechat.entity.WechatResponse;
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 /**
  * 微信支付异步通知返回POJO

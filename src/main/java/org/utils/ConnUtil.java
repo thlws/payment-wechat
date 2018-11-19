@@ -1,4 +1,4 @@
-package org.thlws.payment.wechat.utils;
+package org.thlws.utils;
 
 import java.io.*;
 import java.security.KeyStore;
@@ -109,9 +109,9 @@ public final class ConnUtil {
 	 */
 	public static String encryptPost(String data,String url,String pwd,String absoluteFile){
 
-		log.info("请求网关："+url);
-		log.info("证书号："+pwd);
-		log.info("p12本地文件保存地址："+absoluteFile);
+		log.debug("请求网关："+url);
+		log.debug("证书号："+pwd);
+		log.debug("p12本地文件保存地址："+absoluteFile);
 		
 		String result;
 		

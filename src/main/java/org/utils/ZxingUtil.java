@@ -1,4 +1,4 @@
-package org.thlws.payment.wechat.utils;
+package org.thlws.utils;
 
 import java.io.File;
 import java.util.Hashtable;

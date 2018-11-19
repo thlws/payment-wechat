@@ -9,6 +9,7 @@
 package org.thlws.payment.wechat.utils;
 
 import cn.hutool.core.util.XmlUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 import org.thlws.payment.wechat.entity.response.NotifyResponse;
 import org.thlws.payment.wechat.entity.response.UnifiedOrderResponse;
 
@@ -44,6 +45,7 @@ public class WechatUtil {
      *
      * @param xmlResult the xml result
      * @return notify response
+     * @throws JAXBException the jaxb exception
      */
     public static NotifyResponse parseNotifyMsg(String xmlResult) throws JAXBException {
         NotifyResponse response = ThlwsBeanUtil.xmlToBean(xmlResult, NotifyResponse.class);
@@ -65,6 +67,15 @@ public class WechatUtil {
         return ThlwsBeanUtil.mapToObject(mapData,clz);
     }
 
+    /**
+     * Build xml request string.
+     *
+     * @param o      the o
+     * @param clz    the clz
+     * @param apiKey the api key
+     * @return the string
+     * @throws JAXBException the jaxb exception
+     */
     public static String buildXmlRequest(Object o, Class clz,String apiKey) throws JAXBException {
 
         String originXml = ThlwsBeanUtil.beanToXml(clz,o);
@@ -99,7 +110,7 @@ public class WechatUtil {
         sParam.put("nonceStr", nonceStr);
         sParam.put("package", _package);
         sParam.put("signType", "MD5");
-        String paySign = org.thlws.payment.wechat.utils.WechatUtil.sign(sParam, apiKey);
+        String paySign = WechatUtil.sign(sParam, apiKey);
         request.setAttribute("appId", appId);
         request.setAttribute("timeStamp", timeStamp);
         request.setAttribute("nonceStr", nonceStr);

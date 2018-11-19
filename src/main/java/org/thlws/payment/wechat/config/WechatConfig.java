@@ -13,7 +13,7 @@ public class WechatConfig {
 
 	/** 加密方式 */
 	public static final String SIGN_TYPE = "MD5";
-	
+
 	/** 数字证书 */
 	public static final String PKCS12 = "PKCS12";
 

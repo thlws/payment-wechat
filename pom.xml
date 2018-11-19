@@ -4,7 +4,7 @@
 
   <groupId>org.thlws</groupId>
   <artifactId>payment-wechat</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <packaging>jar</packaging>
 
   <name>payment-wechat</name>
@@ -32,7 +32,11 @@
       <artifactId>hutool-all</artifactId>
       <version>${version.hutool}</version>
     </dependency>
-
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
 
     <!-- Google libs start-->
     <dependency>

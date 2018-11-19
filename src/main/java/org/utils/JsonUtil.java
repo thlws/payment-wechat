@@ -1,4 +1,4 @@
-package org.thlws.payment.wechat.utils;
+package org.thlws.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,6 +22,11 @@ public class JsonUtil {
         JsonElement jsonElement = jsonParser.parse(uglyJson);
         String prettyJson = gson.toJson(jsonElement);
         return prettyJson;
+    }
+
+
+    public static String beanToJsontring(Object bean) {
+        return new Gson().toJson(bean);
     }
 
 }

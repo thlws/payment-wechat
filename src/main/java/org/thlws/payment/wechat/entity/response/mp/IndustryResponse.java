@@ -1,6 +1,6 @@
 package org.thlws.payment.wechat.entity.response.mp;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 /**
  * Created by HanleyTang on 2016/11/18.

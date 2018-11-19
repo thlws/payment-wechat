@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.request;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.utils.JsonUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -20,10 +20,10 @@ public class UnifiedOrderRequest {
 	/**
 	 * 用户标识<br>
 	 * trade_type=JSAPI，此参数必传，用户在主商户appid下的唯一标识。openid和sub_openid可以选传其中之一，如果选择传sub_openid,则必须传sub_appid
-	 *
+	 * not required	openid和sub_openid可以选传其中之一
 	 * */
 	@XmlElement(name="openid")
-	private String openId           ;	//n    not required	openid和sub_openid可以选传其中之一
+	private String openId           ;	
 
 	/**公众账号ID*/
 	@XmlElement(name="appid")
@@ -39,11 +39,11 @@ public class UnifiedOrderRequest {
 
 	/**JSAPI，NATIVE，APP*/
 	@XmlElement(name="trade_type")
-	private String tradeType       ;//JSAPI，NATIVE，APP
+	private String tradeType       ;
 
 	/**随机字符串,默认生成,无需设置 <=32*/
 	@XmlElement(name="nonce_str")
-	private String nonceStr = ThlwsBeanUtil.getRandomString(32);        ;
+	private String nonceStr = ThlwsBeanUtil.getRandomString(32);
 
 
 	/**商品描述
@@ -73,51 +73,55 @@ public class UnifiedOrderRequest {
 
 	/**商品详情*/
 	@XmlElement(name="detail")
-	private String detail			;	//n    not required
+	private String detail			;
 
 	/**附加数据,小微模式必须填写为 收款识别码	*/
 	@XmlElement(name="attach")
-	private String attach			;	//n    not required
+	private String attach			;
 
 	/**符合ISO 4217标准的三位字母代码，默认人民币：CNY*/
 	@XmlElement(name="fee_type")
-	private String feeType			;	//n    not required
+	private String feeType			;
 
 	/**订单生成时间*/
 	@XmlElement(name="time_start")
-	private String timeStart		;	//n    not required
+	private String timeStart		;
 
 	/**订单失效时间*/
 	@XmlElement(name="time_expire")
-	private String timeExpire		;	//n    not required
+	private String timeExpire		;
 
 	/**订单优惠标记*/
 	@XmlElement(name="goods_tag")
-	private String goodsTag		;	//n    not required
+	private String goodsTag		;
 
 	/**设备号*/
 	@XmlElement(name="device_info")
-	private String deviceInfo		;	//n    not required
+	private String deviceInfo		;
 
 	/**商品ID*/
 	@XmlElement(name="product_id")
-	private String productId		;	//n    not required
+	private String productId		;
 
 	/**指定支付方式*/
 	@XmlElement(name="limit_pay")
-	private String limitPay		;	//n    not required
+	private String limitPay		;
 
 	/**子商户公众账号ID*/
 	@XmlElement(name="sub_appid")
-	private String subAppId		;	//n    not required
+	private String subAppId		;
 
-	/**子商户号,普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001	*/
+	/**
+	 * not required
+	 * 子商户号,普通模式无需设置,子商户需设置子商户号,小微模式固定填1000077001	*/
 	@XmlElement(name="sub_mch_id")
-	private String subMchId		;	//n    not required
+	private String subMchId		;
 
-	/**用户子标识*/
+	/**
+	 *  not required	openid和sub_openid可以选传其中之一
+	 * 用户子标识*/
 	@XmlElement(name="sub_openid")
-	private String subOpenId		;	//n    not required	openid和sub_openid可以选传其中之一
+	private String subOpenId		;
 
 	/**
 	 * 场景信息

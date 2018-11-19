@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.request;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.utils.JsonUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,7 +42,7 @@ public class CloseOrderRequest {
 
     /**子公众账号ID*/
     @XmlElement(name="sub_appid")
-    private String subAppId;//n
+    private String subAppId;
 
     public String getAppId() {
         return appId;

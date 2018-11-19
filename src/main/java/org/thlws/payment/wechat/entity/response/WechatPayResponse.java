@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.response;
 
 import org.thlws.payment.wechat.entity.WechatResponse;
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -88,32 +88,32 @@ public class WechatPayResponse extends WechatResponse {
 
 
 
-	/**代金券金额,“代金券”金额<=订单金额，订单金额-“代金券”金额=现金支付金额*/
+	/**代金券金额,代金券金额 小于等于 订单金额，订单金额 减 代金券金额 等于 现金支付金额*/
 	@XmlElement(name="coupon_fee")
 	private String couponFee;
 
 	/**子商户公众账号ID*/
 	@XmlElement(name="sub_appid")
-	private String subAppId		;	//n    not required
+	private String subAppId		;
 
 	/**子商户号*/
 	@XmlElement(name="sub_mch_id")
-	private String subMchId		;	//n    not required
+	private String subMchId		;
 
 	/**用户子标识*/
 	@XmlElement(name="sub_openid")
-	private String subOpenId		;	//n    not required
+	private String subOpenId		;
 
 	/**是否关注子公众账号*/
 	@XmlElement(name="sub_is_subscribe")
-	private String subIsSubscribe	;	//n    not required
+	private String subIsSubscribe	;
 
 	/**
 	 * 应结订单金额
 	 * 当订单使用了免充值型优惠券后返回该参数，应结订单金额=订单金额-免充值优惠券金额
 	 * */
 	@XmlElement(name="settlement_total_fee")
-	private String settlementTotalFee; //n    not required
+	private String settlementTotalFee;
 
 
 	/**

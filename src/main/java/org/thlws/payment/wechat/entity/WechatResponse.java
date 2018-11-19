@@ -35,8 +35,7 @@ public class WechatResponse implements Serializable {
 
 
     public String getMessage() {
-        String message = isSuccess() ? returnMsg:errCode+","+errCodeDes;
-        return message;
+        return isSuccess() ? returnMsg:errCode+","+errCodeDes;
     }
 
 

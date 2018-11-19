@@ -1,23 +1,21 @@
 package org.thlws.payment.wechat;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.hutool.core.util.NetUtil;
 import org.junit.Test;
 
+import org.thlws.payment.WechatPayClient;
 import org.thlws.payment.wechat.entity.request.*;
 import org.thlws.payment.wechat.entity.response.*;
-import org.thlws.payment.wechat.client.WechatPayClient;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
-import org.thlws.payment.wechat.utils.ZxingUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
 /**
- * 微信非公众号支付测试<br>
+ * 微信非公众号测试<br>
  * <h3>特别注意</h3>
  * 项目中提供的微信测试账户，仅用于接口功能测试，请勿用作其他用途。
  * Created by HanleyTang on 16/9/4.
@@ -41,7 +39,6 @@ public class WechatPayClientTest {
     private static final String sp_ci_wechat_apikey="04303a8acc9786ddac6458d401ca764f";
     private static final String sp_ci_wechat_sub_mchid="1517927831";//1490071962   1396726602
 
-
     /*普通商户*/
     private static final String test_wechat_appid= "wx5f22a16d8c94dba4";
     private static final String test_wechat_appsecret="d24a3e612fca66ae28137de28916f875";
@@ -49,13 +46,12 @@ public class WechatPayClientTest {
     private static final String test_wechat_apikey="d24a3e612fca66ae28137de28916f875";
 
 
-
     /***
      * 扫码支付 & 公众支付 时必须调用该接口
      * @throws Exception
      */
     @Test
-    public  void test_unifiedOrder() throws Exception{
+    public  void testUnifiedOrder() throws Exception{
 
         UnifiedOrderRequest input = new UnifiedOrderRequest();
         input.setAppId(test_wechat_appid);
@@ -77,7 +73,7 @@ public class WechatPayClientTest {
         input.setNotifyUrl("http://www.thlws.com/notify4Wechat.html");
         input.setSpbillCreateIp(NetUtil.getLocalhostStr());
 
-        UnifiedOrderResponse response = WechatPayClient.unifiedorder(input,test_wechat_apikey);
+        UnifiedOrderResponse response = WechatPayClient.unifiedOrder(input,test_wechat_apikey);
         boolean flag = response.isSuccess();
         String  message = response.getMessage();
         log.debug("isSuccess="+flag+", message="+message);
@@ -94,9 +90,9 @@ public class WechatPayClientTest {
      * 微信付款，二维码刷卡支付
      */
     @Test
-    public void test_pay(){
+    public void testPay(){
         try {
-            log.info("微信下线[支付]测试开始-WechatPayClient.micropay");
+            log.debug("微信下线[支付]测试开始-WechatPayClient.micropay");
             String apiKey = test_wechat_apikey;
             WechatPayRequest request = new WechatPayRequest();
             request.setAppId(test_wechat_appid);
@@ -113,7 +109,7 @@ public class WechatPayClientTest {
             request.setDeviceInfo("device...");
             request.setBody("pay test");
 
-            WechatPayResponse response = WechatPayClient.micropay(request,apiKey);
+            WechatPayResponse response = WechatPayClient.microPay(request,apiKey);
             boolean flag = response.isSuccess();
             String  message = response.getMessage();
             log.debug("isSuccess="+flag+", message="+message);
@@ -128,13 +124,13 @@ public class WechatPayClientTest {
      * 退款
      */
     @Test
-    public void test_refund(){
+    public void testRefund(){
 
         try {
             String p12FilePath = "/zone/p12/enjar/1336236101.p12";//
             //String p12FilePath = "/zone/p12/apiclient_cert.p12";//
 
-            log.info("微信[退款]测试开始-WechatPayClient.refund");
+            log.debug("微信[退款]测试开始-WechatPayClient.refund");
             WechatRefundRequest request = new WechatRefundRequest();
             //request.setSub_mch_id(sp_wechat_sub_mchid);//若为子商户退款需设置该参数
             //request.setSub_mch_id("1490071962");//若为子商户退款需设置该参数
@@ -163,10 +159,10 @@ public class WechatPayClientTest {
      * 订单查询
      */
     @Test
-    public void test_orderQuery(){
+    public void testOrderQuery(){
 
         try {
-            log.info("微信[订单查询]测试开始-WechatPayClient.orderQuery");
+            log.debug("微信[订单查询]测试开始-WechatPayClient.orderQuery");
             OrderQueryRequest request = new OrderQueryRequest();
             request.setAppId(test_wechat_appid);
             request.setMchId(test_wechat_mchid);
@@ -192,10 +188,10 @@ public class WechatPayClientTest {
      * 撤销订单
      */
     @Test
-    public void test_reverse(){
+    public void testReverse(){
 
         try {
-            log.info("微信[撤销订单]测试开始-WechatPayClient.reverse");
+            log.debug("微信[撤销订单]测试开始-WechatPayClient.reverse");
             WechatReverseRequest request = new WechatReverseRequest();
             request.setAppId(test_wechat_appid);
             request.setMchId(test_wechat_mchid);
@@ -214,7 +210,7 @@ public class WechatPayClientTest {
     }
 
     @Test
-    public void test_closeOrder(){
+    public void testCloseOrder(){
 
         try {
             CloseOrderRequest input = new CloseOrderRequest();
@@ -238,7 +234,7 @@ public class WechatPayClientTest {
      * 服务商模式下，申请个人微信收款码,该模式下每日有收款限额，并且不支持退款。
      */
     @Test
-    public void test_postMciroMch(){
+    public void testPostMciroMch(){
 
         try {
             String p12FilePath = "/zone/p12/ci/1511132631.p12";
@@ -269,7 +265,7 @@ public class WechatPayClientTest {
      * 服务商下查询个人收款账户
      */
     @Test
-    public void test_QueryMciro(){
+    public void testQueryMciro(){
 
         try {
             String p12FilePath = "/zone/p12/1386246702.p12";
@@ -287,7 +283,7 @@ public class WechatPayClientTest {
 
 
     @Test
-    public void test_openidQuery(){
+    public void testOpenidQuery(){
 
         try {
             OpenidQueryRequest input = new OpenidQueryRequest();
@@ -304,6 +300,9 @@ public class WechatPayClientTest {
             log.error(e);
         }
     }
+
+
+
 
 
 }

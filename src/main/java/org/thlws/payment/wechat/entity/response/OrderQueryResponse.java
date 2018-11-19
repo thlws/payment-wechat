@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.response;
 
 import org.thlws.payment.wechat.entity.WechatResponse;
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -94,7 +94,7 @@ public class OrderQueryResponse extends WechatResponse {
     @XmlElement(name="cash_fee_type")
     private String cashFeeType;
 
-    /**代金券金额	,“代金券或立减优惠”金额<=订单总金额，订单总金额-“代金券或立减优惠”金额=现金支付金额*/
+    /**代金券金额	,代金券或立减优惠金额 小于等于 订单总金额，订单总金额 减 代金券或立减优惠金额 等于 现金支付金额*/
     @XmlElement(name="coupon_fee")
     private String couponFee;
 

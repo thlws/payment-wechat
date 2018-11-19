@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.request;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.utils.JsonUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

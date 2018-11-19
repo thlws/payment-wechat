@@ -1,7 +1,7 @@
 package org.thlws.payment.wechat.entity.response;
 
 import org.thlws.payment.wechat.entity.WechatResponse;
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -73,7 +73,7 @@ public class WechatRefundResponse extends WechatResponse {
 
 	/**
 	 * 应结订单金额<br>
-	 * 应结订单金额=订单金额-免充值代金券金额，应结订单金额<=订单金额
+	 * 应结订单金额 等于 订单金额-免充值代金券金额，应结订单金额 小于等于 订单金额
 	 * */
 	@XmlElement(name="settlement_total_fee")
 	private String settlementTotalFee ;

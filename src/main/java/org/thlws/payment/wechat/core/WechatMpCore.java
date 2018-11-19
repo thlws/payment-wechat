@@ -1,29 +1,26 @@
-package org.thlws.payment.wechat.client;
+package org.thlws.payment.wechat.core;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
-
-import org.thlws.payment.wechat.api.WechatApi;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.thlws.payment.wechat.api.WechatMpApi;
 import org.thlws.payment.wechat.entity.response.mp.*;
-import org.thlws.payment.wechat.utils.ConnUtil;
-import org.thlws.payment.wechat.utils.ThlwsBeanUtil;
+import org.thlws.utils.ConnUtil;
+import org.thlws.utils.ThlwsBeanUtil;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-
 
 
 /**
  * 微信公众号相关 Token、OpenId 获取等
  * MP名称对应公众号官方网站,https://mp.weixin.qq.com
+ *
  * @author Hanley Tang | hanley@thlws.com
  * @version 1.0
  */
-public class WechatMpClient implements WechatApi{
+public class WechatMpCore implements WechatMpApi {
 
 	private static final Log log = LogFactory.get();
 
@@ -33,23 +30,18 @@ public class WechatMpClient implements WechatApi{
 	 *
 	 * @param mapToken the map token
 	 * @return the oauth token response
+	 * @throws Exception the exception
 	 * @author HanleyTang
 	 */
 	public static OauthTokenResponse obtainOauthAccessToken(Map<String, Object> mapToken) throws  Exception{
-		
-//		 mapToken.put("appid", appId);
-//		 mapToken.put("secret", appSecret);
-//		 mapToken.put("code", code);
-//		 mapToken.put("grant_type", "authorization_code");
-		OauthTokenResponse resp = new OauthTokenResponse();
+
+		OauthTokenResponse resp;
 		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(oauth2_access_token);
 		sb.append("?").append(params);
 		System.out.print(sb.toString());
 		try {
-			String jr = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
-			resp = gson.fromJson(jr, OauthTokenResponse.class);
+			resp = ThlwsBeanUtil.jsonToBean(ConnUtil.connURL(sb.toString()), OauthTokenResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
@@ -68,21 +60,17 @@ public class WechatMpClient implements WechatApi{
 	 *
 	 * @param mapToken the map token
 	 * @return the oauth token response
+	 * @throws Exception the exception
 	 * @author HanleyTang
 	 */
 	public static OauthTokenResponse refreshOauthAccessToken(Map<String, Object> mapToken)throws  Exception{
-		
-//		 mapToken.put("appid", appId);
-//		 mapToken.put("refresh_token", '填写通过access_token获取到的refresh_token参数');
-//		 mapToken.put("grant_type", "refresh_token");
-		OauthTokenResponse resp = new OauthTokenResponse();
+
+		OauthTokenResponse resp;
 		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(oauth2_refresh_token);
 		sb.append("?").append(params);
 		try {
-			String jr = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
-			resp = gson.fromJson(jr, OauthTokenResponse.class);
+			resp = ThlwsBeanUtil.jsonToBean( ConnUtil.connURL(sb.toString()), OauthTokenResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
@@ -101,16 +89,18 @@ public class WechatMpClient implements WechatApi{
 	 * @param scope the scope
 	 * @param callback the callback
 	 * @param bizData the biz data
-	 * @return string
+	 * @return string string
 	 */
 	public static  String generateWechatUrl(String appId, String scope, String callback, String bizData){
-		AtomicReference<StringBuilder> sb = new AtomicReference<StringBuilder>(new StringBuilder());
-		sb.get().append("https://open.weixin.qq.com/connect/oauth2/authorize?");
-		sb.get().append("appid=").append(appId);
-		sb.get().append("&redirect_uri=").append(callback).append("&response_type=code&");
-		sb.get().append("scope=").append(scope);
-		sb.get().append("&state=").append(bizData).append("#wechat_redirect");
-		return  sb.get().toString();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("https://open.weixin.qq.com/connect/oauth2/authorize?");
+		sb.append("appid=").append(appId);
+		sb.append("&redirect_uri=").append(callback).append("&response_type=code&");
+		sb.append("scope=").append(scope);
+		sb.append("&state=").append(bizData).append("#wechat_redirect");
+
+		return  sb.toString();
 	}
 
 
@@ -121,23 +111,17 @@ public class WechatMpClient implements WechatApi{
 	 * 频率限制:5万/分钟
 	 * @param userInfoMap the user info map
 	 * @return user info response
+	 * @throws Exception the exception
 	 */
 	public static UserInfoResponse obtainUserInfo(Map<String, Object> userInfoMap)throws  Exception{
-		 
-//		Map<String, Object> userInfoMap = new HashMap<String, Object>();
-//		 userInfoMap.put("access_token", accessToken);
-//		 userInfoMap.put("openid", openId);
-//		 userInfoMap.put("lang", "zh_CN");
-		
-		UserInfoResponse resp = new UserInfoResponse();
-		
+
+		UserInfoResponse resp;
 		String params = ThlwsBeanUtil.mapToParams(userInfoMap);
 		StringBuilder sb = new StringBuilder(sns_userinfo);
 		sb.append("?").append(params);
 		try {
-			String jr = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
-			resp = gson.fromJson(jr, UserInfoResponse.class);
+			String json = ConnUtil.connURL(sb.toString());
+			resp = ThlwsBeanUtil.jsonToBean(json, UserInfoResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
@@ -149,20 +133,18 @@ public class WechatMpClient implements WechatApi{
 	/***
 	 * 检验授权凭证（access_token）是否有效
 	 * @param mapToken the map token
-	 * @return boolean
+	 * @return boolean boolean
+	 * @throws Exception the exception
 	 * @author HanleyTang
 	 */
-	public static boolean IsvalidOauthAccessToken(Map<String, Object> mapToken)throws  Exception{
-		
-//		 mapToken.put("access_token", access_token);
-//		 mapToken.put("openid", '');
+	public static boolean isvalidOauthAccessToken(Map<String, Object> mapToken)throws  Exception{
+
 		boolean flag = false;
 		String params = ThlwsBeanUtil.mapToParams(mapToken);
 		StringBuilder sb = new StringBuilder(sns_auth_token);
 		sb.append("?").append(params);
 		try {
 			String result = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
 			JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
 			long wCode = jsonObject.get("errcode").getAsLong();
 			if (wCode == 0){
@@ -189,16 +171,17 @@ public class WechatMpClient implements WechatApi{
 	 * @param appid the appid
 	 * @param secret the secret
 	 * @return token response
+	 * @throws Exception the exception
 	 */
 	public static TokenResponse obtainAccessToken(String appid, String secret)throws  Exception{
-		TokenResponse resp = new TokenResponse();
+
+		TokenResponse resp;
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append(cgibin_token).append("?");
 			sb.append("grant_type=client_credential").append("&").append("appid=").append(appid).append("&").append("secret=").append(secret);
-			String jr = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
-			resp = gson.fromJson(jr, TokenResponse.class);
+			String json = ConnUtil.connURL(sb.toString());
+			resp = ThlwsBeanUtil.jsonToBean(json, TokenResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
@@ -214,18 +197,18 @@ public class WechatMpClient implements WechatApi{
 	 * jsapi_ticket会导致api调用受限，影响自身业务，开发者必须在自己的服务全局缓存jsapi_ticket 。
 	 * @param token 普通token
 	 * @return js api ticket response
+	 * @throws Exception the exception
 	 */
 	public static JsApiTicketResponse obtainJsApiTicket(String token)throws  Exception{
-		JsApiTicketResponse resp = new JsApiTicketResponse();
+		JsApiTicketResponse resp;
 		try {
 
 		/* String eg = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=giPthFJplKI1fux6WxFqelRdqAa317wlC4zWRsnUUHVse20nm2dYpL5w0h-HJGFiAoZ8Mk3aCr0f7rLRGRn2ifZjzyrg_cHKCbvrozdEeCGO617WESe8f1g1UCX2BzSfCWOjAJAWQI&type=jsapi"; */
 			StringBuffer sb = new StringBuffer();
 			sb.append(cgi_bin_ticket_getticket).append("?");
 			sb.append("access_token=").append(token).append("&type=jsapi");
-			String jr = ConnUtil.connURL(sb.toString());
-			Gson gson = new Gson();
-			resp = gson.fromJson(jr, JsApiTicketResponse.class);
+			String json = ConnUtil.connURL(sb.toString());
+			resp = ThlwsBeanUtil.jsonToBean(json, JsApiTicketResponse.class);
 		} catch (Exception e) {
 			log.error(e);
 			throw e;
@@ -239,6 +222,7 @@ public class WechatMpClient implements WechatApi{
 	 * @param appid the appid
 	 * @param secret the secret
 	 * @return js api ticket response
+	 * @throws Exception the exception
 	 */
 	public static JsApiTicketResponse obtainJsApiTicket(String appid, String secret)throws  Exception{
 
@@ -251,26 +235,26 @@ public class WechatMpClient implements WechatApi{
 
 	/***
 	 * 获取微信消息模板ID{根据微信template_id_short得到,实际动作是调用API往 ‘我的模板’ 中添加了模板}
-	 * @param access_token the access token
-	 * @param template_id_short the template id short
+	 * @param accessToken the access token
+	 * @param templateIdShort the template id short
 	 * @return template response
+	 * @throws Exception the exception
 	 */
-	public static TemplateResponse obtainTemplateId(String access_token, String template_id_short)throws  Exception{
+	public static TemplateResponse obtainTemplateId(String accessToken, String templateIdShort)throws  Exception{
 
-		TemplateResponse response = new TemplateResponse();
+		TemplateResponse response;
 
 		try{
 			StringBuilder sb = new StringBuilder();
 			sb.append(cgibin_add_template);
 			sb.append("?access_token=");
-			sb.append(access_token);
+			sb.append(accessToken);
 
 			HashMap<String,String> mapData = new HashMap<String,String>();
-			mapData.put("template_id_short", template_id_short);
-			Gson gson = new Gson();;
-			String json = gson.toJson(mapData);
-			String result = ConnUtil.connRemoteWithJson(json,sb.toString());
-			response = gson.fromJson(result, TemplateResponse.class);
+			mapData.put("template_id_short", templateIdShort);
+
+			String result = ConnUtil.connRemoteWithJson(ThlwsBeanUtil.beanToJson(mapData),sb.toString());
+			response = ThlwsBeanUtil.jsonToBean(result, TemplateResponse.class);
 
 		}catch (Exception e){
 			log.error(e);
@@ -283,29 +267,28 @@ public class WechatMpClient implements WechatApi{
 
 	/***
 	 * 设置行业属性
-	 * @param access_token the access token
-	 * @param industry_id1 the industry id 1
-	 * @param industry_id2 the industry id 2
+	 * @param accessToken the access token
+	 * @param industryId1 the industry id 1
+	 * @param industryId2 the industry id 2
 	 * @return industry response
+	 * @throws Exception the exception
 	 */
-	public static IndustryResponse setupIndustry(String access_token, String industry_id1, String industry_id2)throws  Exception{
+	public static IndustryResponse setupIndustry(String accessToken, String industryId1, String industryId2)throws  Exception{
 
-		IndustryResponse response = new IndustryResponse();
+		IndustryResponse response;
 
 		try {
 			StringBuffer sb = new StringBuffer();
 			sb.append(cgibin_set_industry);
 			sb.append("?access_token=");
-			sb.append(access_token);
+			sb.append(accessToken);
 
 			HashMap<String,String> mapData = new HashMap<String,String>();
-			mapData.put("industry_id1", industry_id1);
-			mapData.put("industry_id2", industry_id2);
-			Gson gson = new Gson();
-			String json = gson.toJson(mapData);
-			String result = ConnUtil.connRemoteWithJson(json,sb.toString());
+			mapData.put("industry_id1", industryId1);
+			mapData.put("industry_id2", industryId2);
+			String result = ConnUtil.connRemoteWithJson(ThlwsBeanUtil.beanToJson(mapData),sb.toString());
 			log.debug("setupIndustry result={}",result);
-			response = gson.fromJson(result, IndustryResponse.class);
+			response = ThlwsBeanUtil.jsonToBean(result, IndustryResponse.class);
 		}catch (Exception e){
 			log.error(e);
 			throw e;
@@ -316,21 +299,22 @@ public class WechatMpClient implements WechatApi{
 
 	/***
 	 * 发送数据至于用户公微信所关注的微信公账号
-	 * @param access_token the access token
+	 * @param accessToken the access token
 	 * @param data json格式数据
 	 * @return send data response
+	 * @throws Exception the exception
 	 */
-	public static SendDataResponse sendData2wechat(String access_token, String data)throws  Exception{
+	public static SendDataResponse sendMsgToUser(String accessToken, String data)throws  Exception{
 
-		SendDataResponse response = new SendDataResponse();
+		SendDataResponse response;
+
 		try {
-			StringBuilder sb = new StringBuilder();
+			StringBuffer sb = new StringBuffer();
 			sb.append(cgibin_send_data);
 			sb.append("?access_token=");
-			sb.append(access_token);
+			sb.append(accessToken);
 			String result = ConnUtil.connRemoteWithJson(data, sb.toString());
-			Gson gson = new Gson();
-			response = gson.fromJson(result, SendDataResponse.class);
+			response = ThlwsBeanUtil.jsonToBean(result, SendDataResponse.class);
 			log.debug("send data result:{}",result);
 		}catch (Exception e){
 			log.error(e);

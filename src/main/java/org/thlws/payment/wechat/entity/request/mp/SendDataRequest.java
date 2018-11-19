@@ -1,6 +1,6 @@
 package org.thlws.payment.wechat.entity.request.mp;
 
-import org.thlws.payment.wechat.utils.JsonUtil;
+import org.thlws.utils.JsonUtil;
 
 import java.io.Serializable;
 import java.util.HashMap;
